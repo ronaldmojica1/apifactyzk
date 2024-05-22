@@ -1,0 +1,17 @@
+{
+    "model" : "TipoVenta",
+    "data" :[
+        {
+            "codigo": "G",
+            "tipo": "Gravada"
+        },
+        {
+            "codigo": "E",
+            "tipo": "Exenta"
+        },
+        {
+            "codigo": "NS",
+            "tipo": "No Sujeta"
+        }
+    ]
+}

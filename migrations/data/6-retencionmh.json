@@ -1,0 +1,17 @@
+{
+    "model" : "RetencionMH",
+    "data" :[
+        {
+            "codigo": "22",
+            "retencion": "Retención IVA 1%"
+        },
+        {
+            "codigo": "C4",
+            "retencion": "Retención IVA 13%"
+        },
+        {
+            "codigo": "C9",
+            "retencion": "Otras retenciones IVA casos especiales"
+        }
+    ]
+}

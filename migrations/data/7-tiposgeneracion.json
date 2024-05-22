@@ -1,0 +1,13 @@
+﻿{
+    "model" : "TipoGeneracion",
+    "data" :[
+        {
+            "codigo": "1",
+            "tipo": "Físico"
+        },
+        {
+            "codigo": "2",
+            "tipo": "Electrónico"
+        }
+    ]
+}

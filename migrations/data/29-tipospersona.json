@@ -1,0 +1,13 @@
+﻿{
+    "model" : "TipoPersona",
+    "data" :[
+        {
+            "codigo": "1",
+            "tipo": "Persona Natural"
+        },
+        {
+            "codigo": "2",
+            "tipo": "Persona Jurídica"
+        }
+    ]
+}

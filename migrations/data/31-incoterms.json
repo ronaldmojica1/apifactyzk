@@ -1,0 +1,69 @@
+﻿{
+    "model" : "Incoterms",
+    "data" :[
+        {
+            "codigo": "01",
+            "incoterm": "EXW-En fabrica"
+        },
+        {
+            "codigo": "02",
+            "incoterm": "FCA-Libre transportista"
+        },
+        {
+            "codigo": "03",
+            "incoterm": "CPT-Transporte pagado hasta"
+        },
+        {
+            "codigo": "04",
+            "incoterm": "CIP-Transporte y seguro pagado hasta"
+        },
+        {
+            "codigo": "05",
+            "incoterm": "DAP-Entrega en el lugar"
+        },
+        {
+            "codigo": "06",
+            "incoterm": "DPU-Entregado en el lugar descargado"
+        },
+        {
+            "codigo": "07",
+            "incoterm": "DDP-Entrega con impuestos pagados"
+        },
+        {
+            "codigo": "08",
+            "incoterm": "FAS-Libre al costado del buque"
+        },
+        {
+            "codigo": "09",
+            "incoterm": "FOB-Libre a bordo"
+        },
+        {
+            "codigo": "10",
+            "incoterm": "CFR-Costo y flete"
+        },
+        {
+            "codigo": "11",
+            "incoterm": "CIF- Costo seguro y flete"
+        },
+        {
+            "codigo": "12",
+            "incoterm": "DAT-Entregado en terminal"
+        },
+        {
+            "codigo": "13",
+            "incoterm": "DAF-Entregada en frontera"
+        },
+        {
+            "codigo": "14",
+            "incoterm": "DES-Entregada sobre duque"
+        },
+        {
+            "codigo": "15",
+            "incoterm": "DEQ-Entregada en muelle"
+        },
+        {
+            "codigo": "16",
+            "incoterm": "DDU- Entregada derechos no pagados"
+        }
+    ]
+}

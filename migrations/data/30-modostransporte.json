@@ -1,0 +1,33 @@
+﻿{
+    "model" : "ModoTransporte",
+    "data" :[
+        {
+            "codigo": "1",
+            "modo": "Terrestre"
+        },
+        {
+            "codigo": "2",
+            "modo": "Marítimo"
+        },
+        {
+            "codigo": "3",
+            "modo": "Aéreo"
+        },
+        {
+            "codigo": "4",
+            "modo": "Multimodal, Terrestre-marítimo"
+        },
+        {
+            "codigo": "5",
+            "modo": "Multimodal, Terrestre-aéreo"
+        },
+        {
+            "codigo": "6",
+            "modo": "Multimodal, Marítimo- aéreo"
+        },
+        {
+            "codigo": "7",
+            "modo": "Multimodal, Terrestre-Marítimo- aéreo"
+        }
+    ]
+}

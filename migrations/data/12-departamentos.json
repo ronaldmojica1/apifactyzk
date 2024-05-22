@@ -1,0 +1,61 @@
+﻿{
+    "model" : "Departamento",
+    "data" :[
+        {
+            "codigo": "01",
+            "departamento": "Ahuachapán"
+        },
+        {
+            "codigo": "02",
+            "departamento": "Santa Ana"
+        },
+        {
+            "codigo": "03",
+            "departamento": "Sonsonate"
+        },
+        {
+            "codigo": "04",
+            "departamento": "Chalatenango"
+        },
+        {
+            "codigo": "05",
+            "departamento": "La Libertad"
+        },
+        {
+            "codigo": "06",
+            "departamento": "San Salvador"
+        },
+        {
+            "codigo": "07",
+            "departamento": "Cuscatlán"
+        },
+        {
+            "codigo": "08",
+            "departamento": "La Paz"
+        },
+        {
+            "codigo": "09",
+            "departamento": "Cabañas"
+        },
+        {
+            "codigo": "10",
+            "departamento": "San Vicente"
+        },
+        {
+            "codigo": "11",
+            "departamento": "Usulután"
+        },
+        {
+            "codigo": "12",
+            "departamento": "San Miguel"
+        },
+        {
+            "codigo": "13",
+            "departamento": "Morazán"
+        },
+        {
+            "codigo": "14",
+            "departamento": "La Unión"
+        }
+    ]
+}

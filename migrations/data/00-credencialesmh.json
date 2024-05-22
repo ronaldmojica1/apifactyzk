@@ -1,0 +1,10 @@
+
+{   "model" : "MHCredenciales",
+    "data" : [
+        {
+            "nit": "123456789",
+            "clave_api": "$2a$08$EOI3duOlmKQUp5qbMa.EXeZ.HHxvU2/qtLy7QoXDZSqQNybFVMEYu",
+            "clave_firma": "$2a$08$EOI3duOlmKQUp5qbMa.EXeZ.HHxvU2/qtLy7QoXDZSqQNybFVMEYu"
+        }
+    ]
+}

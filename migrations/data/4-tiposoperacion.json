@@ -1,0 +1,13 @@
+﻿{
+    "model" : "TipoOperacion",
+    "data" :[
+        {
+            "codigo": "1",
+            "tipo": "Transmisión normal"
+        },
+        {
+            "codigo": "2",
+            "tipo": "Transmisión por contingencia"
+        }
+    ]
+}

@@ -1,0 +1,13 @@
+{
+    "model" : "DomicilioFiscal",
+    "data" :[
+        {
+            "codigo": 1,
+            "domicilio": "Domiciliado"
+        },
+        {
+            "codigo": 2,
+            "domicilio": "No Domiciliado"
+        }
+    ]
+}

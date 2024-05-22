@@ -1,0 +1,17 @@
+﻿{
+    "model" : "Plazo",
+    "data" :[
+        {
+            "codigo": "01",
+            "plazo": "Días"
+        },
+        {
+            "codigo": "02",
+            "plazo": "Meses"
+        },
+        {
+            "codigo": "03",
+            "plazo": "Años"
+        }
+    ]
+}

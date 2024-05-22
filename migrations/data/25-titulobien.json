@@ -1,0 +1,25 @@
+{
+    "model" : "TituloBien",
+    "data" :[
+        {
+            "codigo": "01",
+            "titulo": "Depósito"
+        },
+        {
+            "codigo": "02",
+            "titulo": "Propiedad"
+        },
+        {
+            "codigo": "03",
+            "titulo": "Consignación"
+        },
+        {
+            "codigo": "04",
+            "titulo": "Traslado"
+        },
+        {
+            "codigo": "05",
+            "titulo": "Otros"
+        }
+    ]
+}

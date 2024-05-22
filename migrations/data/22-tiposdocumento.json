@@ -1,0 +1,25 @@
+﻿{
+    "model" : "TipoDocumento",
+    "data" :[
+        {
+            "codigo": "36",
+            "tipo": "NIT"
+        },
+        {
+            "codigo": "13",
+            "tipo": "DUI"
+        },
+        {
+            "codigo": "37",
+            "tipo": "Otro"
+        },
+        {
+            "codigo": "03",
+            "tipo": "Pasaporte"
+        },
+        {
+            "codigo": "02",
+            "tipo": "Carnet de Residente"
+        }
+    ]
+}

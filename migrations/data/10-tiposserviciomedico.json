@@ -1,0 +1,29 @@
+﻿{
+    "model" : "TipoServicioMedico",
+    "data" :[
+        {
+            "codigo": "1",
+            "servicio": "Cirugía"
+        },
+        {
+            "codigo": "2",
+            "servicio": "Operación"
+        },
+        {
+            "codigo": "3",
+            "servicio": "Tratamiento médico"
+        },
+        {
+            "codigo": "4",
+            "servicio": "Cirugía instituto salvadoreño de Bienestar Magisterial"
+        },
+        {
+            "codigo": "5",
+            "servicio": "Operación Instituto Salvadoreño de Bienestar Magisterial"
+        },
+        {
+            "codigo": "6",
+            "servicio": "Tratamiento médico Instituto Salvadoreño de Bienestar Magisterial"
+        }
+    ]
+}

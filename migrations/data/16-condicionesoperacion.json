@@ -1,0 +1,17 @@
+﻿{
+    "model" : "CondicionOperacion",
+    "data" :[
+        {
+            "codigo": "1",
+            "condicion": "Contado"
+        },
+        {
+            "codigo": "2",
+            "condicion": "A crédito"
+        },
+        {
+            "codigo": "3",
+            "condicion": "Otro"
+        }
+    ]
+}

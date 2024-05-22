@@ -1,0 +1,13 @@
+﻿
+{   "model" : "Ambiente",
+    "data" : [
+        {
+            "codigo": "00",
+            "ambiente": "Modo prueba"
+        },
+        {
+            "codigo": "01",
+            "ambiente": "Modo producción"
+        }
+    ]
+}

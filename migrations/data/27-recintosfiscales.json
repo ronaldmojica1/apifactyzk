@@ -1,0 +1,177 @@
+﻿{
+    "model" : "RecintoFiscal",
+    "data" :[
+        {
+            "codigo": "01",
+            "recinto": "Terrestre San Bartolo"
+        },
+        {
+            "codigo": "02",
+            "recinto": "Marítima de Acajutla"
+        },
+        {
+            "codigo": "03",
+            "recinto": "Aérea Monseñor Óscar Arnulfo Romero"
+        },
+        {
+            "codigo": "04",
+            "recinto": "Terrestre Las Chinamas"
+        },
+        {
+            "codigo": "05",
+            "recinto": "Terrestre La Hachadura"
+        },
+        {
+            "codigo": "06",
+            "recinto": "Terrestre Santa Ana"
+        },
+        {
+            "codigo": "07",
+            "recinto": "Terrestre San Cristóbal"
+        },
+        {
+            "codigo": "08",
+            "recinto": "Terrestre Anguiatú"
+        },
+        {
+            "codigo": "09",
+            "recinto": "Terrestre El Amatillo"
+        },
+        {
+            "codigo": "10",
+            "recinto": "Marítima La Unión (Puerto Cutuco)"
+        },
+        {
+            "codigo": "11",
+            "recinto": "Terrestre El Poy"
+        },
+        {
+            "codigo": "12",
+            "recinto": "Aduana Terrestre Metalío"
+        },
+        {
+            "codigo": "15",
+            "recinto": "Fardos Postales"
+        },
+        {
+            "codigo": "16",
+            "recinto": "Z.F. San Marcos"
+        },
+        {
+            "codigo": "17",
+            "recinto": "Z.F. El Pedregal"
+        },
+        {
+            "codigo": "18",
+            "recinto": "Z.F. San Bartolo"
+        },
+        {
+            "codigo": "20",
+            "recinto": "Z.F. Exportsalva"
+        },
+        {
+            "codigo": "21",
+            "recinto": "Z.F. American Park"
+        },
+        {
+            "codigo": "23",
+            "recinto": "Z.F. Internacional"
+        },
+        {
+            "codigo": "24",
+            "recinto": "Z.F. Diez"
+        },
+        {
+            "codigo": "26",
+            "recinto": "Z.F. Miramar"
+        },
+        {
+            "codigo": "27",
+            "recinto": "Z.F. Santo Tomas"
+        },
+        {
+            "codigo": "28",
+            "recinto": "Z.F. Santa Tecla"
+        },
+        {
+            "codigo": "29",
+            "recinto": "Z.F. Santa Ana"
+        },
+        {
+            "codigo": "30",
+            "recinto": "Z.F. La Concordia"
+        },
+        {
+            "codigo": "31",
+            "recinto": "Aérea Ilopango"
+        },
+        {
+            "codigo": "32",
+            "recinto": "Z.F. Pipil"
+        },
+        {
+            "codigo": "33",
+            "recinto": "Puerto Barillas"
+        },
+        {
+            "codigo": "34",
+            "recinto": "Z.F. Calvo Conservas"
+        },
+        {
+            "codigo": "35",
+            "recinto": "Feria Internacional"
+        },
+        {
+            "codigo": "36",
+            "recinto": "Delg. Aduana El Papalón"
+        },
+        {
+            "codigo": "37",
+            "recinto": "Z.F. Parque Industrial Sam-Li"
+        },
+        {
+            "codigo": "38",
+            "recinto": "Z.F. San José"
+        },
+        {
+            "codigo": "39",
+            "recinto": "Z.F. Las Mercedes"
+        },
+        {
+            "codigo": "71",
+            "recinto": "Almacenes De Desarrollo (Aldesa)"
+        },
+        {
+            "codigo": "72",
+            "recinto": "Almac. Gral. Dep. Occidente (Agdosa)"
+        },
+        {
+            "codigo": "73",
+            "recinto": "Bodega General De Depósito (Bodesa)"
+        },
+        {
+            "codigo": "76",
+            "recinto": "DHL"
+        },
+        {
+            "codigo": "77",
+            "recinto": "Transauto (Santa Elena)"
+        },
+        {
+            "codigo": "80",
+            "recinto": "Almacenadora Nejapa, S.a. de C.V."
+        },
+        {
+            "codigo": "81",
+            "recinto": "Almacenadora Almaconsa S.A. De C.V."
+        },
+        {
+            "codigo": "83",
+            "recinto": "Alm.Gral. Depósito Occidente (Apopa)"
+        },
+        {
+            "codigo": "99",
+            "recinto": "San Bartolo Envío Hn/Gt"
+        }
+    ]
+}

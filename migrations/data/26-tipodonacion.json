@@ -1,0 +1,17 @@
+{
+    "model" : "TipoDonacion",
+    "data" :[
+        {
+            "codigo": 1,
+            "tipo": "Efectivo"
+        },
+        {
+            "codigo": 2,
+            "tipo": "Bien"
+        },
+        {
+            "codigo": 3,
+            "tipo": "Servicio"
+        }
+    ]
+}

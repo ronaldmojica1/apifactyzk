@@ -1,0 +1,446 @@
+﻿{
+    "model" : "Tributo",
+    "data" :[
+        {
+            "codigo": "20",
+            "tributo": "Impuesto al Valor Agregado 13%",
+            "seccion": 1,
+            "porcentaje": 13,
+            "valorPorUnidad" : null,
+            "valorFijo": null,
+            "codDteAplica": "03,04,05,06,08"
+        },
+        {
+            "codigo": "C3",
+            "tributo": "Impuesto al Valor Agregado (exportaciones) 0%",
+            "seccion": 1,
+            "porcentaje": 0,
+            "valorPorUnidad" : null,
+            "valorFijo": null,
+            "codDteAplica": "11,08"            
+        },
+        {
+            "codigo": "59",
+            "tributo": "Turismo: por alojamiento (5%)",
+            "seccion": 1,
+            "porcentaje": 5,
+            "valorPorUnidad" : null,
+            "valorFijo": null,
+            "codDteAplica": "01,03,04,05,06,08"
+        },
+        {
+            "codigo": "71",
+            "tributo": "Turismo: salida del país por vía aérea $7.00",
+            "seccion": 1,
+            "porcentaje": null,
+            "valorPorUnidad" : null,
+            "valorFijo": 7.00,
+            "codDteAplica": "01,03,04,05,06,08"
+        },
+        {
+            "codigo": "D1",
+            "tributo": "FOVIAL ($0.20 Ctvs. por galón)",
+            "seccion": 1,
+            "porcentaje": null,
+            "valorPorUnidad" : 0.20,
+            "valorFijo": null,
+            "codDteAplica": "01,03,04,05,06,08"
+        },
+        {
+            "codigo": "C8",
+            "tributo": "COTRANS ($0.10 Ctvs. por galón)",
+            "seccion": 1,
+            "porcentaje": null,
+            "valorPorUnidad" : 0.10,
+            "valorFijo": null,
+            "codDteAplica": "01,03,04,05,06,08"
+        },
+        {
+            "codigo": "D5",
+            "tributo": "Otras tasas casos especiales",
+            "seccion": 1,
+            "porcentaje": null,
+            "valorPorUnidad" : null,
+            "valorFijo": null,
+            "codDteAplica": "01,03,04,05,06,08"
+        },
+        {
+            "codigo": "D4",
+            "tributo": "Otros impuestos casos especiales",
+            "seccion": 1,
+            "porcentaje": null,
+            "valorPorUnidad" : null,
+            "valorFijo": null,
+            "codDteAplica": null
+        },
+        {
+            "codigo": "A8",
+            "tributo": "Impuesto Especial al Combustible (0%, 0.5%, 1%)",
+            "seccion": 2,
+            "porcentaje": null,
+            "valorPorUnidad" : null,
+            "valorFijo": null,
+            "codDteAplica": "01,03,04,05,06"
+        },
+        {
+            "codigo": "57",
+            "tributo": "Impuesto industria de Cemento",
+            "seccion": 2,
+            "porcentaje": null,
+            "valorPorUnidad" : null,
+            "valorFijo": null,
+            "codDteAplica": "01,03,04,05,06"
+        },
+        {
+            "codigo": "90",
+            "tributo": "Impuesto especial a la primera matrícula",
+            "seccion": 2,
+            "porcentaje": null,
+            "valorPorUnidad" : null,
+            "valorFijo": null,
+            "codDteAplica": "01,03,04,05,06"
+        },
+        {
+            "codigo": "D4",
+            "tributo": "Otros impuestos casos especiales",
+            "seccion": 2,
+            "porcentaje": null,
+            "valorPorUnidad" : null,
+            "valorFijo": null,
+            "codDteAplica": "01,03,04,05,06"
+        },
+        {
+            "codigo": "D5",
+            "tributo": "Otras tasas casos especiales",
+            "seccion": 2,
+            "porcentaje": null,
+            "valorPorUnidad" : null,
+            "valorFijo": null,
+            "codDteAplica": "01,03,04,05,06"
+        },
+        {
+            "codigo": "A6",
+            "tributo": "Impuesto ad- valorem, armas de fuego, municiones explosivas y artículos similares",
+            "seccion": 2,
+            "porcentaje": null,
+            "valorPorUnidad" : null,
+            "valorFijo": null,
+            "codDteAplica": "01,03,04,05,06"
+        },
+        {
+            "codigo": "C5",
+            "tributo": "Impuesto ad- valorem por diferencial de precios de bebidas alcohólicas (8%)",
+            "seccion": 3,
+            "porcentaje": 8,
+            "valorPorUnidad" : null,
+            "valorFijo": null,
+            "codDteAplica": "01,03"
+        },
+        {
+            "codigo": "C6",
+            "tributo": "Impuesto ad- valorem por diferencial de precios al tabaco cigarrillos (39%)",
+            "seccion": 3,
+            "porcentaje": 39,
+            "valorPorUnidad" : null,
+            "valorFijo": null,
+            "codDteAplica": "01,03"
+        },
+        {
+            "codigo": "C7",
+            "tributo": "Impuesto ad- valorem por diferencial de precios al tabaco cigarros (100%)",
+            "seccion": 3,
+            "porcentaje": 100,
+            "valorPorUnidad" : null,
+            "valorFijo": null,
+            "codDteAplica": "01,03"
+        },
+        {
+            "codigo": "19",
+            "tributo": "Fabricante     de     Bebidas     Gaseosas,     Isotónicas,     Deportivas, Fortificantes, Energizante o Estimulante",
+            "seccion": 3,
+            "porcentaje": null,
+            "valorPorUnidad" : null,
+            "valorFijo": null,
+            "codDteAplica": "01,03"
+        },
+        {
+            "codigo": "28",
+            "tributo": "Importador    de    Bebidas    Gaseosas,    Isotónicas,    Deportivas, Fortificantes, Energizante o Estimulante",
+            "seccion": 3,
+            "porcentaje": null,
+            "valorPorUnidad" : null,
+            "valorFijo": null,
+            "codDteAplica": "01,03"
+        },
+        {
+            "codigo": "31",
+            "tributo": "Detallistas o Expendedores de Bebidas Alcohólicas",
+            "seccion": 3,
+            "porcentaje": null,
+            "valorPorUnidad" : null,
+            "valorFijo": null,
+            "codDteAplica": "01,03"
+        },
+        {
+            "codigo": "32",
+            "tributo": "Fabricante de Cerveza",
+            "seccion": 3,
+            "porcentaje": null,
+            "valorPorUnidad" : null,
+            "valorFijo": null,
+            "codDteAplica": "01,03"
+        },
+        {
+            "codigo": "33",
+            "tributo": "Importador de Cerveza",
+            "seccion": 3,
+            "porcentaje": null,
+            "valorPorUnidad" : null,
+            "valorFijo": null,
+            "codDteAplica": "01,03"
+        },
+        {
+            "codigo": "34",
+            "tributo": "Fabricante de Productos de Tabaco",
+            "seccion": 3,
+            "porcentaje": null,
+            "valorPorUnidad" : null,
+            "valorFijo": null,
+            "codDteAplica": "01,03"
+        },
+        {
+            "codigo": "35",
+            "tributo": "Importador de Productos de Tabaco",
+            "seccion": 3,
+            "porcentaje": null,
+            "valorPorUnidad" : null,
+            "valorFijo": null,
+            "codDteAplica": "01,03"
+        },
+        {
+            "codigo": "36",
+            "tributo": "Fabricante de Armas de Fuego, Municiones y Artículos Similares",
+            "seccion": 3,
+            "porcentaje": null,
+            "valorPorUnidad" : null,
+            "valorFijo": null,
+            "codDteAplica": "01,03"
+        },
+        {
+            "codigo": "37",
+            "tributo": "Importador de Arma de Fuego, Munición y Artículos. Similares",
+            "seccion": 3,
+            "porcentaje": null,
+            "valorPorUnidad" : null,
+            "valorFijo": null,
+            "codDteAplica": "01,03"
+        },
+        {
+            "codigo": "38",
+            "tributo": "Fabricante de Explosivos",
+            "seccion": 3,
+            "porcentaje": null,
+            "valorPorUnidad" : null,
+            "valorFijo": null,
+            "codDteAplica": "01,03"
+        },
+        {
+            "codigo": "39",
+            "tributo": "Importador de Explosivos",
+            "seccion": 3,
+            "porcentaje": null,
+            "valorPorUnidad" : null,
+            "valorFijo": null,
+            "codDteAplica": "01,03"
+        },
+        {
+            "codigo": "42",
+            "tributo": "Fabricante de Productos Pirotécnicos",
+            "seccion": 3,
+            "porcentaje": null,
+            "valorPorUnidad" : null,
+            "valorFijo": null,
+            "codDteAplica": "01,03"
+        },
+        {
+            "codigo": "43",
+            "tributo": "Importador de Productos Pirotécnicos",
+            "seccion": 3,
+            "porcentaje": null,
+            "valorPorUnidad" : null,
+            "valorFijo": null,
+            "codDteAplica": "01,03"
+        },
+        {
+            "codigo": "44",
+            "tributo": "Productor de Tabaco",
+            "seccion": 3,
+            "porcentaje": null,
+            "valorPorUnidad" : null,
+            "valorFijo": null,
+            "codDteAplica": "01,03"
+        },
+        {
+            "codigo": "50",
+            "tributo": "Distribuidor    de    Bebidas    Gaseosas,    Isotónicas,    Deportivas, Fortificantes, Energizante o Estimulante",
+            "seccion": 3,
+            "porcentaje": null,
+            "valorPorUnidad" : null,
+            "valorFijo": null,
+            "codDteAplica": "01,03"
+        },
+        {
+            "codigo": "51",
+            "tributo": "Bebidas Alcohólicas",
+            "seccion": 3,
+            "porcentaje": null,
+            "valorPorUnidad" : null,
+            "valorFijo": null,
+            "codDteAplica": "01,03"
+        },
+        {
+            "codigo": "52",
+            "tributo": "Cerveza",
+            "seccion": 3,
+            "porcentaje": null,
+            "valorPorUnidad" : null,
+            "valorFijo": null,
+            "codDteAplica": "01,03"
+        },
+        {
+            "codigo": "53",
+            "tributo": "Productos del Tabaco",
+            "seccion": 3,
+            "porcentaje": null,
+            "valorPorUnidad" : null,
+            "valorFijo": null,
+            "codDteAplica": "01,03"
+        },
+        {
+            "codigo": "54",
+            "tributo": "Bebidas Carbonatadas o Gaseosas Simples o Endulzadas",
+            "seccion": 3,
+            "porcentaje": null,
+            "valorPorUnidad" : null,
+            "valorFijo": null,
+            "codDteAplica": "01,03"
+        },
+        {
+            "codigo": "55",
+            "tributo": "Otros Específicos",
+            "seccion": 3,
+            "porcentaje": null,
+            "valorPorUnidad" : null,
+            "valorFijo": null,
+            "codDteAplica": "01,03"
+        },
+        {
+            "codigo": "58",
+            "tributo": "Alcohol",
+            "seccion": 3,
+            "porcentaje": null,
+            "valorPorUnidad" : null,
+            "valorFijo": null,
+            "codDteAplica": "01,03"
+        },
+        {
+            "codigo": "77",
+            "tributo": "Importador de Jugos, Néctares, Bebidas con Jugo y Refrescos",
+            "seccion": 3,
+            "porcentaje": null,
+            "valorPorUnidad" : null,
+            "valorFijo": null,
+            "codDteAplica": "01,03"
+        },
+        {
+            "codigo": "78",
+            "tributo": "Distribuidor de Jugos, Néctares, Bebidas con Jugo y Refrescos",
+            "seccion": 3,
+            "porcentaje": null,
+            "valorPorUnidad" : null,
+            "valorFijo": null,
+            "codDteAplica": "01,03"
+        },
+        {
+            "codigo": "79",
+            "tributo": "Sobre Llamadas Telefónicas Provenientes del Ext.",
+            "seccion": 3,
+            "porcentaje": null,
+            "valorPorUnidad" : null,
+            "valorFijo": null,
+            "codDteAplica": "01,03"
+        },
+        {
+            "codigo": "85",
+            "tributo": "Detallista de Jugos, Néctares, Bebidas con Jugo y Refrescos",
+            "seccion": 3,
+            "porcentaje": null,
+            "valorPorUnidad" : null,
+            "valorFijo": null,
+            "codDteAplica": "01,03"
+        },
+        {
+            "codigo": "86",
+            "tributo": "Fabricante  de  Preparaciones  Concentradas  o  en  Polvo  para  la Elaboración de Bebidas",
+            "seccion": 3,
+            "porcentaje": null,
+            "valorPorUnidad" : null,
+            "valorFijo": null,
+            "codDteAplica": "01,03"
+        },
+        {
+            "codigo": "91",
+            "tributo": "Fabricante de Jugos, Néctares, Bebidas con Jugo y Refrescos",
+            "seccion": 3,
+            "porcentaje": null,
+            "valorPorUnidad" : null,
+            "valorFijo": null,
+            "codDteAplica": "01,03"
+        },
+        {
+            "codigo": "92",
+            "tributo": "Importador  de  Preparaciones  Concentradas  o  en  Polvo  para  la Elaboración de Bebidas",
+            "seccion": 3,
+            "porcentaje": null,
+            "valorPorUnidad" : null,
+            "valorFijo": null,
+            "codDteAplica": "01,03"
+        },
+        {
+            "codigo": "A1",
+            "tributo": "Específicos y Ad-Valorem",
+            "seccion": 3,
+            "porcentaje": null,
+            "valorPorUnidad" : null,
+            "valorFijo": null,
+            "codDteAplica": "01,03"
+        },
+        {
+            "codigo": "A5",
+            "tributo": "Bebidas Gaseosas, Isotónicas, Deportivas, Fortificantes, Energizantes o Estimulantes",
+            "seccion": 3,
+            "porcentaje": null,
+            "valorPorUnidad" : null,
+            "valorFijo": null,
+            "codDteAplica": "01,03"
+        },
+        {
+            "codigo": "A7",
+            "tributo": "Alcohol Etílico",
+            "seccion": 3,
+            "porcentaje": null,
+            "valorPorUnidad" : null,
+            "valorFijo": null,
+            "codDteAplica": "01,03"
+        },
+        {
+            "codigo": "A9",
+            "tributo": "Sacos Sintéticos",
+            "seccion": 3,
+            "porcentaje": null,
+            "valorPorUnidad" : null,
+            "valorFijo": null,
+            "codDteAplica": "01,03"
+        }
+    ]
+}

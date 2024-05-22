@@ -1,0 +1,21 @@
+﻿{
+    "model" : "TipoItem",
+    "data" :[
+        {
+            "codigo": "1",
+            "tipo": "Bienes"
+        },
+        {
+            "codigo": "2",
+            "tipo": "Servicios"
+        },
+        {
+            "codigo": "3",
+            "tipo": "Ambos (Bienes y Servicios, incluye los dos inherente a los Productos o servicios)"
+        },
+        {
+            "codigo": "4",
+            "tipo": "Otros tributos por ítem"
+        }
+    ]
+}

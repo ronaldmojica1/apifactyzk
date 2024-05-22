@@ -1,0 +1,25 @@
+﻿{
+    "model" : "TipoEstablecimiento",
+    "data" :[
+        {
+            "codigo": "01",
+            "tipo": "Sucursal / Agencia"
+        },
+        {
+            "codigo": "02",
+            "tipo": "Casa matriz"
+        },
+        {
+            "codigo": "04",
+            "tipo": "Bodega"
+        },
+        {
+            "codigo": "07",
+            "tipo": "Predio y/o patio"
+        },
+        {
+            "codigo": "20",
+            "tipo": "Otro"
+        }
+    ]
+}

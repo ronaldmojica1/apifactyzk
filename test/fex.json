@@ -1,0 +1,101 @@
+{
+  "identificacion": {
+    "version": 1,
+    "ambiente": "00",
+    "tipoDte": "11",
+    "numeroControl": "DTE-11-MM010001-000000000000024",
+    "codigoGeneracion": "",
+    "tipoModelo": 1,
+    "tipoOperacion": 1,
+    "tipoContingencia": null,
+    "motivoContigencia": null,
+    "fecEmi": "2023-09-11",
+    "horEmi": "11:25:00",
+    "tipoMoneda": "USD"
+  },
+  "emisor": {
+    "nit": "02101811871034",
+    "nrc": "3139640",
+    "nombre": "RONALD ARMANDO MOJICA CHAVEZ",
+    "codActividad": "46510",
+    "descActividad": "Venta al por mayor de computadoras, equipo periferico y programas informaticos",
+    "nombreComercial": "Multiservicios Mojica",
+    "tipoEstablecimiento": "02",
+    "direccion": {
+      "departamento": "02",
+      "municipio": "09",
+      "complemento": "Santa Ana, Santa Ana"
+    },
+    "telefono": "76137899",
+    "codEstableMH": null,
+    "codEstable": "MM01",
+    "codPuntoVentaMH": null,
+    "codPuntoVenta": "0001",
+    "correo": "ronaldmojica1@gmail.com",
+    "tipoItemExpor": 1,
+    "recintoFiscal": null,
+    "regimen": null
+  },
+  "receptor": {
+    "tipoDocumento": "13",
+    "numDocumento": "03827514-2",
+    "nombre": "RONALD ARMANDO MOJICA CHAVEZ",
+    "nombreComercial": "Multiservicios Mojica",
+    "codPais": "9300",
+    "nombrePais": "El Salvador",
+    "descActividad": "Venta al por mayor de computadoras, equipo periferico y programas informaticos",
+    "complemento": "Santa Ana, Santa Ana",
+    "tipoPersona": 1,
+    "telefono": "76137899",
+    "correo": "ronaldmojica1@gmail.com"
+  },
+  "otrosDocumentos": null,
+  "ventaTercero": null,
+  "cuerpoDocumento": [
+    {
+      "numItem": 1,
+      "cantidad": 1,
+      "codigo": "0101",
+      "uniMedida": 59,
+      "descripcion": "Computadora",
+      "precioUni": 200,
+      "montoDescu": 0,
+      "ventaGravada": 200,
+      "tributos": null,
+      "noGravado": 0
+    }
+  ],
+  "resumen": {
+    "descuento": 0,
+    "codIncoterms": "05",
+    "descIncoterms": "DAP-Entrega en el lugar",
+    "totalGravada": 200,
+    "porcentajeDescuento": 0,
+    "totalDescu": 0,
+    "montoTotalOperacion": 200,
+    "totalNoGravado": 0,
+    "totalPagar": 200,
+    "totalLetras": "DOSCIENTOS 00/100",
+    "condicionOperacion": 1,
+    "observaciones": null,
+    "flete": 0,
+    "seguro": 0,
+    "pagos": [
+      {
+        "codigo": "03",
+        "montoPago": 200,
+        "referencia": null,
+        "plazo": null,
+        "periodo": null
+      }
+    ],
+    "numPagoElectronico": ""
+  },
+  "apendice": [
+    {
+      "campo": "vendedor",
+      "etiqueta": "Nombre del vendedor",
+      "valor": "SELENA MARGARITA RODRIGUEZ PEREZ"
+    }
+  ]
+}

@@ -1,0 +1,229 @@
+﻿{
+    "model" : "UnidadMedida",
+    "data" :[
+        {
+            "codigo": "01",
+            "unidad": "Metro"
+        },
+        {
+            "codigo": "02",
+            "unidad": "Yarda"
+        },
+        {
+            "codigo": "03",
+            "unidad": "Vara"
+        },
+        {
+            "codigo": "04",
+            "unidad": "Pie"
+        },
+        {
+            "codigo": "05",
+            "unidad": "Pulgada"
+        },
+        {
+            "codigo": "06",
+            "unidad": "Milímetro"
+        },
+        {
+            "codigo": "08",
+            "unidad": "Milla cuadrada"
+        },
+        {
+            "codigo": "09",
+            "unidad": "Kilómetro cuadrado"
+        },
+        {
+            "codigo": "10",
+            "unidad": "Hectárea"
+        },
+        {
+            "codigo": "11",
+            "unidad": "Manzana"
+        },
+        {
+            "codigo": "12",
+            "unidad": "Acre"
+        },
+        {
+            "codigo": "13",
+            "unidad": "Metro cuadrado"
+        },
+        {
+            "codigo": "14",
+            "unidad": "Yarda cuadrada"
+        },
+        {
+            "codigo": "15",
+            "unidad": "Vara cuadrada"
+        },
+        {
+            "codigo": "16",
+            "unidad": "Pie cuadrado"
+        },
+        {
+            "codigo": "17",
+            "unidad": "Pulgada cuadrada"
+        },
+        {
+            "codigo": "18",
+            "unidad": "Metro cúbico"
+        },
+        {
+            "codigo": "19",
+            "unidad": "Yarda cúbica"
+        },
+        {
+            "codigo": "20",
+            "unidad": "Barril"
+        },
+        {
+            "codigo": "21",
+            "unidad": "Pie cúbico"
+        },
+        {
+            "codigo": "22",
+            "unidad": "Galón"
+        },
+        {
+            "codigo": "23",
+            "unidad": "Litro"
+        },
+        {
+            "codigo": "24",
+            "unidad": "Botella"
+        },
+        {
+            "codigo": "25",
+            "unidad": "Pulgada cúbica"
+        },
+        {
+            "codigo": "26",
+            "unidad": "Mililitro"
+        },
+        {
+            "codigo": "27",
+            "unidad": "Onza fluida"
+        },
+        {
+            "codigo": "29",
+            "unidad": "Tonelada métrica"
+        },
+        {
+            "codigo": "30",
+            "unidad": "Tonelada"
+        },
+        {
+            "codigo": "31",
+            "unidad": "Quintal métrico"
+        },
+        {
+            "codigo": "32",
+            "unidad": "Quintal"
+        },
+        {
+            "codigo": "33",
+            "unidad": "Arroba"
+        },
+        {
+            "codigo": "34",
+            "unidad": "Kilogramo"
+        },
+        {
+            "codigo": "35",
+            "unidad": "Libra troy"
+        },
+        {
+            "codigo": "36",
+            "unidad": "Libra"
+        },
+        {
+            "codigo": "37",
+            "unidad": "Onza troy"
+        },
+        {
+            "codigo": "38",
+            "unidad": "Onza"
+        },
+        {
+            "codigo": "39",
+            "unidad": "Gramo"
+        },
+        {
+            "codigo": "40",
+            "unidad": "Miligramo"
+        },
+        {
+            "codigo": "42",
+            "unidad": "Megawatt"
+        },
+        {
+            "codigo": "43",
+            "unidad": "Kilowatt"
+        },
+        {
+            "codigo": "44",
+            "unidad": "Watt"
+        },
+        {
+            "codigo": "45",
+            "unidad": "Megavoltio-amperio"
+        },
+        {
+            "codigo": "46",
+            "unidad": "Kilovoltio-amperio"
+        },
+        {
+            "codigo": "47",
+            "unidad": "Voltio-amperio"
+        },
+        {
+            "codigo": "49",
+            "unidad": "Gigawatt-hora"
+        },
+        {
+            "codigo": "50",
+            "unidad": "Megawatt-hora"
+        },
+        {
+            "codigo": "51",
+            "unidad": "Kilowatt-hora"
+        },
+        {
+            "codigo": "52",
+            "unidad": "Watt-hora"
+        },
+        {
+            "codigo": "53",
+            "unidad": "Kilovoltio"
+        },
+        {
+            "codigo": "54",
+            "unidad": "Voltio"
+        },
+        {
+            "codigo": "55",
+            "unidad": "Millar"
+        },
+        {
+            "codigo": "56",
+            "unidad": "Medio millar"
+        },
+        {
+            "codigo": "57",
+            "unidad": "Ciento"
+        },
+        {
+            "codigo": "58",
+            "unidad": "Docena"
+        },
+        {
+            "codigo": "59",
+            "unidad": "Unidad"
+        },
+        {
+            "codigo": "99",
+            "unidad": "Otra"
+        }
+    ]
+}

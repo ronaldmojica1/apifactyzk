@@ -1,0 +1,13 @@
+﻿{
+    "model" : "TipoModelo",
+    "data" :[
+        {
+            "codigo": "1",
+            "tipo": "Modelo Facturación previo"
+        },
+        {
+            "codigo": "2",
+            "tipo": "Modelo Facturación diferido"
+        }
+    ]
+}

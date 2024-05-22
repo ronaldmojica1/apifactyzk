@@ -1,0 +1,61 @@
+﻿{
+    "model" : "FormaPago",
+    "data" :[
+        {
+            "codigo": "01",
+            "forma": "Billetes y monedas"
+        },
+        {
+            "codigo": "02",
+            "forma": "Tarjeta Débito"
+        },
+        {
+            "codigo": "03",
+            "forma": "Tarjeta Crédito"
+        },
+        {
+            "codigo": "04",
+            "forma": "Cheque"
+        },
+        {
+            "codigo": "05",
+            "forma": "Transferencia_ Depósito Bancario"
+        },
+        {
+            "codigo": "06",
+            "forma": "Vales o Cupones"
+        },
+        {
+            "codigo": "08",
+            "forma": "Dinero electrónico"
+        },
+        {
+            "codigo": "09",
+            "forma": "Monedero electrónico"
+        },
+        {
+            "codigo": "10",
+            "forma": "Certificado o tarjeta de regalo"
+        },
+        {
+            "codigo": "11",
+            "forma": "Bitcoin"
+        },
+        {
+            "codigo": "12",
+            "forma": "Otras Criptomonedas"
+        },
+        {
+            "codigo": "13",
+            "forma": "Cuentas por pagar del receptor"
+        },
+        {
+            "codigo": "14",
+            "forma": "Giro bancario"
+        },
+        {
+            "codigo": "99",
+            "forma": "Otros (se debe indicar el medio de pago)"
+        }
+    ]
+}

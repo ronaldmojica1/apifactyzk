@@ -1,0 +1,60 @@
+﻿{
+    "model" : "TipoDte",
+    "data" : [
+        {
+            "codigo": "01",
+            "tipo": "Factura",
+            "version": "1"
+        },
+        {
+            "codigo": "03",
+            "tipo": "Comprobante de crédito fiscal",
+            "version": "3"
+        },
+        {
+            "codigo": "04",
+            "tipo": "Nota de remisión",
+            "version": "3"
+        },
+        {
+            "codigo": "05",
+            "tipo": "Nota de crédito",
+            "version": "3"
+        },
+        {
+            "codigo": "06",
+            "tipo": "Nota de débito",
+            "version": "3"
+        },
+        {
+            "codigo": "07",
+            "tipo": "Comprobante de retención",
+            "version": "1"
+        },
+        {
+            "codigo": "08",
+            "tipo": "Comprobante de liquidación",
+            "version": "1"
+        },
+        {
+            "codigo": "09",
+            "tipo": "Documento contable de liquidación",
+            "version": "1"
+        },
+        {
+            "codigo": "11",
+            "tipo": "Facturas de exportación",
+            "version": "1"
+        },
+        {
+            "codigo": "14",
+            "tipo": "Factura de sujeto excluido",
+            "version": "1"
+        },
+        {
+            "codigo": "15",
+            "tipo": "Comprobante de donación",
+            "version": "1"
+        }
+    ]
+}
