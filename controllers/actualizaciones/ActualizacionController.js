@@ -55,8 +55,8 @@ function actualizar(req, res) {
 function intentActualizar() {
     return __awaiter(this, void 0, void 0, function* () {
         //const comando = "CD " + (process.env.RUTA_APP || "") + " && git pull && npm install && npm run build";
-        const comando = "CD " + (process.env.RUTA_APP || "") + " && git pull";
-        const comando2 = "CD " + (process.env.RUTA_API || "") + " && git pull && npm install";
+        const comando = "cd " + (process.env.RUTA_APP || "") + " && git pull";
+        const comando2 = "cd " + (process.env.RUTA_API || "") + " && git pull && npm install";
         try {
             yield ejecutarComando(comando);
             console.log('Aplicación actualizada exitosamente');
