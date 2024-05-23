@@ -55,7 +55,7 @@ function actualizar(req, res) {
 function intentActualizar() {
     return __awaiter(this, void 0, void 0, function* () {
         //const comando = "CD " + (process.env.RUTA_APP || "") + " && git pull && npm install && npm run build";
-        const comando = "CD " + (process.env.RUTA_APP || "") + " && git pull && CD " + (process.env.RUTA_API || "") + " && git pull";
+        const comando = "CD " + (process.env.RUTA_APP || "") + " && git pull && CD .. && CD " + (process.env.RUTA_API || "") + " && git pull";
         return new Promise((resolve, reject) => {
             (0, child_process_1.exec)(comando, (error, stdout, stderr) => {
                 if (error) {
