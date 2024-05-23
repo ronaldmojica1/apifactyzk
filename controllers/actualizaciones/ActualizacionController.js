@@ -55,18 +55,29 @@ function actualizar(req, res) {
 function intentActualizar() {
     return __awaiter(this, void 0, void 0, function* () {
         //const comando = "CD " + (process.env.RUTA_APP || "") + " && git pull && npm install && npm run build";
-        const comando = "CD " + (process.env.RUTA_APP || "") + " && git pull && CD .. && CD " + (process.env.RUTA_API || "") + " && git pull";
-        return new Promise((resolve, reject) => {
-            (0, child_process_1.exec)(comando, (error, stdout, stderr) => {
-                if (error) {
-                    console.error('Error al actualizar la aplicación:', error);
-                    reject(error);
-                }
-                else {
-                    console.log('Aplicación actualizada exitosamente');
-                    resolve(null);
-                }
-            });
+        const comando = "CD " + (process.env.RUTA_APP || "") + " && git pull";
+        const comando2 = "CD " + (process.env.RUTA_API || "") + " && git pull && npm install";
+        try {
+            yield ejecutarComando(comando);
+            console.log('Aplicación actualizada exitosamente');
+            yield ejecutarComando(comando2);
+            console.log('API actualizada exitosamente');
+        }
+        catch (error) {
+            console.error('Error al actualizar:', error);
+            return error;
+        }
+    });
+}
+function ejecutarComando(comando) {
+    return new Promise((resolve, reject) => {
+        (0, child_process_1.exec)(comando, (error, stdout, stderr) => {
+            if (error) {
+                reject(error);
+            }
+            else {
+                resolve(stdout);
+            }
         });
     });
 }

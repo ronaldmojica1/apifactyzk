@@ -10,6 +10,7 @@ dotenv_1.default.config({ path: envFile });
 const dbDialectString = process.env.DB_DIALECT;
 let dialect;
 dialect = dbDialectString;
+//console.log("TEST DE ACTUALIZACION DE API")
 const db = process.env.DB_NAME;
 const usr = process.env.DB_USER;
 const pwd = process.env.DB_PWD;
