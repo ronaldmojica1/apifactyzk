@@ -5,32 +5,39 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const sequelize_1 = require("sequelize");
 const database_1 = __importDefault(require("../../config/database"));
-class Usuario extends sequelize_1.Model {
+const Usuario_1 = __importDefault(require("./Usuario"));
+class Transaction extends sequelize_1.Model {
 }
-Usuario.init({
+Transaction.init({
     id: {
         type: sequelize_1.DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true
     },
-    usuario: {
-        type: sequelize_1.DataTypes.STRING,
+    usuarioId: {
+        type: sequelize_1.DataTypes.INTEGER,
         allowNull: false,
-        unique: true,
+        references: {
+            model: Usuario_1.default,
+            key: 'id'
+        },
     },
-    clave: {
+    accion: {
         type: sequelize_1.DataTypes.STRING,
-        allowNull: false
+        allowNull: true
     },
-    admin: {
-        type: sequelize_1.DataTypes.BOOLEAN,
-        allowNull: false,
-        defaultValue: false,
+    modelo: {
+        type: sequelize_1.DataTypes.STRING,
+        allowNull: true
+    },
+    registroId: {
+        type: sequelize_1.DataTypes.INTEGER,
+        allowNull: true
     }
 }, {
     sequelize: database_1.default,
-    modelName: 'Usuario',
-    tableName: 'usuario',
+    modelName: 'Transaction',
+    tableName: 'transaction',
 });
 //sequelize.sync();
-exports.default = Usuario;
+exports.default = Transaction;

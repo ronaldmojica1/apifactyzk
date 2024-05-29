@@ -35,6 +35,7 @@ const iContingencia_1 = require("../../interfaces/documentos/iContingencia");
 const ContingenciaDetalle_1 = __importDefault(require("../../models/factura/ContingenciaDetalle"));
 const iAnulacion_1 = require("../../interfaces/documentos/iAnulacion");
 const MHCredenciales_1 = __importDefault(require("../../models/factura/MHCredenciales"));
+const functions_1 = require("../../utils/functions");
 const { v4: uuidv4 } = require('uuid');
 function obtenerCredenciales() {
     return __awaiter(this, void 0, void 0, function* () {
@@ -447,12 +448,10 @@ function crearContingencia(datos) {
 }
 function transmitirContingencia(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        const datos = req.body.datos;
-        req.body.datos.codigoGeneracion = uuidv4().toUpperCase();
-        req.body.datos.codigoLote = uuidv4().toUpperCase();
-        let contin = yield crearContingencia(datos);
-        let tkn = yield obtenerToken();
-        if (contin != null) {
+        const contingenciaId = req.body.contingenciaId;
+        const contin = yield Contingencia_1.default.findByPk(contingenciaId);
+        const tkn = yield obtenerToken();
+        if (contin) {
             //Obtener el esquema JSON    
             let jsonData = yield (0, iContingencia_1.getContingencia)(contin);
             let jsonDataValid = yield (0, schemavalidator_1.validateSchema)(schemavalidator_1.DteEschema.CONTINGENCIA, jsonData);
@@ -497,6 +496,7 @@ function transmitirLote(req, res) {
         const contingenciaId = req.body.contingenciaId;
         let contin = yield Contingencia_1.default.findByPk(contingenciaId);
         if (contin != null) {
+            contin.codigoLote = uuidv4().toUpperCase();
             //Obtener el listado de los DTE en la contingencia
             const dteContin = yield ContingenciaDetalle_1.default.findAll({
                 where: {
@@ -509,14 +509,25 @@ function transmitirLote(req, res) {
             for (const det of dteContin) {
                 const dte = yield Dte_1.default.findByPk(det.dteId);
                 if (dte != null) {
-                    //Obtener el esquema JSON
+                    const datosMod = {
+                        fecEmi: (0, functions_1.formatDateToYYYYMMDD)(dte.createdAt),
+                        horEmi: (0, functions_1.formatTimeToHHMMSS)(dte.createdAt),
+                        tipoModeloId: 2,
+                        tipoOperacionId: 2
+                    };
+                    yield dte.update(datosMod);
+                    console.log(dte);
+                    //Obtener el esquema JSON        
                     const jsonData = yield getDocument(dte);
+                    //Actualizar el numero de control
+                    dte.numeroControl = jsonData === null || jsonData === void 0 ? void 0 : jsonData.identificacion.numeroControl;
+                    dte.save();
                     const jsonFirmado = yield firmarDte(jsonData);
                     documentos.push(jsonFirmado);
                 }
             }
             //Transmitir el Lote
-            let tkn = yield obtenerToken();
+            const tkn = yield obtenerToken();
             const credenciales = yield obtenerCredenciales();
             const dataTransmitir = {
                 ambiente: process.env.MH_AMBIENTE,
@@ -545,8 +556,9 @@ function transmitirLote(req, res) {
                     };
                 }
             });
-            if (resp.estado == 'PROCESADO') {
+            if (resp.estado == 'PROCESADO' || resp.estado == "RECIBIDO") {
                 //Actualizar el status de lote transmitido
+                contin.codigoLote = resp.codigoLote; //se actualiza el lote obtenido del MH
                 contin.loteEnviado = true;
                 contin.save();
             }
@@ -557,156 +569,52 @@ function transmitirLote(req, res) {
         }
     });
 }
-function test(req, res) {
+function consultaLote(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        const jsonData = {
-            "identificacion": {
-                "version": 1,
-                "ambiente": "01",
-                "tipoDte": "01",
-                "campo_no_valido": "eliminar",
-                "numeroControl": "DTE-01-SANR0023-000000000004582",
-                "codigoGeneracion": "0B2575D5-8583-4164-8A5D-EFE45176625A",
-                "tipoModelo": 1,
-                "tipoOperacion": 1,
-                "tipoContingencia": null,
-                "motivoContin": null,
-                "fecEmi": "2023-08-12",
-                "horEmi": "11:02:09",
-                "tipoMoneda": "USD"
-            },
-            "documentoRelacionado": null,
-            "emisor": {
-                "nit": "06141504911068",
-                "nrc": "384470",
-                "nombre": "PROYECTOS E INVERSIONES, S.A. DE C.V.",
-                "codActividad": "46484",
-                "descActividad": "Venta de productos farmaceuticos y medicinales",
-                "nombreComercial": "FARMACIAS SAN ROQUE",
-                "tipoEstablecimiento": "02",
-                "direccion": {
-                    "departamento": "03",
-                    "municipio": "15",
-                    "complemento": "10\u00AA Avenida Norte #1-7, Barrio El \u00C1ngel, Sonsonate, Sonsonate, El Salvador"
-                },
-                "telefono": "24504373",
-                "codEstableMH": null,
-                "codEstable": "SANR",
-                "codPuntoVentaMH": null,
-                "codPuntoVenta": "0023",
-                "correo": "factura@srfarmacias.com"
-            },
-            "receptor": {
-                "tipoDocumento": "13",
-                "numDocumento": "03827514-2",
-                "nrc": null,
-                "nombre": "RONALD ARMANDO MOJICA CHAVEZ",
-                "codActividad": null,
-                "descActividad": null,
-                "direccion": {
-                    "departamento": "02",
-                    "municipio": "09",
-                    "complemento": "CIUDAD REAL RES MADRID POL 4 CASA 8",
-                    "otr_campo": "no debe ir"
-                },
-                "telefono": "76137899",
-                "correo": "ronaldmojica1@gmail.com"
-            },
-            "otrosDocumentos": null,
-            "ventaTercero": null,
-            "cuerpoDocumento": [
-                {
-                    "numItem": 1,
-                    "tipoItem": 1,
-                    "numeroDocumento": null,
-                    "cantidad": 1,
-                    "codigo": "16868",
-                    "codTributo": null,
-                    "uniMedida": 40,
-                    "descripcion": "DANIELE",
-                    "precioUni": 10.21,
-                    "montoDescu": 1.4294,
-                    "ventaNoSuj": 0,
-                    "ventaExenta": 0,
-                    "ventaGravada": 8.78,
-                    "tributos": null,
-                    "psv": 0,
-                    "noGravado": 0,
-                    "ivaItem": 1.010217
-                },
-                {
-                    "numItem": 2,
-                    "tipoItem": 1,
-                    "numeroDocumento": null,
-                    "cantidad": 1,
-                    "codigo": "5243",
-                    "codTributo": null,
-                    "uniMedida": 59,
-                    "descripcion": "GARGANTINAS",
-                    "precioUni": 0.6038,
-                    "montoDescu": 0,
-                    "ventaNoSuj": 0,
-                    "ventaExenta": 0,
-                    "ventaGravada": 0.6,
-                    "tributos": null,
-                    "psv": 0,
-                    "noGravado": 0,
-                    "ivaItem": 0.06916
+        const contingenciaId = req.body.contingenciaId;
+        let contin = yield Contingencia_1.default.findByPk(contingenciaId);
+        if (contin != null) {
+            const tkn = yield obtenerToken();
+            let resp;
+            yield axios_1.default.get(process.env.MH_URL_CONSULTA_LOTE + contin.codigoLote || "", {
+                headers: {
+                    "Content-Type": 'application/JSON',
+                    "Authorization": tkn
                 }
-            ],
-            "resumen": {
-                "totalNoSuj": 0,
-                "totalExenta": 0,
-                "totalGravada": 9.38,
-                "subTotalVentas": 9.38,
-                "descuNoSuj": 0,
-                "descuExenta": 0,
-                "descuGravada": 0,
-                "porcentajeDescuento": 0,
-                "totalDescu": 1.43,
-                "tributos": [],
-                "subTotal": 9.38,
-                "ivaRete1": 0,
-                "reteRenta": 0,
-                "montoTotalOperacion": 9.38,
-                "totalNoGravado": 0,
-                "totalPagar": 9.38,
-                "totalLetras": "NUEVE 38 /100",
-                "totalIva": 1.08,
-                "saldoFavor": 0,
-                "condicionOperacion": 1,
-                "pagos": [
-                    {
-                        "codigo": "03",
-                        "montoPago": 9.38,
-                        "referencia": null,
-                        "plazo": null,
-                        "periodo": null
-                    }
-                ],
-                "numPagoElectronico": ""
-            },
-            "extension": null,
-            "apendice": [
-                {
-                    "campo": "Datos del vendedor",
-                    "etiqueta": "Nombre",
-                    "valor": "SELENA - SELENA MARGARITA RODRIGUEZ PEREZ"
-                },
-                {
-                    "campo": "Datos del documento",
-                    "etiqueta": "N\u00B0 Documento",
-                    "valor": "FA2323 - 0004582"
-                },
-                {
-                    "campo": "Datos del documento",
-                    "etiqueta": "Sello",
-                    "valor": "2023DE567C7C05F4432BA2EA7868139093A1ATN0"
+            }).then((result) => {
+                resp = result.data;
+            }).catch((error) => {
+                if (error.response) {
+                    resp = error.response.data;
                 }
-            ]
-        };
-        const jsonValidado = yield (0, schemavalidator_1.validateSchema)(schemavalidator_1.DteEschema.FC, jsonData);
-        return res.json((0, apiresponse_1.successResponse)(jsonValidado, "test"));
+                else if (error.request) {
+                }
+                else {
+                    resp = {
+                        error: 'Error al procesar'
+                    };
+                }
+            });
+            //Actualizar los procesados    
+            if (resp.procesados) {
+                for (const proce of resp.procesados) {
+                    const dte = Dte_1.default.findOne({
+                        where: {
+                            codigoGeneracion: proce.codigoGeneracion
+                        }
+                    }).then((encont) => {
+                        encont === null || encont === void 0 ? void 0 : encont.update({
+                            ambienteId: process.env.MH_AMBIENTE ? (process.env.MH_AMBIENTE == '00' ? 1 : 2) : null,
+                            selloRecibido: proce.selloRecibido
+                        });
+                    });
+                }
+            }
+            return res.json((0, apiresponse_1.successResponse)(resp, "Success"));
+        }
+        else {
+            return res.json((0, apiresponse_1.errorResponse)("Contingencia no encontrada"));
+        }
     });
 }
 function getVersionLegible(req, res) {
@@ -775,5 +683,5 @@ exports.default = {
     transmitirLote,
     getVersionLegible,
     descargarJsonMh,
-    test
+    consultaLote,
 };

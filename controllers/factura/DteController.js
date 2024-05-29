@@ -48,9 +48,13 @@ const { v4: uuidv4 } = require('uuid');
 function getAllR(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const { desde, hasta } = req.query;
+            const { desde, hasta, pndContingencia } = req.query;
             const whereOptions = {};
-            if (desde && hasta) {
+            if (pndContingencia) { //Si el querie marca que solicita los pendientes de contingencia
+                whereOptions.selloRecibido = null;
+                whereOptions.tipoContingenciaId = null;
+            }
+            else if (desde && hasta) {
                 whereOptions.fecEmi = {
                     [sequelize_1.Op.between]: [desde, hasta]
                 };
@@ -123,7 +127,7 @@ function createR(req, res) {
             req.body.codigoGeneracion = uuidv4().toUpperCase();
             const act = yield Dte_1.default.create(req.body);
             //Agregar el detalle(Cuerpo Documento)
-            let itemsLst = req.body.items;
+            const itemsLst = req.body.items;
             if (itemsLst != undefined) {
                 itemsLst.forEach((item) => __awaiter(this, void 0, void 0, function* () {
                     item.dteId = act.id;

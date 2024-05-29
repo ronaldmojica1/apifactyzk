@@ -27,6 +27,7 @@ function getDteContingecia(contingenciaDetalle) {
                 codigoGeneracion: (dte === null || dte === void 0 ? void 0 : dte.codigoGeneracion) || '',
                 tipoDoc: (tipoDte === null || tipoDte === void 0 ? void 0 : tipoDte.codigo) || ''
             });
+            noItem++;
         }));
         return dteContingencia;
     });

@@ -15,3 +15,4 @@ router.post('/', session_1.checkJwt, UsuarioController_1.default.createR);
 router.put('/:id', session_1.checkJwt, UsuarioController_1.default.updateR);
 router.delete('/:id', session_1.checkJwt, UsuarioController_1.default.deleteR);
 router.post('/login', UsuarioController_1.default.login);
+router.get('/permisos/:id', session_1.checkJwt, UsuarioController_1.default.getPermisosUsuario);

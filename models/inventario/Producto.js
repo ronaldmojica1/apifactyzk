@@ -78,10 +78,18 @@ Producto.init({
     sequelize: database_1.default,
     modelName: 'Producto',
     tableName: 'producto',
+    /*hooks: {
+        async afterCreate(attributes, options:any) {
+            const userId = (options.user?.id || null)
+            console.log(options)
+            await logAction(attributes,'Creado',userId);
+        },
+    }*/
 });
 Producto.hasMany(TributosProducto_1.default, { foreignKey: 'productoId', as: "tributos" });
 Producto.belongsTo(TipoItem_1.default, { foreignKey: 'tipoItemId', as: 'tipoItem' });
 Producto.belongsTo(Tributo_1.default, { foreignKey: 'tributoId', as: 'tributo' });
 Producto.belongsTo(UnidadMedida_1.default, { foreignKey: 'unidadMedidaId', as: 'unidadMedida' });
 Producto.belongsTo(TipoVenta_1.default, { foreignKey: 'tipoVentaId', as: 'tipoVenta' });
+//sequelize.sync();
 exports.default = Producto;

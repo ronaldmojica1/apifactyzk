@@ -7,6 +7,7 @@ const sequelize_1 = require("sequelize");
 const database_1 = __importDefault(require("../../config/database"));
 const TipoContingencia_1 = __importDefault(require("./TipoContingencia"));
 const Emisor_1 = __importDefault(require("./Emisor"));
+const ContingenciaDetalle_1 = __importDefault(require("./ContingenciaDetalle"));
 class Contingencia extends sequelize_1.Model {
 }
 Contingencia.init({
@@ -75,4 +76,5 @@ Contingencia.init({
 });
 Contingencia.belongsTo(TipoContingencia_1.default, { foreignKey: 'tipoContingenciaId', as: 'tipoContingencia' });
 Contingencia.belongsTo(Emisor_1.default, { foreignKey: 'emisorId', as: 'emisor' });
+Contingencia.hasMany(ContingenciaDetalle_1.default, { foreignKey: 'contingenciaId', as: 'detalle' });
 exports.default = Contingencia;

@@ -24,7 +24,7 @@ function getIdentificacion(dte) {
         const tipoDte = yield TipoDte_1.default.findByPk(dte === null || dte === void 0 ? void 0 : dte.tipoDteId);
         const tipoModelo = yield TipoModelo_1.default.findByPk(dte === null || dte === void 0 ? void 0 : dte.tipoModeloId);
         const tipoOperacion = yield TipoOperacion_1.default.findByPk(dte === null || dte === void 0 ? void 0 : dte.tipoOperacionId);
-        const tipoContingencia = yield TipoContingencia_1.default.findByPk(dte === null || dte === void 0 ? void 0 : dte.tipoContingenciaId);
+        const tipoContingencia = yield TipoContingencia_1.default.findByPk((dte === null || dte === void 0 ? void 0 : dte.tipoContingenciaId) || 0);
         const docId = (dte === null || dte === void 0 ? void 0 : dte.id) || '';
         const identificacion = {
             version: (tipoDte === null || tipoDte === void 0 ? void 0 : tipoDte.version) || 1,

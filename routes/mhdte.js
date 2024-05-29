@@ -13,6 +13,6 @@ router.post('/transmitirdte', session_1.checkJwt, DteMhController_1.default.tran
 router.post('/anulardte', session_1.checkJwt, DteMhController_1.default.anularDte);
 router.post('/transmitircontingencia', session_1.checkJwt, DteMhController_1.default.transmitirContingencia);
 router.post('/transmitirlote', session_1.checkJwt, DteMhController_1.default.transmitirLote);
+router.post('/consultarlote', session_1.checkJwt, DteMhController_1.default.consultaLote);
 router.post('/versionlegible', session_1.checkJwt, DteMhController_1.default.getVersionLegible);
 router.post('/descargarjson', session_1.checkJwt, DteMhController_1.default.descargarJsonMh);
-router.post('/test', DteMhController_1.default.test);

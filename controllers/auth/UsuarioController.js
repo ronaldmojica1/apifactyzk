@@ -16,6 +16,10 @@ const Usuario_1 = __importDefault(require("../../models/auth/Usuario"));
 const apiresponse_1 = require("../../config/apiresponse");
 const encript_1 = require("../../utils/encript");
 const usejwt_1 = require("../../utils/usejwt");
+const RolUsuario_1 = __importDefault(require("../../models/auth/RolUsuario"));
+const PermisoRol_1 = __importDefault(require("../../models/auth/PermisoRol"));
+const Rol_1 = __importDefault(require("../../models/auth/Rol"));
+const PermisoUsuario_1 = __importDefault(require("../../models/auth/PermisoUsuario"));
 function getAllR(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -58,7 +62,7 @@ function updateR(req, res) {
                 req.body.clave = act.clave;
                 yield act.update(req.body);
             }
-            res.json((0, apiresponse_1.successResponse)(act, 'Actualizado con exito'));
+            res.status(201).json((0, apiresponse_1.successResponse)(act, 'Actualizado con exito'));
         }
         catch (error) {
             res.status(200).json((0, apiresponse_1.errorResponse)('Error al actualizar'));
@@ -75,7 +79,7 @@ function deleteR(req, res) {
             }
             //Eliminar
             yield act.destroy();
-            res.json((0, apiresponse_1.successResponse)(act, 'Eliminado con exito!'));
+            res.status(201).json((0, apiresponse_1.successResponse)(act, 'Eliminado con exito!'));
         }
         catch (error) {
             res.status(200).json((0, apiresponse_1.errorResponse)('Error al eliminar'));
@@ -91,7 +95,7 @@ function getR(req, res) {
                 return;
             }
             //Ver
-            res.json((0, apiresponse_1.successResponse)(act, ''));
+            res.status(201).json((0, apiresponse_1.successResponse)(act, ''));
         }
         catch (error) {
             res.status(200).json((0, apiresponse_1.errorResponse)('Error al buscar'));
@@ -122,11 +126,49 @@ function login(req, res) {
         res.json((0, apiresponse_1.successResponse)(data, 'Login Success'));
     });
 }
+function getPermisosUsuario(req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const { id } = req.params;
+        try {
+            //Obtener los roles del usuario
+            const rolesUsuario = yield RolUsuario_1.default.findAll({
+                where: { usuarioId: id },
+                include: [{
+                        model: Rol_1.default,
+                        as: 'rol',
+                        include: [{
+                                model: PermisoRol_1.default,
+                                as: 'permisos',
+                                attributes: ['permiso']
+                            }]
+                    }]
+            });
+            //obtener los permisos de los roles
+            const permisosRol = rolesUsuario.flatMap((rolUsuario) => {
+                return rolUsuario.rol.permisos.map((permisoRol) => permisoRol.permiso);
+            });
+            // Obtener los permisos asignados directamente al usuario
+            const permisosUsuario = yield PermisoUsuario_1.default.findAll({
+                where: { usuarioId: id },
+                attributes: ['permiso']
+            });
+            const permisosUsuarioList = permisosUsuario.map(p => p.permiso);
+            // Combinar ambas listas de permisos y eliminar duplicados
+            const permisosTotales = [...new Set([...permisosRol, ...permisosUsuarioList])];
+            res.status(201).json((0, apiresponse_1.successResponse)(permisosTotales, 'Success!'));
+        }
+        catch (error) {
+            console.log(error);
+            res.status(200).json((0, apiresponse_1.errorResponse)("Error al obtener"));
+        }
+    });
+}
 exports.default = {
     getAllR,
     createR,
     updateR,
     deleteR,
     getR,
+    getPermisosUsuario,
     login
 };
