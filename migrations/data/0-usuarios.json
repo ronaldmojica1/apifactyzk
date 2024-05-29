@@ -3,7 +3,8 @@
     "data" : [
         {
             "usuario": "admin",
-            "clave": "$2a$08$EOI3duOlmKQUp5qbMa.EXeZ.HHxvU2/qtLy7QoXDZSqQNybFVMEYu"
+            "clave": "$2a$08$EOI3duOlmKQUp5qbMa.EXeZ.HHxvU2/qtLy7QoXDZSqQNybFVMEYu",
+            "admin":true
         }
     ]
 }
