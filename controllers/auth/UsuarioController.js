@@ -116,7 +116,7 @@ function login(req, res) {
         const isCorrect = yield (0, encript_1.verified)(req.body.clave, passwordHash);
         if (!isCorrect)
             return res.status(200).json((0, apiresponse_1.errorResponse)("PASSWORD_INCORRECT"));
-        const token = (0, usejwt_1.generateToken)(checkIs.usuario);
+        const token = (0, usejwt_1.generateToken)(checkIs.id);
         const decodToken = (0, usejwt_1.verifyToken)(token);
         const data = {
             token,

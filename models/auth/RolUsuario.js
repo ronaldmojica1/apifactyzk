@@ -38,5 +38,5 @@ RolUsuario.init({
 });
 //sequelize.sync();
 RolUsuario.belongsTo(Rol_1.default, { foreignKey: 'rolId', as: "rol" });
-RolUsuario.belongsTo(Usuario_1.default, { foreignKey: 'rolId', as: "usuario" });
+//RolUsuario.belongsTo(Usuario,{foreignKey:'rolId',as:"usuario"});
 exports.default = RolUsuario;

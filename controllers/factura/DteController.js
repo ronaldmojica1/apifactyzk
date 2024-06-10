@@ -44,6 +44,8 @@ const Plazo_1 = __importDefault(require("../../models/factura/Plazo"));
 const TipoVenta_1 = __importDefault(require("../../models/inventario/TipoVenta"));
 const TributosItem_1 = __importDefault(require("../../models/factura/TributosItem"));
 const ActividadEconomica_1 = __importDefault(require("../../models/factura/ActividadEconomica"));
+const Tributo_1 = __importDefault(require("../../models/inventario/Tributo"));
+const Usuario_1 = __importDefault(require("../../models/auth/Usuario"));
 const { v4: uuidv4 } = require('uuid');
 function getAllR(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -109,6 +111,14 @@ function getAllR(req, res) {
                     {
                         model: CondicionOperacions_1.default,
                         as: 'condicionOperacion'
+                    },
+                    {
+                        model: Usuario_1.default,
+                        as: 'creadoPor'
+                    },
+                    {
+                        model: Usuario_1.default,
+                        as: 'transmitidoPor'
                     }
                 ],
                 order: [['id', 'DESC']]
@@ -125,6 +135,7 @@ function createR(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             req.body.codigoGeneracion = uuidv4().toUpperCase();
+            req.body.creadoPorId = req.user.id;
             const act = yield Dte_1.default.create(req.body);
             //Agregar el detalle(Cuerpo Documento)
             const itemsLst = req.body.items;
@@ -422,7 +433,13 @@ function getR(req, res) {
                             },
                             {
                                 model: TributosItem_1.default,
-                                as: 'tributos'
+                                as: 'tributos',
+                                include: [
+                                    {
+                                        model: Tributo_1.default,
+                                        as: 'tributo'
+                                    }
+                                ]
                             }
                         ]
                     },

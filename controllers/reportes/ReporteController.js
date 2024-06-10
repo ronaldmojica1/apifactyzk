@@ -19,6 +19,11 @@ const Emisor_1 = __importDefault(require("../../models/factura/Emisor"));
 const Receptor_1 = __importDefault(require("../../models/factura/Receptor"));
 const TipoDte_1 = __importDefault(require("../../models/factura/TipoDte"));
 const CuerpoDocumento_1 = __importDefault(require("../../models/factura/CuerpoDocumento"));
+const Usuario_1 = __importDefault(require("../../models/auth/Usuario"));
+const RolUsuario_1 = __importDefault(require("../../models/auth/RolUsuario"));
+const Rol_1 = __importDefault(require("../../models/auth/Rol"));
+const PermisoRol_1 = __importDefault(require("../../models/auth/PermisoRol"));
+const PermisoUsuario_1 = __importDefault(require("../../models/auth/PermisoUsuario"));
 function rptVentasFechas(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -67,6 +72,46 @@ function rptVentasFechas(req, res) {
         }
     });
 }
+function rptUsuariosPermisos(req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const report = yield Usuario_1.default.findAll({
+                attributes: ['id', 'nombre', 'usuario', 'admin'],
+                include: [
+                    {
+                        model: RolUsuario_1.default,
+                        as: 'roles',
+                        include: [
+                            {
+                                model: Rol_1.default,
+                                as: 'rol',
+                                attributes: ['rol'],
+                                include: [
+                                    {
+                                        model: PermisoRol_1.default,
+                                        as: 'permisos',
+                                        attributes: ['permiso'],
+                                    },
+                                ],
+                            },
+                        ],
+                    },
+                    {
+                        model: PermisoUsuario_1.default,
+                        as: 'permisosDirectos',
+                        attributes: ['permiso'],
+                    },
+                ],
+            });
+            res.status(201).json((0, apiresponse_1.successResponse)(report, ''));
+        }
+        catch (error) {
+            console.log(error);
+            res.status(200).json((0, apiresponse_1.errorResponse)('Error al obtener'));
+        }
+    });
+}
 exports.default = {
-    rptVentasFechas
+    rptVentasFechas,
+    rptUsuariosPermisos
 };

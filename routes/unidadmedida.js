@@ -9,7 +9,7 @@ const UnidadMedidaController_1 = __importDefault(require("../controllers/inventa
 const session_1 = require("../middleware/session");
 const router = (0, express_1.Router)();
 exports.router = router;
-router.get('/', session_1.checkJwt, UnidadMedidaController_1.default.getAllR);
+router.get('/', UnidadMedidaController_1.default.getAllR);
 router.get('/:id', session_1.checkJwt, UnidadMedidaController_1.default.getR);
 router.post('/', session_1.checkJwt, UnidadMedidaController_1.default.createR);
 router.put('/:id', session_1.checkJwt, UnidadMedidaController_1.default.updateR);

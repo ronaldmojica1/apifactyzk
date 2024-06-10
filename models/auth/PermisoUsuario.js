@@ -32,5 +32,4 @@ PermisoUsuario.init({
     tableName: 'permiso_usuario',
 });
 //sequelize.sync();
-PermisoUsuario.belongsTo(Usuario_1.default, { foreignKey: 'usuarioId', as: 'usuario' });
 exports.default = PermisoUsuario;

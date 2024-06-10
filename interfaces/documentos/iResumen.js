@@ -43,7 +43,7 @@ function getResumen(dte) {
         const totalSujetoRetencion = itemsDte.reduce((pv, cv) => pv + cv.montoSujetoGrav, 0);
         const totalIVAretenido = itemsDte.reduce((pv, cv) => pv + cv.ivaRetenido, 0);
         const totalExportacion = itemsDte.reduce((pv, cv) => pv + cv.exportaciones, 0);
-        const totalCompra = itemsDte.reduce((pv, cv) => pv + cv.compra, 0);
+        const totalCompra = Math.round((totalExenta + totalNoSuj + totalGravada) * 100) / 100; //Ojo hay campo de compras pero se usa venta gravada
         let pagosDte = yield PagoDte_1.default.findAll({
             where: {
                 dteId: dte === null || dte === void 0 ? void 0 : dte.id
@@ -77,26 +77,28 @@ function getResumen(dte) {
                 }
             ]
         });
-        const tributosItemJson = tributosItem.map(trib => trib.toJSON());
+        const tributosItemJson = tributosItem.map((trib) => trib.toJSON());
         let tributosTmp = [];
         let subTotalTributosAdicionales = 0;
-        yield tributosItemJson.reduce((acc, tribItem) => __awaiter(this, void 0, void 0, function* () {
-            const tribu = yield Tributo_1.default.findByPk(tribItem.tributoId);
-            if (tribu) {
-                if (!acc[tribu.codigo]) {
-                    acc[tribu.codigo] = {
-                        codigo: tribu.codigo,
-                        descripcion: tribu.tributo,
-                        valor: 0
-                    };
-                    tributosTmp.push(acc[tribu.codigo]);
-                }
-                acc[tribu.codigo].valor += tribItem.subTotal;
-                //Sumar el subtotal de tributos adicionales
-                subTotalTributosAdicionales += tribItem.subTotal;
-                return acc;
+        const tributosMap = new Map();
+        for (const tributo of tributosItemJson) {
+            const tributoId = tributo.tributoId;
+            const subTotal = (Math.round(tributo.subTotal * 100) / 100);
+            if (!tributosMap.has(tributoId)) { //Si no existe agregar am map
+                tributosMap.set(tributoId, {
+                    codigo: tributo.tributo.codigo,
+                    descripcion: tributo.tributo.tributo,
+                    valor: subTotal
+                });
             }
-        }), {});
+            else { //si existe sumar el subtotal
+                const existTributo = tributosMap.get(tributoId);
+                existTributo.valor += subTotal;
+                existTributo.valor = (Math.round(existTributo.valor * 100) / 100);
+            }
+            subTotalTributosAdicionales += subTotal;
+        }
+        tributosTmp = Array.from(tributosMap.values());
         //Asignar a la interfaz de resumen
         tributos = tributosTmp.length > 0 ? tributosTmp : null;
         const resumen = {
@@ -118,8 +120,8 @@ function getResumen(dte) {
             //montoTotalOperacion : Math.round(((subTotalVentas - subTotalDescuentos - (dte?.ivaRete1 || 0) - (dte?.reteRenta || 0) + (dte?.ivaPerci1 || 0) + subTotalTributosAdicionales) * 100))/100 ,
             montoTotalOperacion: Math.round(((subTotalVentas - subTotalDescuentos + subTotalTributosAdicionales) * 100)) / 100,
             totalNoGravado: totalNoGravado,
-            totalPagar: Math.round((totalGravada + totalNoGravado - (subTotalDescuentos + descuItems) - ((dte === null || dte === void 0 ? void 0 : dte.ivaRete1) || 0) - ((dte === null || dte === void 0 ? void 0 : dte.reteRenta) || 0) + ((dte === null || dte === void 0 ? void 0 : dte.ivaPerci1) || 0) + subTotalTributosAdicionales) * 100) / 100,
-            totalLetras: (0, functions_1.numeroALetras)(Math.round((totalGravada + totalNoGravado - (subTotalDescuentos + descuItems) - ((dte === null || dte === void 0 ? void 0 : dte.ivaRete1) || 0) - ((dte === null || dte === void 0 ? void 0 : dte.reteRenta) || 0) + ((dte === null || dte === void 0 ? void 0 : dte.ivaPerci1) || 0) + subTotalTributosAdicionales) * 100) / 100),
+            totalPagar: Math.round(((totalGravada + totalExenta + totalNoSuj) + totalNoGravado - (subTotalDescuentos + descuItems) - ((dte === null || dte === void 0 ? void 0 : dte.ivaRete1) || 0) - ((dte === null || dte === void 0 ? void 0 : dte.reteRenta) || 0) + ((dte === null || dte === void 0 ? void 0 : dte.ivaPerci1) || 0) + subTotalTributosAdicionales) * 100) / 100,
+            totalLetras: (0, functions_1.numeroALetras)(Math.round(((totalGravada + totalExenta + totalNoSuj) + totalNoGravado - (subTotalDescuentos + descuItems) - ((dte === null || dte === void 0 ? void 0 : dte.ivaRete1) || 0) - ((dte === null || dte === void 0 ? void 0 : dte.reteRenta) || 0) + ((dte === null || dte === void 0 ? void 0 : dte.ivaPerci1) || 0) + subTotalTributosAdicionales) * 100) / 100),
             totalIva: totalIva,
             saldoFavor: (dte === null || dte === void 0 ? void 0 : dte.saldoFavor) || 0,
             condicionOperacion: (condicionOperacion === null || condicionOperacion === void 0 ? void 0 : condicionOperacion.codigo) || 1,

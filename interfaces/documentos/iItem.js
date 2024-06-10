@@ -55,7 +55,7 @@ function getItems(dte) {
             const tipoDte = yield TipoDte_1.default.findByPk(itm.tipoDteId);
             const tipoGeneracion = yield TipoGeneracion_1.default.findByPk(itm.tipoGeneracionId);
             const retencionMh = yield RetencionMH_1.default.findByPk(itm.retencionMhId);
-            yield items.push({
+            items.push({
                 numItem: itm.numItem,
                 tipoItem: tipoItem === null || tipoItem === void 0 ? void 0 : tipoItem.codigo,
                 codigo: (producto === null || producto === void 0 ? void 0 : producto.codigo) || null,
@@ -69,7 +69,7 @@ function getItems(dte) {
                 ventaExenta: itm.ventaExenta,
                 ventaGravada: itm.ventaGravada,
                 tributos: tributosLstProd,
-                psv: ((producto === null || producto === void 0 ? void 0 : producto.psv) != null ? producto.psv : producto === null || producto === void 0 ? void 0 : producto.precioUni) || 0,
+                psv: ((producto === null || producto === void 0 ? void 0 : producto.psv) != null ? (Math.round(producto.psv * 100) / 100) : itm.precioUni) || 0,
                 noGravado: itm.noGravado,
                 ivaItem: Math.round((itm.ventaGravada - (itm.ventaGravada / 1.13)) * 100) / 100,
                 //Cuando el tipo de Item es Documento CL(varios DTE),CR(solo 1 dte),NC(de un item solo numero),ND(de un item solo numero),NR(de un item solo numero)            
@@ -104,7 +104,7 @@ function getItems(dte) {
                 totalLetras: itm.totalLetras,
                 observaciones: itm.observaciones,
                 //Factura de Sujeto Excluido
-                compra: itm.compra
+                compra: itm.ventaGravada + itm.ventaExenta + itm.ventaNoSuj //Solo es un campo independiente la que se use
             });
         }
         return items;

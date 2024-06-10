@@ -10,3 +10,4 @@ const session_1 = require("../middleware/session");
 const router = (0, express_1.Router)();
 exports.router = router;
 router.get('/ventasfechas', session_1.checkJwt, ReporteController_1.default.rptVentasFechas);
+router.get('/usuariospermisos', ReporteController_1.default.rptUsuariosPermisos);

@@ -14,4 +14,4 @@ router.get('/:id', session_1.checkJwt, UnidadMedidaHController_1.default.getR);
 router.post('/', session_1.checkJwt, UnidadMedidaHController_1.default.createR);
 router.put('/:id', session_1.checkJwt, UnidadMedidaHController_1.default.updateR);
 router.delete('/:id', session_1.checkJwt, UnidadMedidaHController_1.default.deleteR);
-router.post('/verificarocrear', session_1.checkJwt, UnidadMedidaHController_1.default.verificateOrCreate);
+router.post('/verificarocrear', UnidadMedidaHController_1.default.verificateOrCreate);

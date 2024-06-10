@@ -4,25 +4,23 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const sequelize_1 = require("sequelize");
-const database_1 = __importDefault(require("../../config/database"));
-class Rol extends sequelize_1.Model {
+const database_1 = __importDefault(require("../config/database"));
+class Migracion extends sequelize_1.Model {
 }
-Rol.init({
+Migracion.init({
     id: {
         type: sequelize_1.DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true
     },
-    rol: {
-        type: sequelize_1.DataTypes.STRING,
+    version: {
+        type: sequelize_1.DataTypes.INTEGER,
         allowNull: false,
-    },
+        defaultValue: 0
+    }
 }, {
     sequelize: database_1.default,
-    modelName: 'Rol',
-    tableName: 'rol',
+    modelName: 'Migracion',
+    tableName: 'migracion',
 });
-//sequelize.sync();
-//Rol.hasMany(PermisoRol,{foreignKey:'rolId',as:'permisos'})
-//RolUsuario.belongsTo(Rol,{foreignKey: 'rolId',as:"rol"});
-exports.default = Rol;
+exports.default = Migracion;
