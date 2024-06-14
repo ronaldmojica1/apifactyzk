@@ -41,10 +41,14 @@ const sequelize_1 = require("sequelize");
 const Dte_1 = __importDefault(require("../../models/factura/Dte"));
 const path = __importStar(require("path"));
 const CuerpoDocumento_1 = __importDefault(require("../../models/factura/CuerpoDocumento"));
+const meses_1 = require("../../utils/meses");
+const Receptor_1 = __importDefault(require("../../models/factura/Receptor"));
 function rptLibroVentasXlsCustYzk(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const { desde, hasta } = req.query;
+            const fecha = new Date(hasta);
+            const nombMes = meses_1.meses[fecha.getMonth()];
             const whereOptions = {};
             if (desde && hasta) {
                 whereOptions.fecEmi = {
@@ -54,6 +58,10 @@ function rptLibroVentasXlsCustYzk(req, res) {
             whereOptions.tipoDteId = {
                 [sequelize_1.Op.or]: [1, 9]
             };
+            whereOptions.selloRecibido = {
+                [sequelize_1.Op.ne]: null
+            };
+            whereOptions.docAnulado = false; //Si no esta anulado
             const dteAttributes = Object.keys(Dte_1.default.getAttributes());
             const datos = yield Dte_1.default.findAll({
                 where: whereOptions,
@@ -81,6 +89,8 @@ function rptLibroVentasXlsCustYzk(req, res) {
             // Obtener la hoja de Excel en la que deseas agregar o actualizar datos
             const worksheet = workbook.getWorksheet(1);
             if (worksheet) {
+                //Poner el encabezado del reporte el periodo
+                worksheet.getCell("A4").value = "MES DE " + nombMes.toUpperCase() + " " + fecha.getFullYear();
                 // Calcular la próxima fila disponible para pegar datos
                 let nextRow = 7;
                 // Pegar los datos en la hoja de Excel                
@@ -112,6 +122,8 @@ function rptLibroComprasXlsCustYzk(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const { desde, hasta } = req.query;
+            const fecha = new Date(hasta);
+            const nombMes = meses_1.meses[fecha.getMonth()];
             const whereOptions = {};
             if (desde && hasta) {
                 whereOptions.fecEmi = {
@@ -119,27 +131,36 @@ function rptLibroComprasXlsCustYzk(req, res) {
                 };
             }
             whereOptions.tipoDteId = {
-                [sequelize_1.Op.or]: [1, 9]
+                [sequelize_1.Op.or]: [10]
             };
+            whereOptions.selloRecibido = {
+                [sequelize_1.Op.ne]: null
+            };
+            whereOptions.docAnulado = false; //Si no esta anulado
             const dteAttributes = Object.keys(Dte_1.default.getAttributes());
-            /*const datos:any = await Dte.findAll({
+            const datos = yield Dte_1.default.findAll({
                 where: whereOptions,
-                include:[
+                include: [
                     {
-                        model: CuerpoDocumento,
-                        as:'items',
+                        model: CuerpoDocumento_1.default,
+                        as: 'items',
                         attributes: [],
                         required: false,
+                    },
+                    {
+                        model: Receptor_1.default,
+                        as: 'receptor',
+                        required: false
                     }
                 ],
-                attributes:[
+                attributes: [
                     ...dteAttributes,
-                    [fn('SUM',literal('"items"."ventaGravada"')), 'totVentaGravada'],
-                    [fn('SUM',literal('"items"."ventaExenta"')), 'totVentaExenta'],
-                    [fn('SUM',literal('"items"."ventaNoSuj"')), 'totVentaNoSuj'],
+                    [(0, sequelize_1.fn)('SUM', (0, sequelize_1.literal)('"items"."ventaGravada"')), 'totVentaGravada'],
+                    [(0, sequelize_1.fn)('SUM', (0, sequelize_1.literal)('"items"."ventaExenta"')), 'totVentaExenta'],
+                    [(0, sequelize_1.fn)('SUM', (0, sequelize_1.literal)('"items"."ventaNoSuj"')), 'totVentaNoSuj'],
                 ],
-                group: ['Dte.id']
-            });*/
+                group: ['Dte.id', 'receptor.id']
+            });
             //Buscar el archivo de Excel
             const excelFilePath = path.join(__dirname, '../../archivos/LibroCompras.xlsx');
             // Cargar el archivo de Excel existente
@@ -148,20 +169,27 @@ function rptLibroComprasXlsCustYzk(req, res) {
             // Obtener la hoja de Excel en la que deseas agregar o actualizar datos
             const worksheet = workbook.getWorksheet(1);
             if (worksheet) {
+                //Colocar el encabezado
+                worksheet.getCell("A1").value = nombMes.toUpperCase();
+                worksheet.getCell("E1").value = "AÑO: " + fecha.getFullYear();
                 // Calcular la próxima fila disponible para pegar datos
-                let nextRow = 7;
+                let nextRow = 6;
+                let correlativo = 1;
                 // Pegar los datos en la hoja de Excel                
-                /*const datosJson = datos.map((d:any) => d.toJSON());
-                datosJson.forEach((dato:any) => {
+                const datosJson = datos.map((d) => d.toJSON());
+                datosJson.forEach((dato) => {
                     //Identificar los items
-                    worksheet.getCell(`A${nextRow}`).value = dato.fecEmi.split("-")[2];
-                    worksheet.getCell(`B${nextRow}`).value = dato.codigoGeneracion;
+                    worksheet.getCell(`A${nextRow}`).value = correlativo;
+                    worksheet.getCell(`B${nextRow}`).value = dato.fecEmi;
                     worksheet.getCell(`C${nextRow}`).value = dato.codigoGeneracion;
-                    worksheet.getCell(`F${nextRow}`).value = dato.tipoDteId == 1 ? dato.totVentaGravada : 0;
-                    worksheet.getCell(`H${nextRow}`).value = dato.tipoDteId == 9 ? dato.totVentaGravada : 0;
-    
-                    nextRow ++;
-                })*/
+                    worksheet.getCell(`D${nextRow}`).value = dato.selloRecibido;
+                    worksheet.getCell(`E${nextRow}`).value = dato.receptor.numDocumento;
+                    worksheet.getCell(`F${nextRow}`).value = dato.receptor.nombre;
+                    worksheet.getCell(`M${nextRow}`).value = dato.totVentaGravada + dato.totVentaExenta + dato.totVentaNoSuj;
+                    worksheet.getCell(`N${nextRow}`).value = dato.reteRenta;
+                    nextRow++;
+                    correlativo++;
+                });
             }
             // Convertir el archivo de Excel a un flujo de datos
             const fileStream = yield workbook.xlsx.writeBuffer();
@@ -180,6 +208,8 @@ function rptLibroVentasContrCustYzk(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const { desde, hasta } = req.query;
+            const fecha = new Date(hasta);
+            const nombMes = meses_1.meses[fecha.getMonth()];
             const whereOptions = {};
             if (desde && hasta) {
                 whereOptions.fecEmi = {
@@ -187,27 +217,36 @@ function rptLibroVentasContrCustYzk(req, res) {
                 };
             }
             whereOptions.tipoDteId = {
-                [sequelize_1.Op.or]: [1, 9]
+                [sequelize_1.Op.or]: [2]
             };
+            whereOptions.selloRecibido = {
+                [sequelize_1.Op.ne]: null
+            };
+            whereOptions.docAnulado = false; //Si no esta anulado
             const dteAttributes = Object.keys(Dte_1.default.getAttributes());
-            /*const datos:any = await Dte.findAll({
+            const datos = yield Dte_1.default.findAll({
                 where: whereOptions,
-                include:[
+                include: [
                     {
-                        model: CuerpoDocumento,
-                        as:'items',
+                        model: CuerpoDocumento_1.default,
+                        as: 'items',
                         attributes: [],
                         required: false,
+                    },
+                    {
+                        model: Receptor_1.default,
+                        as: 'receptor',
+                        required: false
                     }
                 ],
-                attributes:[
+                attributes: [
                     ...dteAttributes,
-                    [fn('SUM',literal('"items"."ventaGravada"')), 'totVentaGravada'],
-                    [fn('SUM',literal('"items"."ventaExenta"')), 'totVentaExenta'],
-                    [fn('SUM',literal('"items"."ventaNoSuj"')), 'totVentaNoSuj'],
+                    [(0, sequelize_1.fn)('SUM', (0, sequelize_1.literal)('"items"."ventaGravada"')), 'totVentaGravada'],
+                    [(0, sequelize_1.fn)('SUM', (0, sequelize_1.literal)('"items"."ventaExenta"')), 'totVentaExenta'],
+                    [(0, sequelize_1.fn)('SUM', (0, sequelize_1.literal)('"items"."ventaNoSuj"')), 'totVentaNoSuj'],
                 ],
-                group: ['Dte.id']
-            });*/
+                group: ['Dte.id', 'receptor.id']
+            });
             //Buscar el archivo de Excel
             const excelFilePath = path.join(__dirname, '../../archivos/LibroVentasContr.xlsx');
             // Cargar el archivo de Excel existente
@@ -216,20 +255,28 @@ function rptLibroVentasContrCustYzk(req, res) {
             // Obtener la hoja de Excel en la que deseas agregar o actualizar datos
             const worksheet = workbook.getWorksheet(1);
             if (worksheet) {
+                //Colocar el encabezado
+                worksheet.getCell("C5").value = nombMes.toUpperCase();
+                worksheet.getCell("E5").value = fecha.getFullYear();
                 // Calcular la próxima fila disponible para pegar datos
-                let nextRow = 7;
+                let nextRow = 9;
+                let correlativo = 1;
                 // Pegar los datos en la hoja de Excel                
-                /*const datosJson = datos.map((d:any) => d.toJSON());
-                datosJson.forEach((dato:any) => {
+                const datosJson = datos.map((d) => d.toJSON());
+                datosJson.forEach((dato) => {
                     //Identificar los items
-                    worksheet.getCell(`A${nextRow}`).value = dato.fecEmi.split("-")[2];
-                    worksheet.getCell(`B${nextRow}`).value = dato.codigoGeneracion;
+                    worksheet.getCell(`A${nextRow}`).value = correlativo;
+                    worksheet.getCell(`B${nextRow}`).value = dato.fecEmi;
                     worksheet.getCell(`C${nextRow}`).value = dato.codigoGeneracion;
-                    worksheet.getCell(`F${nextRow}`).value = dato.tipoDteId == 1 ? dato.totVentaGravada : 0;
-                    worksheet.getCell(`H${nextRow}`).value = dato.tipoDteId == 9 ? dato.totVentaGravada : 0;
-    
-                    nextRow ++;
-                })*/
+                    worksheet.getCell(`E${nextRow}`).value = dato.receptor.nombre;
+                    worksheet.getCell(`F${nextRow}`).value = dato.receptor.nrc;
+                    worksheet.getCell(`G${nextRow}`).value = dato.totVentaExenta;
+                    worksheet.getCell(`H${nextRow}`).value = dato.totVentaGravada;
+                    worksheet.getCell(`M${nextRow}`).value = dato.ivaRete1;
+                    worksheet.getCell(`N${nextRow}`).value = dato.ivaPerci1;
+                    nextRow++;
+                    correlativo++;
+                });
             }
             // Convertir el archivo de Excel a un flujo de datos
             const fileStream = yield workbook.xlsx.writeBuffer();
