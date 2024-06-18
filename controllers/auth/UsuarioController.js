@@ -77,11 +77,24 @@ function deleteR(req, res) {
                 res.status(200).json((0, apiresponse_1.notFoundResponse)('No encontrado'));
                 return;
             }
+            //Eliminar Relaciones
+            //Eliminar los roles del usuario
+            yield RolUsuario_1.default.destroy({
+                where: {
+                    usuarioId: act.id
+                }
+            });
+            yield PermisoUsuario_1.default.destroy({
+                where: {
+                    usuarioId: act.id
+                }
+            });
             //Eliminar
             yield act.destroy();
             res.status(201).json((0, apiresponse_1.successResponse)(act, 'Eliminado con exito!'));
         }
         catch (error) {
+            console.log(error);
             res.status(200).json((0, apiresponse_1.errorResponse)('Error al eliminar'));
         }
     });

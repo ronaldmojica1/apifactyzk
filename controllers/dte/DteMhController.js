@@ -226,6 +226,9 @@ function actualizarDteTransmitido(dte, resp, numeroControl) {
 function actualizarDteAnulado(dte, resp) {
     return __awaiter(this, void 0, void 0, function* () {
         dte.docAnulado = true;
+        const fecha = new Date();
+        dte.fecAnula = (0, functions_1.formatDateToYYYYMMDD)(fecha);
+        dte.horAnula = (0, functions_1.formatTimeToHHMMSS)(fecha);
         dte.selloAnulacion = resp.selloRecibido;
         dte.codigoAnulacion = resp.codigoGeneracion;
         dte.save();

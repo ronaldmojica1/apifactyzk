@@ -250,6 +250,14 @@ Dte.init({
         allowNull: false,
         defaultValue: false
     },
+    fecAnula: {
+        type: sequelize_1.DataTypes.STRING,
+        allowNull: true
+    },
+    horAnula: {
+        type: sequelize_1.DataTypes.STRING,
+        allowNull: true
+    },
     tipoInvalidacionId: {
         type: sequelize_1.DataTypes.INTEGER,
         allowNull: true,

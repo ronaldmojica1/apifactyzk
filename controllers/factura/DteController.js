@@ -50,15 +50,37 @@ const { v4: uuidv4 } = require('uuid');
 function getAllR(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const { desde, hasta, pndContingencia } = req.query;
+            const { desde, hasta, pndContingencia, creaDesde, creaHasta, tipoDte, emisor, cliente } = req.query;
             const whereOptions = {};
+            console.log(creaDesde);
+            console.log(creaHasta);
+            if (creaDesde && creaHasta) {
+                whereOptions.createdAt = {
+                    [sequelize_1.Op.between]: [creaDesde + "T00:00:00", creaHasta + "T00:00:00"]
+                };
+            }
+            if (desde && hasta) {
+                whereOptions.fecEmi = {
+                    [sequelize_1.Op.between]: [desde, hasta]
+                };
+            }
             if (pndContingencia) { //Si el querie marca que solicita los pendientes de contingencia
                 whereOptions.selloRecibido = null;
                 whereOptions.tipoContingenciaId = null;
             }
-            else if (desde && hasta) {
-                whereOptions.fecEmi = {
-                    [sequelize_1.Op.between]: [desde, hasta]
+            if (tipoDte) {
+                whereOptions.tipoDteId = {
+                    [sequelize_1.Op.or]: tipoDte.split(",")
+                };
+            }
+            if (emisor) {
+                whereOptions.emisorId = {
+                    [sequelize_1.Op.or]: emisor.split(",")
+                };
+            }
+            if (cliente) {
+                whereOptions.receptorId = {
+                    [sequelize_1.Op.or]: cliente.split(",")
                 };
             }
             const acts = yield Dte_1.default.findAll({

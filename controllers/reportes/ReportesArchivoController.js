@@ -50,18 +50,53 @@ function rptLibroVentasXlsCustYzk(req, res) {
             const fecha = new Date(hasta);
             const nombMes = meses_1.meses[fecha.getMonth()];
             const whereOptions = {};
-            if (desde && hasta) {
-                whereOptions.fecEmi = {
-                    [sequelize_1.Op.between]: [desde, hasta]
-                };
-            }
+            /*whereOptions.fecEmi ={
+                [Op.between]:[desde,hasta]
+            }*/
+            whereOptions[sequelize_1.Op.or] = [
+                {
+                    fecEmi: {
+                        [sequelize_1.Op.between]: [desde, hasta],
+                    },
+                },
+                {
+                    fecAnula: {
+                        [sequelize_1.Op.between]: [desde, hasta],
+                    },
+                },
+            ];
             whereOptions.tipoDteId = {
                 [sequelize_1.Op.or]: [1, 9]
             };
             whereOptions.selloRecibido = {
                 [sequelize_1.Op.ne]: null
             };
-            whereOptions.docAnulado = false; //Si no esta anulado
+            whereOptions[sequelize_1.Op.and] = [
+                {
+                    [sequelize_1.Op.or]: [
+                        {
+                            docAnulado: false
+                        },
+                        {
+                            [sequelize_1.Op.and]: [
+                                {
+                                    docAnulado: true
+                                },
+                                {
+                                    fecAnula: {
+                                        [sequelize_1.Op.between]: [desde, hasta]
+                                    }
+                                },
+                                {
+                                    fecEmi: {
+                                        [sequelize_1.Op.lt]: desde
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ];
             const dteAttributes = Object.keys(Dte_1.default.getAttributes());
             const datos = yield Dte_1.default.findAll({
                 where: whereOptions,
@@ -81,6 +116,7 @@ function rptLibroVentasXlsCustYzk(req, res) {
                 ],
                 group: ['Dte.id']
             });
+            console.log(datos);
             //Buscar el archivo de Excel
             const excelFilePath = path.join(__dirname, '../../archivos/LibroVentas.xlsx');
             // Cargar el archivo de Excel existente
@@ -100,8 +136,8 @@ function rptLibroVentasXlsCustYzk(req, res) {
                     worksheet.getCell(`A${nextRow}`).value = dato.fecEmi.split("-")[2];
                     worksheet.getCell(`B${nextRow}`).value = dato.codigoGeneracion;
                     worksheet.getCell(`C${nextRow}`).value = dato.codigoGeneracion;
-                    worksheet.getCell(`F${nextRow}`).value = dato.tipoDteId == 1 ? dato.totVentaGravada : 0;
-                    worksheet.getCell(`H${nextRow}`).value = dato.tipoDteId == 9 ? dato.totVentaGravada : 0;
+                    worksheet.getCell(`F${nextRow}`).value = dato.tipoDteId == 1 ? (dato.docAnulado == true ? (dato.totVentaGravada * -1) : dato.totVentaGravada) : 0;
+                    worksheet.getCell(`H${nextRow}`).value = dato.tipoDteId == 9 ? (dato.docAnulado == true ? (dato.totVentaGravada * -1) : dato.totVentaGravada) : 0;
                     nextRow++;
                 });
             }
@@ -125,18 +161,50 @@ function rptLibroComprasXlsCustYzk(req, res) {
             const fecha = new Date(hasta);
             const nombMes = meses_1.meses[fecha.getMonth()];
             const whereOptions = {};
-            if (desde && hasta) {
-                whereOptions.fecEmi = {
-                    [sequelize_1.Op.between]: [desde, hasta]
-                };
-            }
+            whereOptions[sequelize_1.Op.or] = [
+                {
+                    fecEmi: {
+                        [sequelize_1.Op.between]: [desde, hasta],
+                    },
+                },
+                {
+                    fecAnula: {
+                        [sequelize_1.Op.between]: [desde, hasta],
+                    },
+                },
+            ];
             whereOptions.tipoDteId = {
                 [sequelize_1.Op.or]: [10]
             };
             whereOptions.selloRecibido = {
                 [sequelize_1.Op.ne]: null
             };
-            whereOptions.docAnulado = false; //Si no esta anulado
+            whereOptions[sequelize_1.Op.and] = [
+                {
+                    [sequelize_1.Op.or]: [
+                        {
+                            docAnulado: false
+                        },
+                        {
+                            [sequelize_1.Op.and]: [
+                                {
+                                    docAnulado: true
+                                },
+                                {
+                                    fecAnula: {
+                                        [sequelize_1.Op.between]: [desde, hasta]
+                                    }
+                                },
+                                {
+                                    fecEmi: {
+                                        [sequelize_1.Op.lt]: desde
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ];
             const dteAttributes = Object.keys(Dte_1.default.getAttributes());
             const datos = yield Dte_1.default.findAll({
                 where: whereOptions,
@@ -178,6 +246,7 @@ function rptLibroComprasXlsCustYzk(req, res) {
                 // Pegar los datos en la hoja de Excel                
                 const datosJson = datos.map((d) => d.toJSON());
                 datosJson.forEach((dato) => {
+                    const tCompra = dato.totVentaGravada + dato.totVentaExenta + dato.totVentaNoSuj;
                     //Identificar los items
                     worksheet.getCell(`A${nextRow}`).value = correlativo;
                     worksheet.getCell(`B${nextRow}`).value = dato.fecEmi;
@@ -185,8 +254,8 @@ function rptLibroComprasXlsCustYzk(req, res) {
                     worksheet.getCell(`D${nextRow}`).value = dato.selloRecibido;
                     worksheet.getCell(`E${nextRow}`).value = dato.receptor.numDocumento;
                     worksheet.getCell(`F${nextRow}`).value = dato.receptor.nombre;
-                    worksheet.getCell(`M${nextRow}`).value = dato.totVentaGravada + dato.totVentaExenta + dato.totVentaNoSuj;
-                    worksheet.getCell(`N${nextRow}`).value = dato.reteRenta;
+                    worksheet.getCell(`M${nextRow}`).value = dato.docAnulado == true ? (tCompra * -1) : tCompra;
+                    worksheet.getCell(`N${nextRow}`).value = dato.docAnulado == true ? (dato.reteRenta * -1) : dato.reteRenta;
                     nextRow++;
                     correlativo++;
                 });
@@ -211,18 +280,50 @@ function rptLibroVentasContrCustYzk(req, res) {
             const fecha = new Date(hasta);
             const nombMes = meses_1.meses[fecha.getMonth()];
             const whereOptions = {};
-            if (desde && hasta) {
-                whereOptions.fecEmi = {
-                    [sequelize_1.Op.between]: [desde, hasta]
-                };
-            }
+            whereOptions[sequelize_1.Op.or] = [
+                {
+                    fecEmi: {
+                        [sequelize_1.Op.between]: [desde, hasta],
+                    },
+                },
+                {
+                    fecAnula: {
+                        [sequelize_1.Op.between]: [desde, hasta],
+                    },
+                },
+            ];
             whereOptions.tipoDteId = {
                 [sequelize_1.Op.or]: [2]
             };
             whereOptions.selloRecibido = {
                 [sequelize_1.Op.ne]: null
             };
-            whereOptions.docAnulado = false; //Si no esta anulado
+            whereOptions[sequelize_1.Op.and] = [
+                {
+                    [sequelize_1.Op.or]: [
+                        {
+                            docAnulado: false
+                        },
+                        {
+                            [sequelize_1.Op.and]: [
+                                {
+                                    docAnulado: true
+                                },
+                                {
+                                    fecAnula: {
+                                        [sequelize_1.Op.between]: [desde, hasta]
+                                    }
+                                },
+                                {
+                                    fecEmi: {
+                                        [sequelize_1.Op.lt]: desde
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ];
             const dteAttributes = Object.keys(Dte_1.default.getAttributes());
             const datos = yield Dte_1.default.findAll({
                 where: whereOptions,
@@ -270,10 +371,10 @@ function rptLibroVentasContrCustYzk(req, res) {
                     worksheet.getCell(`C${nextRow}`).value = dato.codigoGeneracion;
                     worksheet.getCell(`E${nextRow}`).value = dato.receptor.nombre;
                     worksheet.getCell(`F${nextRow}`).value = dato.receptor.nrc;
-                    worksheet.getCell(`G${nextRow}`).value = dato.totVentaExenta;
-                    worksheet.getCell(`H${nextRow}`).value = dato.totVentaGravada;
-                    worksheet.getCell(`M${nextRow}`).value = dato.ivaRete1;
-                    worksheet.getCell(`N${nextRow}`).value = dato.ivaPerci1;
+                    worksheet.getCell(`G${nextRow}`).value = dato.docAnulado == true ? (dato.totVentaExenta * -1) : dato.totVentaExenta;
+                    worksheet.getCell(`H${nextRow}`).value = dato.docAnulado == true ? (dato.totVentaGravada * -1) : dato.totVentaGravada;
+                    worksheet.getCell(`M${nextRow}`).value = dato.docAnulado == true ? (dato.ivaRete1 * -1) : dato.ivaRete1;
+                    worksheet.getCell(`N${nextRow}`).value = dato.docAnulado == true ? (dato.ivaPerci1 * -1) : dato.ivaPerci1;
                     nextRow++;
                     correlativo++;
                 });

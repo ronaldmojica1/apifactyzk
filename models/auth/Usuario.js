@@ -6,7 +6,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const sequelize_1 = require("sequelize");
 const database_1 = __importDefault(require("../../config/database"));
 const RolUsuario_1 = __importDefault(require("./RolUsuario"));
-const PermisoUsuario_1 = __importDefault(require("./PermisoUsuario"));
 class Usuario extends sequelize_1.Model {
 }
 Usuario.init({
@@ -40,6 +39,6 @@ Usuario.init({
 });
 //sequelize.sync();
 Usuario.hasMany(RolUsuario_1.default, { foreignKey: 'usuarioId', as: 'roles' });
-Usuario.hasMany(PermisoUsuario_1.default, { foreignKey: 'usuarioId', as: 'permisosDirectos' });
-PermisoUsuario_1.default.belongsTo(Usuario, { foreignKey: 'usuarioId', as: 'usuario' });
+//Usuario.hasMany(PermisoUsuario,{foreignKey:'usuarioId',as:'permisosDirectos'});
+//PermisoUsuario.belongsTo(Usuario,{foreignKey:'usuarioId',as:'usuario'});
 exports.default = Usuario;
