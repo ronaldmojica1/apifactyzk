@@ -52,8 +52,6 @@ function getAllR(req, res) {
         try {
             const { desde, hasta, pndContingencia, creaDesde, creaHasta, tipoDte, emisor, cliente } = req.query;
             const whereOptions = {};
-            console.log(creaDesde);
-            console.log(creaHasta);
             if (creaDesde && creaHasta) {
                 whereOptions.createdAt = {
                     [sequelize_1.Op.between]: [creaDesde + "T00:00:00", creaHasta + "T00:00:00"]
