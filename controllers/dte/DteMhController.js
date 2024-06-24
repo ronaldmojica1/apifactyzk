@@ -674,7 +674,10 @@ function descargarJsonMh(req, res) {
                 "Authorization": tkn
             }
         }).then((result) => {
-            docJson = result.data.body[0];
+            //console.log(result.data.body[0].documento)
+            docJson = result.data.body[0].documento;
+            docJson['selloRecibido'] = result.data.body[0].selloRecibido;
+            docJson['firma'] = result.data.body[0].firma;
         });
         res.status(200).send(docJson);
     });
