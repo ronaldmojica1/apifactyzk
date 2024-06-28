@@ -1,0 +1,21 @@
+{
+    "model" : "ClaseDocumento",
+    "data" :[
+        {
+            "codigo": 1,
+            "clase": "Impreso por Imprenta o Tickets"
+        },
+        {
+            "codigo": 2,
+            "tipo": "Formulario Unico"
+        },
+        {
+            "codigo": 3,
+            "tipo": "Otros"
+        },
+        {
+            "codigo": 4,
+            "tipo": "Documento Eletronico Tributario DTE"
+        }
+    ]
+}

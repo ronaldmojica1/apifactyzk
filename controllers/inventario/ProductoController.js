@@ -171,7 +171,7 @@ function verificateOrCreate(req, res) {
             //verificar si existe el producto
             let prod = yield Producto_1.default.findOne({
                 where: {
-                    codigo: items[i].codigo
+                    codigo: items[i].codigo.toString()
                 }
             });
             if (!prod) { //Si no existe crear
