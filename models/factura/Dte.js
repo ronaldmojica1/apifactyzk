@@ -346,6 +346,14 @@ Dte.init({
         type: sequelize_1.DataTypes.STRING,
         allowNull: true
     },
+    dm: {
+        type: sequelize_1.DataTypes.STRING,
+        allowNull: true
+    },
+    fecDm: {
+        type: sequelize_1.DataTypes.STRING,
+        allowNull: true
+    },
     tituloBienId: {
         type: sequelize_1.DataTypes.INTEGER,
         allowNull: true,

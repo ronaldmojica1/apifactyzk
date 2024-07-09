@@ -20,7 +20,7 @@ function verificarMigracion() {
         //Este procedimiento se ejecuta para verificar la version actual y ejecutar
         yield Migracion_1.default.sync(); //Si no se ha creado en la BD, OJO ESTA LINEA LA PUEDO BORRAR DESPUES DE LA PRIMERA ACTUALIZACION
         Migracion_1.default.findOne().then((migVersion) => __awaiter(this, void 0, void 0, function* () {
-            const expectedVersion = 6; //****Esta es la version que debo modificar cada vez que se haga algun cambio en la estructura de la BD
+            const expectedVersion = 7; //****Esta es la version que debo modificar cada vez que se haga algun cambio en la estructura de la BD
             //Si no existe version (primera vez crear)
             if (!migVersion) {
                 migVersion = yield Migracion_1.default.create({
