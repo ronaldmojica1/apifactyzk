@@ -17,7 +17,5 @@ router.put('/:id', session_1.checkJwt, DteController_1.default.updateR);
 router.delete('/:id', session_1.checkJwt, DteController_1.default.deleteR);
 router.post('/correo/enviar', DteController_1.default.enviarDocsCorreo);
 router.post('/archivos/subir', MulterController_1.upload.array('files'), function (req, res, next) {
-    //console.log(req.files);
-    //console.log(req.body.test);
     DteController_1.default.subirArchivos(req, res);
 });
