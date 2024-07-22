@@ -12,42 +12,33 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const Proveedor_1 = __importDefault(require("../../models/compras/Proveedor"));
+const OrdenCompra_1 = __importDefault(require("../../models/compras/OrdenCompra"));
 const apiresponse_1 = require("../../config/apiresponse");
-const TipoDocumento_1 = __importDefault(require("../../models/factura/TipoDocumento"));
-const ActividadEconomica_1 = __importDefault(require("../../models/factura/ActividadEconomica"));
-const Pais_1 = __importDefault(require("../../models/region/Pais"));
-const Departamento_1 = __importDefault(require("../../models/region/Departamento"));
-const Municipio_1 = __importDefault(require("../../models/region/Municipio"));
-const TipoPersona_1 = __importDefault(require("../../models/factura/TipoPersona"));
+const Emisor_1 = __importDefault(require("../../models/factura/Emisor"));
+const Proveedor_1 = __importDefault(require("../../models/compras/Proveedor"));
+const CondicionOperacions_1 = __importDefault(require("../../models/factura/CondicionOperacions"));
+const Usuario_1 = __importDefault(require("../../models/auth/Usuario"));
+const OrdenCompraDetalle_1 = __importDefault(require("../../models/compras/OrdenCompraDetalle"));
 function getAllR(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const acts = yield Proveedor_1.default.findAll({
+            const acts = yield OrdenCompra_1.default.findAll({
                 include: [
                     {
-                        model: TipoDocumento_1.default,
-                        as: 'tipoDocumento'
+                        model: Emisor_1.default,
+                        as: 'sucursal'
                     },
                     {
-                        model: ActividadEconomica_1.default,
-                        as: 'actividadEconomica'
+                        model: Proveedor_1.default,
+                        as: 'proveedor'
                     },
                     {
-                        model: Pais_1.default,
-                        as: 'pais',
+                        model: CondicionOperacions_1.default,
+                        as: 'condicionOperacion'
                     },
                     {
-                        model: Departamento_1.default,
-                        as: 'departamento'
-                    },
-                    {
-                        model: Municipio_1.default,
-                        as: 'municipio'
-                    },
-                    {
-                        model: TipoPersona_1.default,
-                        as: 'tipoPersona'
+                        model: Usuario_1.default,
+                        as: 'creadoPor'
                     }
                 ]
             });
@@ -62,7 +53,16 @@ function getAllR(req, res) {
 function createR(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const act = yield Proveedor_1.default.create(req.body);
+            req.body.creadoPorId = req.user.id;
+            const act = yield OrdenCompra_1.default.create(req.body);
+            //Agregar el detalle
+            const itemsLst = req.body.items;
+            if (itemsLst != undefined) {
+                itemsLst.forEach((item) => __awaiter(this, void 0, void 0, function* () {
+                    item.ordenCompraId = act.id;
+                    const actItm = yield OrdenCompraDetalle_1.default.create(item);
+                }));
+            }
             res.status(201).json((0, apiresponse_1.successResponse)(act, 'Creado con exito!'));
         }
         catch (error) {
@@ -73,12 +73,29 @@ function createR(req, res) {
 function updateR(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const act = yield Proveedor_1.default.findByPk(req.params.id);
+            const act = yield OrdenCompra_1.default.findByPk(req.params.id);
             if (!act) {
                 res.status(200).json((0, apiresponse_1.notFoundResponse)('No encontrado'));
                 return;
             }
             yield act.update(req.body);
+            //Actualizar el detalle.
+            let itemsLst = req.body.items;
+            if (itemsLst != undefined) {
+                itemsLst.forEach((item) => __awaiter(this, void 0, void 0, function* () {
+                    //Verificar si tiene confirmacion
+                    if (item.confirmacion == 'Eliminado') {
+                        yield OrdenCompraDetalle_1.default.findByPk(item.id).then((itm) => itm === null || itm === void 0 ? void 0 : itm.destroy());
+                    }
+                    else if (item.confirmacion == 'Agregado') {
+                        item.dteId = act.id;
+                        yield OrdenCompraDetalle_1.default.create(item);
+                    }
+                    else {
+                        yield OrdenCompraDetalle_1.default.findByPk(item.id).then((itm) => itm === null || itm === void 0 ? void 0 : itm.update(item));
+                    }
+                }));
+            }
             res.json((0, apiresponse_1.successResponse)(act, 'Actualizado con exito'));
         }
         catch (error) {
@@ -89,11 +106,17 @@ function updateR(req, res) {
 function deleteR(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const act = yield Proveedor_1.default.findByPk(req.params.id);
+            const act = yield OrdenCompra_1.default.findByPk(req.params.id);
             if (!act) {
                 res.status(200).json((0, apiresponse_1.notFoundResponse)('No encontrado'));
                 return;
             }
+            //Elimiar el detalle
+            yield OrdenCompraDetalle_1.default.destroy({
+                where: {
+                    ordenCompraId: req.params.id
+                }
+            });
             //Eliminar
             yield act.destroy();
             res.json((0, apiresponse_1.successResponse)(act, 'Eliminado con exito!'));
@@ -106,31 +129,23 @@ function deleteR(req, res) {
 function getR(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const act = yield Proveedor_1.default.findByPk(req.params.id, {
+            const act = yield OrdenCompra_1.default.findByPk(req.params.id, {
                 include: [
                     {
-                        model: TipoDocumento_1.default,
-                        as: 'tipoDocumento'
+                        model: Emisor_1.default,
+                        as: 'sucursal'
                     },
                     {
-                        model: ActividadEconomica_1.default,
-                        as: 'actividadEconomica'
+                        model: Proveedor_1.default,
+                        as: 'proveedor'
                     },
                     {
-                        model: Pais_1.default,
-                        as: 'pais',
+                        model: CondicionOperacions_1.default,
+                        as: 'condicionOperacion'
                     },
                     {
-                        model: Departamento_1.default,
-                        as: 'departamento'
-                    },
-                    {
-                        model: Municipio_1.default,
-                        as: 'municipio'
-                    },
-                    {
-                        model: TipoPersona_1.default,
-                        as: 'tipoPersona'
+                        model: Usuario_1.default,
+                        as: 'creadoPor'
                     }
                 ]
             });

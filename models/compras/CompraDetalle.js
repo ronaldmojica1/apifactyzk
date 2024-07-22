@@ -125,4 +125,4 @@ CompraDetalle.init({
 CompraDetalle.belongsTo(Producto_1.default, { foreignKey: 'productoId', as: 'producto' });
 CompraDetalle.belongsTo(UnidadMedida_1.default, { foreignKey: 'unidadMedidaId', as: 'unidadMedida' });
 CompraDetalle.belongsTo(OrdenCompraDetalle_1.default, { foreignKey: 'ordenCompraDetalleId', as: 'ordenCompraDetalle' });
-exports.default = OrdenCompraDetalle_1.default;
+exports.default = CompraDetalle;

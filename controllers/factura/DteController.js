@@ -46,6 +46,7 @@ const TributosItem_1 = __importDefault(require("../../models/factura/TributosIte
 const ActividadEconomica_1 = __importDefault(require("../../models/factura/ActividadEconomica"));
 const Tributo_1 = __importDefault(require("../../models/inventario/Tributo"));
 const Usuario_1 = __importDefault(require("../../models/auth/Usuario"));
+const NodeMailerController_1 = require("../correo/NodeMailerController");
 const { v4: uuidv4 } = require('uuid');
 function getAllR(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -532,10 +533,37 @@ function getR(req, res) {
         }
     });
 }
+function enviarDocsCorreo(req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            yield (0, NodeMailerController_1.sendEmail)('multisistemas.net@outlook.com', 'ronaldmojica1@gmail.com', 'testcorreo', 'ejemplo en el cuerpo');
+            //Ver
+            res.json((0, apiresponse_1.successResponse)(null, ''));
+        }
+        catch (error) {
+            console.log(error);
+            res.status(200).json((0, apiresponse_1.errorResponse)('Error al buscar'));
+        }
+    });
+}
+function subirArchivos(req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            console.log(req.body);
+            res.json((0, apiresponse_1.successResponse)(null, 'Listo'));
+        }
+        catch (error) {
+            console.log(error);
+            res.status(200).json((0, apiresponse_1.errorResponse)('Error'));
+        }
+    });
+}
 exports.default = {
     getAllR,
     createR,
     updateR,
     deleteR,
-    getR
+    getR,
+    enviarDocsCorreo,
+    subirArchivos
 };

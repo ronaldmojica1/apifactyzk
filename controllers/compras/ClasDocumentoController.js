@@ -12,49 +12,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const Proveedor_1 = __importDefault(require("../../models/compras/Proveedor"));
+const ClaseDocumento_1 = __importDefault(require("../../models/compras/ClaseDocumento"));
 const apiresponse_1 = require("../../config/apiresponse");
-const TipoDocumento_1 = __importDefault(require("../../models/factura/TipoDocumento"));
-const ActividadEconomica_1 = __importDefault(require("../../models/factura/ActividadEconomica"));
-const Pais_1 = __importDefault(require("../../models/region/Pais"));
-const Departamento_1 = __importDefault(require("../../models/region/Departamento"));
-const Municipio_1 = __importDefault(require("../../models/region/Municipio"));
-const TipoPersona_1 = __importDefault(require("../../models/factura/TipoPersona"));
 function getAllR(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const acts = yield Proveedor_1.default.findAll({
-                include: [
-                    {
-                        model: TipoDocumento_1.default,
-                        as: 'tipoDocumento'
-                    },
-                    {
-                        model: ActividadEconomica_1.default,
-                        as: 'actividadEconomica'
-                    },
-                    {
-                        model: Pais_1.default,
-                        as: 'pais',
-                    },
-                    {
-                        model: Departamento_1.default,
-                        as: 'departamento'
-                    },
-                    {
-                        model: Municipio_1.default,
-                        as: 'municipio'
-                    },
-                    {
-                        model: TipoPersona_1.default,
-                        as: 'tipoPersona'
-                    }
-                ]
-            });
+            const acts = yield ClaseDocumento_1.default.findAll();
             res.status(201).json((0, apiresponse_1.successResponse)(acts, ''));
         }
         catch (error) {
-            console.log(error);
             res.status(200).json((0, apiresponse_1.errorResponse)('Error al obtener'));
         }
     });
@@ -62,7 +28,7 @@ function getAllR(req, res) {
 function createR(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const act = yield Proveedor_1.default.create(req.body);
+            const act = yield ClaseDocumento_1.default.create(req.body);
             res.status(201).json((0, apiresponse_1.successResponse)(act, 'Creado con exito!'));
         }
         catch (error) {
@@ -73,7 +39,7 @@ function createR(req, res) {
 function updateR(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const act = yield Proveedor_1.default.findByPk(req.params.id);
+            const act = yield ClaseDocumento_1.default.findByPk(req.params.id);
             if (!act) {
                 res.status(200).json((0, apiresponse_1.notFoundResponse)('No encontrado'));
                 return;
@@ -82,14 +48,14 @@ function updateR(req, res) {
             res.json((0, apiresponse_1.successResponse)(act, 'Actualizado con exito'));
         }
         catch (error) {
-            res.status(200).json((0, apiresponse_1.errorResponse)(error));
+            res.status(200).json((0, apiresponse_1.errorResponse)('Error al eliminar'));
         }
     });
 }
 function deleteR(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const act = yield Proveedor_1.default.findByPk(req.params.id);
+            const act = yield ClaseDocumento_1.default.findByPk(req.params.id);
             if (!act) {
                 res.status(200).json((0, apiresponse_1.notFoundResponse)('No encontrado'));
                 return;
@@ -106,34 +72,7 @@ function deleteR(req, res) {
 function getR(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const act = yield Proveedor_1.default.findByPk(req.params.id, {
-                include: [
-                    {
-                        model: TipoDocumento_1.default,
-                        as: 'tipoDocumento'
-                    },
-                    {
-                        model: ActividadEconomica_1.default,
-                        as: 'actividadEconomica'
-                    },
-                    {
-                        model: Pais_1.default,
-                        as: 'pais',
-                    },
-                    {
-                        model: Departamento_1.default,
-                        as: 'departamento'
-                    },
-                    {
-                        model: Municipio_1.default,
-                        as: 'municipio'
-                    },
-                    {
-                        model: TipoPersona_1.default,
-                        as: 'tipoPersona'
-                    }
-                ]
-            });
+            const act = yield ClaseDocumento_1.default.findByPk(req.params.id);
             if (!act) {
                 res.status(200).json((0, apiresponse_1.notFoundResponse)('No encontrado'));
                 return;
