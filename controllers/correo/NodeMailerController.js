@@ -31,23 +31,34 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.sendEmail = void 0;
 const nodemailer = __importStar(require("nodemailer"));
-const transporter = nodemailer.createTransport({
-    host: 'smtp.office365.com',
-    port: 587,
-    secure: false,
-    auth: {
-        user: 'multisistemas.net@outlook.com',
-        pass: 'S3cur1ty'
-    },
-    tls: {
-        rejectUnauthorized: true
-    }
-});
+const Transporter_1 = __importDefault(require("../../models/correo/Transporter"));
+function createTransporter() {
+    return __awaiter(this, void 0, void 0, function* () {
+        const transporterBd = yield Transporter_1.default.findByPk(1);
+        const transporter = nodemailer.createTransport({
+            host: transporterBd ? transporterBd.host : 'smtp.office365.com',
+            port: transporterBd ? transporterBd.port : 587,
+            secure: transporterBd ? transporterBd.secure : false,
+            auth: {
+                user: transporterBd ? transporterBd.user : '',
+                pass: transporterBd ? transporterBd.pass : ''
+            },
+            tls: {
+                rejectUnauthorized: true
+            }
+        });
+        return transporter;
+    });
+}
 function sendEmail(from, to, subject, text, attachmentPaths) {
     return __awaiter(this, void 0, void 0, function* () {
+        const transporter = yield createTransporter();
         const attachments = attachmentPaths === null || attachmentPaths === void 0 ? void 0 : attachmentPaths.map(path => ({ path }));
         const message = {
             from,

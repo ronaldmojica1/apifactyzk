@@ -47,6 +47,7 @@ const ActividadEconomica_1 = __importDefault(require("../../models/factura/Activ
 const Tributo_1 = __importDefault(require("../../models/inventario/Tributo"));
 const Usuario_1 = __importDefault(require("../../models/auth/Usuario"));
 const NodeMailerController_1 = require("../correo/NodeMailerController");
+const Correo_1 = __importDefault(require("../../models/correo/Correo"));
 const { v4: uuidv4 } = require('uuid');
 function getAllR(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -536,25 +537,15 @@ function getR(req, res) {
 function enviarDocsCorreo(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            yield (0, NodeMailerController_1.sendEmail)('multisistemas.net@outlook.com', 'ronaldmojica1@gmail.com', 'testcorreo', 'ejemplo en el cuerpo');
-            //Ver
+            //await sendEmail(req.body.from,'ronaldmojica1@gmail.com',req.body.subject,req.body.text)        
+            //Obtener la plantilla del correo
+            const plantillaCorreo = yield Correo_1.default.findByPk(1);
+            yield (0, NodeMailerController_1.sendEmail)((plantillaCorreo === null || plantillaCorreo === void 0 ? void 0 : plantillaCorreo.from) || '', 'ronaldmojica1@gmail.com', (plantillaCorreo === null || plantillaCorreo === void 0 ? void 0 : plantillaCorreo.subject) || '', (plantillaCorreo === null || plantillaCorreo === void 0 ? void 0 : plantillaCorreo.text) || '');
             res.json((0, apiresponse_1.successResponse)(null, ''));
         }
         catch (error) {
             console.log(error);
             res.status(200).json((0, apiresponse_1.errorResponse)('Error al buscar'));
-        }
-    });
-}
-function subirArchivos(req, res) {
-    return __awaiter(this, void 0, void 0, function* () {
-        try {
-            console.log(req.body);
-            res.json((0, apiresponse_1.successResponse)(null, 'Listo'));
-        }
-        catch (error) {
-            console.log(error);
-            res.status(200).json((0, apiresponse_1.errorResponse)('Error'));
         }
     });
 }
@@ -565,5 +556,4 @@ exports.default = {
     deleteR,
     getR,
     enviarDocsCorreo,
-    subirArchivos
 };
