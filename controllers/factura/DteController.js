@@ -47,7 +47,9 @@ const ActividadEconomica_1 = __importDefault(require("../../models/factura/Activ
 const Tributo_1 = __importDefault(require("../../models/inventario/Tributo"));
 const Usuario_1 = __importDefault(require("../../models/auth/Usuario"));
 const NodeMailerController_1 = require("../correo/NodeMailerController");
-const Correo_1 = __importDefault(require("../../models/correo/Correo"));
+const DteMhController_1 = __importDefault(require("../dte/DteMhController"));
+const axios_1 = __importDefault(require("axios"));
+const fs_1 = __importDefault(require("fs"));
 const { v4: uuidv4 } = require('uuid');
 function getAllR(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -537,15 +539,50 @@ function getR(req, res) {
 function enviarDocsCorreo(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            //await sendEmail(req.body.from,'ronaldmojica1@gmail.com',req.body.subject,req.body.text)        
-            //Obtener la plantilla del correo
-            const plantillaCorreo = yield Correo_1.default.findByPk(1);
-            yield (0, NodeMailerController_1.sendEmail)((plantillaCorreo === null || plantillaCorreo === void 0 ? void 0 : plantillaCorreo.from) || '', 'ronaldmojica1@gmail.com', (plantillaCorreo === null || plantillaCorreo === void 0 ? void 0 : plantillaCorreo.subject) || '', (plantillaCorreo === null || plantillaCorreo === void 0 ? void 0 : plantillaCorreo.text) || '');
-            res.json((0, apiresponse_1.successResponse)(null, ''));
+            //Obtener el DTE
+            const dte = yield Dte_1.default.findByPk(req.body.dteId);
+            if (dte) {
+                //Descargar el json            
+                const urlLista = (process.env.MH_CONSULTA_JSON || "");
+                let tkn = yield DteMhController_1.default.obtenerToken();
+                let docJson;
+                yield axios_1.default.post(urlLista, {
+                    codigoGeneracion: dte.codigoGeneracion,
+                    tipoRpt: "E"
+                }, {
+                    headers: {
+                        "Authorization": tkn
+                    }
+                }).then((result) => {
+                    //console.log(result.data.body[0].documento)
+                    docJson = result.data.body[0].documento;
+                    docJson['selloRecibido'] = result.data.body[0].selloRecibido;
+                    docJson['firma'] = result.data.body[0].firma;
+                });
+                //guardar el json
+                const filePath = 'uploads/' + dte.codigoGeneracion + '.json';
+                const jsonString = JSON.stringify(docJson, null, 2);
+                fs_1.default.writeFile(filePath, jsonString, (err) => {
+                    if (err) {
+                        console.error(err);
+                    }
+                });
+                //Obtener la plantilla del correo
+                //const plantillaCorreo = await Correo.findByPk(1);
+                const attachments = [
+                    'uploads/' + dte.codigoGeneracion + '.pdf',
+                    'uploads/' + dte.codigoGeneracion + '.json'
+                ];
+                yield (0, NodeMailerController_1.sendEmail)(req.body.from, req.body.to, req.body.subject, req.body.text, attachments);
+                res.json((0, apiresponse_1.successResponse)(null, 'Correo enviado'));
+            }
+            else {
+                res.status(200).json((0, apiresponse_1.errorResponse)("Error al buscar DTE"));
+            }
         }
         catch (error) {
             console.log(error);
-            res.status(200).json((0, apiresponse_1.errorResponse)('Error al buscar'));
+            res.status(200).json((0, apiresponse_1.errorResponse)('Error al enviar'));
         }
     });
 }

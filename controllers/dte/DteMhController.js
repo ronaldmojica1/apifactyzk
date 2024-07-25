@@ -690,4 +690,5 @@ exports.default = {
     getVersionLegible,
     descargarJsonMh,
     consultaLote,
+    obtenerToken,
 };
