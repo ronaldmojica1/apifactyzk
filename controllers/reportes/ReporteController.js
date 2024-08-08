@@ -113,5 +113,5 @@ function rptUsuariosPermisos(req, res) {
 }
 exports.default = {
     rptVentasFechas,
-    rptUsuariosPermisos
+    rptUsuariosPermisos,
 };

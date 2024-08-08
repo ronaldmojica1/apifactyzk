@@ -12,3 +12,4 @@ exports.router = router;
 router.get('/libroventascustyzk', session_1.checkJwt, ReportesArchivoController_1.default.rptLibroVentasXlsCustYzk);
 router.get('/librocomprascustyzk', session_1.checkJwt, ReportesArchivoController_1.default.rptLibroComprasXlsCustYzk);
 router.get('/libroventascontrcustyzk', session_1.checkJwt, ReportesArchivoController_1.default.rptLibroVentasContrCustYzk);
+router.get('/sujetoexcluido', session_1.checkJwt, ReportesArchivoController_1.default.rptSujetoExcluido);
