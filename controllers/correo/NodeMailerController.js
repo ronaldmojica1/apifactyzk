@@ -49,9 +49,6 @@ function createTransporter() {
                 user: transporterBd ? transporterBd.user : '',
                 pass: transporterBd ? transporterBd.pass : ''
             },
-            tls: {
-                rejectUnauthorized: true
-            }
         });
         return transporter;
     });
