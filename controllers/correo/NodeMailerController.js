@@ -45,10 +45,10 @@ function createTransporter() {
             host: transporterBd ? transporterBd.host : 'smtp.office365.com',
             port: transporterBd ? transporterBd.port : 587,
             secure: transporterBd ? transporterBd.secure : false,
-            auth: {
+            /*auth:{
                 user: transporterBd ? transporterBd.user : '',
                 pass: transporterBd ? transporterBd.pass : ''
-            },
+            },*/
         });
         return transporter;
     });
@@ -66,10 +66,10 @@ function sendEmail(from, to, subject, text, attachmentPaths) {
         };
         try {
             yield transporter.sendMail(message);
-            console.log('Correo electrónico enviado correctamente.');
+            return 'Correo electrónico enviado correctamente.';
         }
         catch (error) {
-            console.error('Error al enviar correo electrónico:', error);
+            return 'Error al enviar correo electrónico: ' + error;
         }
     });
 }

@@ -573,8 +573,8 @@ function enviarDocsCorreo(req, res) {
                     'uploads/' + dte.codigoGeneracion + '.pdf',
                     'uploads/' + dte.codigoGeneracion + '.json'
                 ];
-                yield (0, NodeMailerController_1.sendEmail)(req.body.from, req.body.to, req.body.subject, req.body.text, attachments);
-                res.json((0, apiresponse_1.successResponse)(null, 'Correo enviado'));
+                const mailResStr = yield (0, NodeMailerController_1.sendEmail)(req.body.from, req.body.to, req.body.subject, req.body.text, attachments);
+                res.json((0, apiresponse_1.successResponse)(null, mailResStr));
             }
             else {
                 res.status(200).json((0, apiresponse_1.errorResponse)("Error al buscar DTE"));
