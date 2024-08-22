@@ -24,7 +24,7 @@ function getDocumentoRelacionado(dteId) {
             }
         });
         let documentos = [];
-        documentosRel.forEach((doc) => __awaiter(this, void 0, void 0, function* () {
+        for (const doc of documentosRel) {
             const tipoDoc = yield TipoDte_1.default.findByPk(doc.tipoDteId);
             const tipoGeneracion = yield TipoGeneracion_1.default.findByPk(doc.tipoGeneracionId);
             documentos === null || documentos === void 0 ? void 0 : documentos.push({
@@ -33,7 +33,7 @@ function getDocumentoRelacionado(dteId) {
                 numeroDocumento: doc.numeroDocumento,
                 fechaEmision: doc.fechaEmision
             });
-        }));
+        }
         //Verificar si se agregaron documentos
         if (documentos.length == 0) {
             documentos = null;
