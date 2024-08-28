@@ -53,6 +53,11 @@ function rptVentasFechas(req, res) {
                         attributes: ["tipo"]
                     },
                     {
+                        model: Usuario_1.default,
+                        as: 'creadoPor',
+                        attributes: ["nombre"]
+                    },
+                    {
                         model: CuerpoDocumento_1.default,
                         as: 'items',
                         attributes: [
@@ -62,7 +67,7 @@ function rptVentasFechas(req, res) {
                         ]
                     }
                 ],
-                group: ['Dte.id', 'emisor.id', 'receptor.id', 'tipoDte.id', 'items.id']
+                group: ['Dte.id', 'emisor.id', 'receptor.id', 'tipoDte.id', 'items.id', 'creadoPor.id']
             });
             res.status(201).json((0, apiresponse_1.successResponse)(report, ''));
         }
