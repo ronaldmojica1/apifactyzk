@@ -13,15 +13,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const Migracion_1 = __importDefault(require("../../models/actualizacion/Migracion"));
-const Apendice_1 = __importDefault(require("../../models/factura/Apendice"));
-const Contingencia_1 = __importDefault(require("../../models/factura/Contingencia"));
-const ContingenciaDetalle_1 = __importDefault(require("../../models/factura/ContingenciaDetalle"));
-const CuerpoDocumento_1 = __importDefault(require("../../models/factura/CuerpoDocumento"));
-const DocumentosRelacionados_1 = __importDefault(require("../../models/factura/DocumentosRelacionados"));
-const Dte_1 = __importDefault(require("../../models/factura/Dte"));
-const OtrosDocumentos_1 = __importDefault(require("../../models/factura/OtrosDocumentos"));
-const PagoDte_1 = __importDefault(require("../../models/factura/PagoDte"));
-const TributosItem_1 = __importDefault(require("../../models/factura/TributosItem"));
 function verificarMigracion() {
     return __awaiter(this, void 0, void 0, function* () {
         //verificar las migraciones
@@ -38,15 +29,6 @@ function verificarMigracion() {
             const currentVersion = migVersion.version;
             if (currentVersion < expectedVersion) { //En este caso debera actualizar        
                 (() => __awaiter(this, void 0, void 0, function* () {
-                    yield Apendice_1.default.truncate();
-                    yield ContingenciaDetalle_1.default.truncate();
-                    yield TributosItem_1.default.truncate({ cascade: true });
-                    yield CuerpoDocumento_1.default.truncate({ cascade: true });
-                    yield DocumentosRelacionados_1.default.truncate();
-                    yield OtrosDocumentos_1.default.truncate();
-                    yield PagoDte_1.default.truncate();
-                    yield Contingencia_1.default.truncate({ cascade: true });
-                    yield Dte_1.default.truncate({ cascade: true });
                 }))();
                 //Actualizar la version migrada en la BD
                 migVersion.version = expectedVersion;
