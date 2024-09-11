@@ -51,12 +51,15 @@ const csv = __importStar(require("fast-csv"));
 function rptVentasFechas(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const { desde, hasta } = req.query;
+            const { desde, hasta, todas } = req.query;
             const whereOptions = {};
             if (desde && hasta) {
                 whereOptions.fecEmi = {
                     [sequelize_1.Op.between]: [desde, hasta]
                 };
+            }
+            if (todas && todas == 'false') {
+                whereOptions.creadoPorId = req.user.id;
             }
             const report = yield Dte_1.default.findAll({
                 where: whereOptions,
