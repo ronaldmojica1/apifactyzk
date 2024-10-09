@@ -116,7 +116,10 @@ function rptLibroVentasXlsCustYzk(req, res) {
                     [(0, sequelize_1.fn)('SUM', (0, sequelize_1.literal)('"items"."ventaExenta"')), 'totVentaExenta'],
                     [(0, sequelize_1.fn)('SUM', (0, sequelize_1.literal)('"items"."ventaNoSuj"')), 'totVentaNoSuj'],
                 ],
-                group: ['Dte.id']
+                group: ['Dte.id'],
+                order: [
+                    ['fecEmi', 'ASC']
+                ]
             });
             //Buscar el archivo de Excel
             const excelFilePath = path.join(__dirname, '../../archivos/LibroVentas.xlsx');
@@ -228,7 +231,10 @@ function rptLibroComprasXlsCustYzk(req, res) {
                     [(0, sequelize_1.fn)('SUM', (0, sequelize_1.literal)('"items"."ventaExenta"')), 'totVentaExenta'],
                     [(0, sequelize_1.fn)('SUM', (0, sequelize_1.literal)('"items"."ventaNoSuj"')), 'totVentaNoSuj'],
                 ],
-                group: ['Dte.id', 'receptor.id']
+                group: ['Dte.id', 'receptor.id'],
+                order: [
+                    ['fecEmi', 'ASC']
+                ]
             });
             //Buscar el archivo de Excel
             const excelFilePath = path.join(__dirname, '../../archivos/LibroCompras.xlsx');
@@ -347,7 +353,10 @@ function rptLibroVentasContrCustYzk(req, res) {
                     [(0, sequelize_1.fn)('SUM', (0, sequelize_1.literal)('"items"."ventaExenta"')), 'totVentaExenta'],
                     [(0, sequelize_1.fn)('SUM', (0, sequelize_1.literal)('"items"."ventaNoSuj"')), 'totVentaNoSuj'],
                 ],
-                group: ['Dte.id', 'receptor.id']
+                group: ['Dte.id', 'receptor.id'],
+                order: [
+                    ['fecEmi', 'ASC']
+                ]
             });
             //Obtener el total de exportaciones
             whereOptions.tipoDteId = {
@@ -527,7 +536,7 @@ function rptSujetoExcluido(req, res) {
                     [(0, sequelize_1.fn)('SUM', (0, sequelize_1.literal)('"items"."ventaExenta"')), 'totVentaExenta'],
                     [(0, sequelize_1.fn)('SUM', (0, sequelize_1.literal)('"items"."ventaNoSuj"')), 'totVentaNoSuj'],
                 ],
-                group: ['Dte.id', 'receptor.id', 'receptor.departamento.id', 'receptor.municipio.invmd']
+                group: ['Dte.id', 'receptor.id', 'receptor.departamento.id', 'receptor.municipio.id']
             });
             //Buscar el archivo de Excel
             const excelFilePath = path.join(__dirname, '../../archivos/ReporteSujetoExcluido.xlsx');

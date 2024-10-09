@@ -13,13 +13,17 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const Migracion_1 = __importDefault(require("../../models/actualizacion/Migracion"));
+const Compra_1 = __importDefault(require("../../models/compras/Compra"));
+const CompraDetalle_1 = __importDefault(require("../../models/compras/CompraDetalle"));
+const OrdenCompra_1 = __importDefault(require("../../models/compras/OrdenCompra"));
+const OrdenCompraDetalle_1 = __importDefault(require("../../models/compras/OrdenCompraDetalle"));
 function verificarMigracion() {
     return __awaiter(this, void 0, void 0, function* () {
         //verificar las migraciones
         //Este procedimiento se ejecuta para verificar la version actual y ejecutar
         yield Migracion_1.default.sync(); //Si no se ha creado en la BD, OJO ESTA LINEA LA PUEDO BORRAR DESPUES DE LA PRIMERA ACTUALIZACION
         Migracion_1.default.findOne().then((migVersion) => __awaiter(this, void 0, void 0, function* () {
-            const expectedVersion = 18; //****Esta es la version que debo modificar cada vez que se haga algun cambio en la estructura de la BD (15 usada para migrar)
+            const expectedVersion = 20; //****Esta es la version que debo modificar cada vez que se haga algun cambio en la estructura de la BD (15 usada para migrar)
             //Si no existe version (primera vez crear)
             if (!migVersion) {
                 migVersion = yield Migracion_1.default.create({
@@ -29,6 +33,10 @@ function verificarMigracion() {
             const currentVersion = migVersion.version;
             if (currentVersion < expectedVersion) { //En este caso debera actualizar        
                 (() => __awaiter(this, void 0, void 0, function* () {
+                    yield OrdenCompra_1.default.sync();
+                    yield OrdenCompraDetalle_1.default.sync();
+                    yield Compra_1.default.sync();
+                    yield CompraDetalle_1.default.sync();
                 }))();
                 //Actualizar la version migrada en la BD
                 migVersion.version = expectedVersion;
