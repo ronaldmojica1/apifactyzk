@@ -9,6 +9,7 @@ const cors_1 = __importDefault(require("cors"));
 const body_parser_1 = __importDefault(require("body-parser"));
 const routes_1 = require("./routes");
 const MigracionController_1 = __importDefault(require("./controllers/actualizaciones/MigracionController"));
+process.env.TZ = "America/El_Salvador";
 const envFile = process.env.NODE_ENV === 'development' ? '.env.development' : '.env.production';
 dotenv_1.default.config({ path: envFile });
 const PORT = process.env.PORT || 3001;

@@ -245,10 +245,10 @@ function rptLibroComprasXlsCustYzk(req, res) {
             const worksheet = workbook.getWorksheet(1);
             if (worksheet) {
                 //Colocar el encabezado
-                worksheet.getCell("A1").value = nombMes.toUpperCase();
-                worksheet.getCell("E1").value = "AÑO: " + fecha.getFullYear();
+                worksheet.getCell("A3").value = nombMes.toUpperCase();
+                worksheet.getCell("E3").value = "AÑO: " + fecha.getFullYear();
                 // Calcular la próxima fila disponible para pegar datos
-                let nextRow = 6;
+                let nextRow = 8;
                 let correlativo = 1;
                 // Pegar los datos en la hoja de Excel                
                 const datosJson = datos.map((d) => d.toJSON());

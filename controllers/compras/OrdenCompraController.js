@@ -19,6 +19,7 @@ const Proveedor_1 = __importDefault(require("../../models/compras/Proveedor"));
 const CondicionOperacions_1 = __importDefault(require("../../models/factura/CondicionOperacions"));
 const Usuario_1 = __importDefault(require("../../models/auth/Usuario"));
 const OrdenCompraDetalle_1 = __importDefault(require("../../models/compras/OrdenCompraDetalle"));
+const Producto_1 = __importDefault(require("../../models/inventario/Producto"));
 function getAllR(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -60,12 +61,14 @@ function createR(req, res) {
             if (itemsLst != undefined) {
                 itemsLst.forEach((item) => __awaiter(this, void 0, void 0, function* () {
                     item.ordenCompraId = act.id;
+                    console.log(item);
                     const actItm = yield OrdenCompraDetalle_1.default.create(item);
                 }));
             }
             res.status(201).json((0, apiresponse_1.successResponse)(act, 'Creado con exito!'));
         }
         catch (error) {
+            console.log(error);
             res.status(200).json((0, apiresponse_1.errorResponse)('Error al crear'));
         }
     });
@@ -111,7 +114,7 @@ function deleteR(req, res) {
                 res.status(200).json((0, apiresponse_1.notFoundResponse)('No encontrado'));
                 return;
             }
-            //Elimiar el detalle
+            //Eliminar el detalle
             yield OrdenCompraDetalle_1.default.destroy({
                 where: {
                     ordenCompraId: req.params.id
@@ -146,6 +149,16 @@ function getR(req, res) {
                     {
                         model: Usuario_1.default,
                         as: 'creadoPor'
+                    },
+                    {
+                        model: OrdenCompraDetalle_1.default,
+                        as: 'items',
+                        include: [
+                            {
+                                model: Producto_1.default,
+                                as: 'producto'
+                            }
+                        ]
                     }
                 ]
             });
@@ -157,6 +170,7 @@ function getR(req, res) {
             res.json((0, apiresponse_1.successResponse)(act, ''));
         }
         catch (error) {
+            console.log(error);
             res.status(200).json((0, apiresponse_1.errorResponse)('Error al buscar'));
         }
     });

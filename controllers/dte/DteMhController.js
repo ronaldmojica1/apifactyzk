@@ -135,6 +135,7 @@ function guardarJWT(jwt) {
 //Firmar el DTE (Final)
 function firmarDte(jsonDte) {
     return __awaiter(this, void 0, void 0, function* () {
+        console.log(jsonDte);
         const credenciales = yield obtenerCredenciales();
         const jsonFirmar = {
             nit: (credenciales === null || credenciales === void 0 ? void 0 : credenciales.nit) || "",
@@ -183,6 +184,7 @@ function transmitirDte(req, res) {
             }).then((result) => {
                 resp = result.data;
             }).catch((error) => {
+                console.log(error);
                 if (error.response) {
                     if (error.response.status == 401) {
                         resp = {
@@ -645,6 +647,7 @@ function getVersionLegible(req, res) {
         }).then((result) => {
             resp = result.data;
         }).catch((error) => {
+            console.log(error);
             if (error.response) {
                 resp = error.response.data;
             }

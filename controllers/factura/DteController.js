@@ -237,7 +237,16 @@ function updateR(req, res) {
                     }
                     else if (item.confirmacion == 'Agregado') {
                         item.dteId = act.id;
-                        yield CuerpoDocumento_1.default.create(item);
+                        const actItm = yield CuerpoDocumento_1.default.create(item);
+                        //guardar los tributos del item
+                        const tribLst = item.tributos;
+                        if (tribLst != undefined) {
+                            tribLst.forEach((trib) => __awaiter(this, void 0, void 0, function* () {
+                                trib.dteId = act.id;
+                                trib.itemId = actItm.id;
+                                yield TributosItem_1.default.create(trib);
+                            }));
+                        }
                     }
                     else {
                         yield CuerpoDocumento_1.default.findByPk(item.id).then((itm) => itm === null || itm === void 0 ? void 0 : itm.update(item));

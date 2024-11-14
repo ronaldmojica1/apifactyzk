@@ -74,7 +74,7 @@ Compra.init({
     },
     tipoMoneda: {
         type: sequelize_1.DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
         defaultValue: 'USD'
     },
     descuNoSuj: {
