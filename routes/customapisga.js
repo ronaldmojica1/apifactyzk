@@ -9,3 +9,4 @@ const SgaConController_1 = __importDefault(require("../controllers/customapi/Sga
 const router = (0, express_1.Router)();
 exports.router = router;
 router.post('/guardarfex', SgaConController_1.default.guardarFex);
+router.get('/verificarnoviaje', SgaConController_1.default.verificarNoViaje);

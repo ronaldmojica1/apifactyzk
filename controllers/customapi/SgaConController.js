@@ -18,6 +18,29 @@ const CuerpoDocumento_1 = __importDefault(require("../../models/factura/CuerpoDo
 const Producto_1 = __importDefault(require("../../models/inventario/Producto"));
 const apiresponse_1 = require("../../config/apiresponse");
 const { v4: uuidv4 } = require('uuid');
+//Funcion customizada solo para YZK
+function verificarNoViaje(req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const { noViaje } = req.query;
+            const act = yield Dte_1.default.findOne({
+                where: {
+                    noViaje: noViaje
+                }
+            });
+            if (act) {
+                res.status(200).json((0, apiresponse_1.successResponse)(act, ''));
+            }
+            else {
+                res.status(200).json((0, apiresponse_1.notFoundResponse)('No encontrado'));
+            }
+        }
+        catch (error) {
+            console.log(error);
+            return res.status(200).json((0, apiresponse_1.errorResponse)('Error al verificar'));
+        }
+    });
+}
 function guardarFex(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -95,5 +118,6 @@ function guardarFex(req, res) {
     });
 }
 exports.default = {
-    guardarFex
+    guardarFex,
+    verificarNoViaje
 };
