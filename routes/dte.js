@@ -18,3 +18,4 @@ router.delete('/:id', session_1.checkJwt, DteController_1.default.deleteR);
 router.post('/correo/enviar', MulterController_1.upload.array('files'), function (req, res, next) {
     DteController_1.default.enviarDocsCorreo(req, res);
 });
+router.get('/verificar/noviaje', DteController_1.default.verificarNoViaje);
