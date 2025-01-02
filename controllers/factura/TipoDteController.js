@@ -17,7 +17,11 @@ const apiresponse_1 = require("../../config/apiresponse");
 function getAllR(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const acts = yield TipoDte_1.default.findAll();
+            const acts = yield TipoDte_1.default.findAll({
+                order: [
+                    ['id', 'ASC']
+                ]
+            });
             res.status(201).json((0, apiresponse_1.successResponse)(acts, ''));
         }
         catch (error) {

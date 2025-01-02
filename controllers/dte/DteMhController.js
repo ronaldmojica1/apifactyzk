@@ -221,7 +221,7 @@ function actualizarDteTransmitido(dte, resp, numeroControl) {
         dte.ambienteId = process.env.MH_AMBIENTE ? (process.env.MH_AMBIENTE == '00' ? 1 : 2) : null;
         dte.selloRecibido = resp.selloRecibido;
         dte.codigoGeneracion = resp.codigoGeneracion;
-        dte.numeroControl = numeroControl;
+        //dte.numeroControl = numeroControl;
         dte.save();
     });
 }

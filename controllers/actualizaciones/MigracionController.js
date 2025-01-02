@@ -13,15 +13,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const Migracion_1 = __importDefault(require("../../models/actualizacion/Migracion"));
-const Compra_1 = __importDefault(require("../../models/compras/Compra"));
-const OrdenCompra_1 = __importDefault(require("../../models/compras/OrdenCompra"));
+const TipoDte_1 = __importDefault(require("../../models/factura/TipoDte"));
 function verificarMigracion() {
     return __awaiter(this, void 0, void 0, function* () {
         //verificar las migraciones
         //Este procedimiento se ejecuta para verificar la version actual y ejecutar
         yield Migracion_1.default.sync(); //Si no se ha creado en la BD, OJO ESTA LINEA LA PUEDO BORRAR DESPUES DE LA PRIMERA ACTUALIZACION
         Migracion_1.default.findOne().then((migVersion) => __awaiter(this, void 0, void 0, function* () {
-            const expectedVersion = 21; //****Esta es la version que debo modificar cada vez que se haga algun cambio en la estructura de la BD (15 usada para migrar)
+            const expectedVersion = 22; //****Esta es la version que debo modificar cada vez que se haga algun cambio en la estructura de la BD (15 usada para migrar)
             //Si no existe version (primera vez crear)
             if (!migVersion) {
                 migVersion = yield Migracion_1.default.create({
@@ -31,8 +30,7 @@ function verificarMigracion() {
             const currentVersion = migVersion.version;
             if (currentVersion < expectedVersion) { //En este caso debera actualizar        
                 (() => __awaiter(this, void 0, void 0, function* () {
-                    yield OrdenCompra_1.default.sync({ alter: true });
-                    yield Compra_1.default.sync({ alter: true });
+                    yield TipoDte_1.default.sync({ alter: true });
                 }))();
                 //Actualizar la version migrada en la BD
                 migVersion.version = expectedVersion;

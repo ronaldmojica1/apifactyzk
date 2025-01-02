@@ -24,6 +24,11 @@ TipoDte.init({
     version: {
         type: sequelize_1.DataTypes.INTEGER,
         allowNull: false
+    },
+    correlativo: {
+        type: sequelize_1.DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 1
     }
 }, {
     sequelize: database_1.default,

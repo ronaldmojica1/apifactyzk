@@ -25,12 +25,28 @@ function getIdentificacion(dte) {
         const tipoModelo = yield TipoModelo_1.default.findByPk(dte === null || dte === void 0 ? void 0 : dte.tipoModeloId);
         const tipoOperacion = yield TipoOperacion_1.default.findByPk(dte === null || dte === void 0 ? void 0 : dte.tipoOperacionId);
         const tipoContingencia = yield TipoContingencia_1.default.findByPk((dte === null || dte === void 0 ? void 0 : dte.tipoContingenciaId) || 0);
-        const docId = (dte === null || dte === void 0 ? void 0 : dte.id) || '';
+        //verificar si el campo de dte.numeroControl es diferente de null
+        let numeroControl = '';
+        if ((dte === null || dte === void 0 ? void 0 : dte.numeroControl) == null) {
+            //const docId = dte?.id || ''
+            const docId = (tipoDte === null || tipoDte === void 0 ? void 0 : tipoDte.correlativo) || '';
+            //Incrementar correlativo
+            tipoDte ? tipoDte.correlativo = ((tipoDte === null || tipoDte === void 0 ? void 0 : tipoDte.correlativo) || 0) + 1 : null;
+            yield (tipoDte === null || tipoDte === void 0 ? void 0 : tipoDte.save());
+            numeroControl = "DTE-" + (tipoDte === null || tipoDte === void 0 ? void 0 : tipoDte.codigo) + '-' + (emisor === null || emisor === void 0 ? void 0 : emisor.codEstable) + (emisor === null || emisor === void 0 ? void 0 : emisor.codPuntoVenta) + '-' + '0'.repeat(15 - docId.toString().length) + docId.toString();
+            if (dte) {
+                dte.numeroControl = numeroControl;
+                yield dte.save();
+            }
+        }
+        else {
+            numeroControl = dte.numeroControl;
+        }
         const identificacion = {
             version: (tipoDte === null || tipoDte === void 0 ? void 0 : tipoDte.version) || 1,
             ambiente: process.env.MH_AMBIENTE || '',
             tipoDte: (tipoDte === null || tipoDte === void 0 ? void 0 : tipoDte.codigo) || '00',
-            numeroControl: "DTE-" + (tipoDte === null || tipoDte === void 0 ? void 0 : tipoDte.codigo) + '-' + (emisor === null || emisor === void 0 ? void 0 : emisor.codEstable) + (emisor === null || emisor === void 0 ? void 0 : emisor.codPuntoVenta) + '-' + '0'.repeat(15 - docId.toString().length) + docId.toString(),
+            numeroControl: numeroControl,
             codigoGeneracion: (dte === null || dte === void 0 ? void 0 : dte.codigoGeneracion) || '',
             tipoModelo: (tipoModelo === null || tipoModelo === void 0 ? void 0 : tipoModelo.codigo) || 0,
             tipoOperacion: (tipoOperacion === null || tipoOperacion === void 0 ? void 0 : tipoOperacion.codigo) || 0,
