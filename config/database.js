@@ -15,8 +15,10 @@ const db = process.env.DB_NAME;
 const usr = process.env.DB_USER;
 const pwd = process.env.DB_PWD;
 const host = process.env.DB_HOST;
+const port = process.env.DB_PORT;
 const sequelize = new sequelize_1.Sequelize(db || 'apifact', usr || 'root', pwd || '', {
     host: host || 'localhost',
-    dialect: dialect || 'mysql'
+    dialect: dialect || 'postgres',
+    port: parseInt(port || '5432'),
 });
 exports.default = sequelize;

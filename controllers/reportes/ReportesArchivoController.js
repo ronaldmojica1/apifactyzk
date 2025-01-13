@@ -45,6 +45,7 @@ const meses_1 = require("../../utils/meses");
 const Receptor_1 = __importDefault(require("../../models/factura/Receptor"));
 const Departamento_1 = __importDefault(require("../../models/region/Departamento"));
 const Municipio_1 = __importDefault(require("../../models/region/Municipio"));
+const TipoDte_1 = __importDefault(require("../../models/factura/TipoDte"));
 function rptLibroVentasXlsCustYzk(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -61,11 +62,11 @@ function rptLibroVentasXlsCustYzk(req, res) {
                         [sequelize_1.Op.between]: [desde, hasta],
                     },
                 },
-                {
+                /*{
                     fecAnula: {
-                        [sequelize_1.Op.between]: [desde, hasta],
+                        [Op.between]: [desde, hasta],
                     },
-                },
+                },*/
             ];
             whereOptions.tipoDteId = {
                 [sequelize_1.Op.or]: [1, 9]
@@ -73,75 +74,141 @@ function rptLibroVentasXlsCustYzk(req, res) {
             whereOptions.selloRecibido = {
                 [sequelize_1.Op.ne]: null
             };
-            whereOptions[sequelize_1.Op.and] = [
+            /*whereOptions[Op.and] = [
                 {
-                    [sequelize_1.Op.or]: [
+                    [Op.or]: [
                         {
                             docAnulado: false
                         },
                         {
-                            [sequelize_1.Op.and]: [
+                            [Op.and]: [
                                 {
                                     docAnulado: true
                                 },
                                 {
                                     fecAnula: {
-                                        [sequelize_1.Op.between]: [desde, hasta]
+                                        [Op.between]: [desde, hasta]
                                     }
                                 },
                                 {
                                     fecEmi: {
-                                        [sequelize_1.Op.lt]: desde
+                                        [Op.lt]: desde
                                     }
                                 }
                             ]
                         }
                     ]
                 }
-            ];
+            ];*/
             const dteAttributes = Object.keys(Dte_1.default.getAttributes());
             const datos = yield Dte_1.default.findAll({
                 where: whereOptions,
+                attributes: [
+                    [(0, sequelize_1.col)('Dte.fecEmi'), 'fecha'],
+                    [(0, sequelize_1.literal)(`(
+                    SELECT "selloRecibido"
+                    FROM "dte" AS "subDte"
+                    WHERE "subDte"."fecEmi" = "Dte"."fecEmi"
+                    ORDER BY "subDte"."horEmi" ASC
+                    LIMIT 1
+                  )`), 'primerSello'],
+                    [(0, sequelize_1.literal)(`(
+                    SELECT "selloRecibido"
+                    FROM "dte" AS "subDte"
+                    WHERE "subDte"."fecEmi" = "Dte"."fecEmi"
+                    ORDER BY "subDte"."horEmi" DESC
+                    LIMIT 1
+                  )`), 'ultimoSello'],
+                    [(0, sequelize_1.literal)(`(
+                    SELECT "codigoGeneracion"
+                    FROM "dte" AS "subDte"
+                    WHERE "subDte"."fecEmi" = "Dte"."fecEmi"
+                    ORDER BY "subDte"."horEmi" ASC
+                    LIMIT 1
+                  )`),
+                        'primerDocumento'],
+                    [(0, sequelize_1.literal)(`(
+                    SELECT "codigoGeneracion"
+                    FROM "dte" AS "subDte"
+                    WHERE "subDte"."fecEmi" = "Dte"."fecEmi"
+                    ORDER BY "subDte"."horEmi" DESC
+                    LIMIT 1
+                  )`),
+                        'ultimoDocumento',],
+                    [(0, sequelize_1.literal)(`(
+                    SELECT "numeroControl"
+                    FROM "dte" AS "subDte"
+                    WHERE "subDte"."fecEmi" = "Dte"."fecEmi"
+                    ORDER BY "subDte"."horEmi" ASC
+                    LIMIT 1
+                  )`), 'primerNumero'],
+                    [(0, sequelize_1.literal)(`(
+                    SELECT "numeroControl"
+                    FROM "dte" AS "subDte"
+                    WHERE "subDte"."fecEmi" = "Dte"."fecEmi"
+                    ORDER BY "subDte"."horEmi" DESC
+                    LIMIT 1
+                  )`), 'ultimoNumero'],
+                    [(0, sequelize_1.literal)('ROUND((SUM(CASE WHEN "Dte"."esVentaTercero" = false AND "Dte"."tipoDteId" = 1 THEN "items"."ventaExenta" ELSE 0.00 END))::numeric,2)'), 'ventaExenta'],
+                    [(0, sequelize_1.literal)('ROUND((SUM(CASE WHEN "Dte"."esVentaTercero" = false AND "Dte"."tipoDteId" = 1 THEN "items"."ventaNoSuj" ELSE 0.00 END))::numeric,2)'), 'ventaNoSuj'],
+                    [(0, sequelize_1.literal)('ROUND((SUM(CASE WHEN "Dte"."esVentaTercero" = false AND "Dte"."tipoDteId" = 1 THEN "items"."ventaGravada" ELSE 0.00 END))::numeric,2)'), 'ventaGravada'],
+                    [(0, sequelize_1.literal)('ROUND((SUM(CASE WHEN "Dte"."esVentaTercero" = false AND "Dte"."tipoItemExpoId" <> 2  AND "Dte"."tipoDteId" = 9 AND "receptor"."paisId" IN (23,46,72,77,117,126) THEN "items"."ventaGravada" ELSE 0.00 END))::numeric,2)'), 'exportacionDCA'],
+                    [(0, sequelize_1.literal)('ROUND((SUM(CASE WHEN "Dte"."esVentaTercero" = false AND "Dte"."tipoItemExpoId" <> 2  AND "Dte"."tipoDteId" = 9 AND "receptor"."paisId" NOT IN (23,46,72,77,117,126) THEN "items"."ventaGravada" ELSE 0.00 END))::numeric,2)'), 'exportacionFCA'],
+                    [(0, sequelize_1.literal)('ROUND((SUM("items"."ventaGravada" + "items"."ventaNoSuj" + "items"."ventaExenta" ))::numeric,2)'), 'totalVentas'], //M                                                
+                ],
+                group: ['Dte.fecEmi', 'tipoDte.id', 'Dte.tipoDteId'],
+                order: [['fecEmi', 'ASC']],
                 include: [
+                    {
+                        model: TipoDte_1.default,
+                        as: 'tipoDte',
+                        attributes: []
+                    },
                     {
                         model: CuerpoDocumento_1.default,
                         as: 'items',
+                        attributes: []
+                    },
+                    {
+                        model: Receptor_1.default,
+                        as: 'receptor',
                         attributes: [],
-                        required: false,
                     }
                 ],
-                attributes: [
-                    ...dteAttributes,
-                    [(0, sequelize_1.fn)('SUM', (0, sequelize_1.literal)('"items"."ventaGravada"')), 'totVentaGravada'],
-                    [(0, sequelize_1.fn)('SUM', (0, sequelize_1.literal)('"items"."ventaExenta"')), 'totVentaExenta'],
-                    [(0, sequelize_1.fn)('SUM', (0, sequelize_1.literal)('"items"."ventaNoSuj"')), 'totVentaNoSuj'],
-                ],
-                group: ['Dte.id'],
-                order: [
-                    ['fecEmi', 'ASC']
-                ]
+                raw: true
             });
+            console.log(datos);
             //Buscar el archivo de Excel
             const excelFilePath = path.join(__dirname, '../../archivos/LibroVentas.xlsx');
             // Cargar el archivo de Excel existente
             const workbook = new ExcelJS.Workbook();
             yield workbook.xlsx.readFile(excelFilePath);
             // Obtener la hoja de Excel en la que deseas agregar o actualizar datos
-            const worksheet = workbook.getWorksheet(1);
+            const worksheet = workbook.getWorksheet("datos");
             if (worksheet) {
                 //Poner el encabezado del reporte el periodo
-                worksheet.getCell("A4").value = "MES DE " + nombMes.toUpperCase() + " " + fecha.getFullYear();
+                worksheet.getCell("A4").value = "MES: " + nombMes.toUpperCase();
+                worksheet.getCell("C4").value = fecha.getFullYear();
                 // Calcular la próxima fila disponible para pegar datos
-                let nextRow = 7;
+                let nextRow = 8;
                 // Pegar los datos en la hoja de Excel                
-                const datosJson = datos.map((d) => d.toJSON());
-                datosJson.forEach((dato) => {
+                //const datosJson = datos.map((d:any) => d.toJSON());                
+                datos.forEach((dato) => {
+                    console.log(dato);
                     //Identificar los items
-                    worksheet.getCell(`A${nextRow}`).value = dato.fecEmi.split("-")[2];
-                    worksheet.getCell(`B${nextRow}`).value = dato.codigoGeneracion;
-                    worksheet.getCell(`C${nextRow}`).value = dato.codigoGeneracion;
-                    worksheet.getCell(`F${nextRow}`).value = dato.tipoDteId == 1 ? (dato.docAnulado == true ? (dato.totVentaGravada * -1) : dato.totVentaGravada) : 0;
-                    worksheet.getCell(`H${nextRow}`).value = dato.tipoDteId == 9 ? (dato.docAnulado == true ? (dato.totVentaGravada * -1) : dato.totVentaGravada) : 0;
+                    worksheet.getCell(`A${nextRow}`).value = dato.fecha;
+                    worksheet.getCell(`B${nextRow}`).value = dato.primerSello;
+                    worksheet.getCell(`C${nextRow}`).value = dato.ultimoSello;
+                    worksheet.getCell(`D${nextRow}`).value = dato.primerDocumento;
+                    worksheet.getCell(`E${nextRow}`).value = dato.ultimoDocumento;
+                    worksheet.getCell(`F${nextRow}`).value = dato.primerNumero;
+                    worksheet.getCell(`G${nextRow}`).value = dato.ultimoNumero;
+                    worksheet.getCell(`H${nextRow}`).value = parseFloat(dato.ventaExenta);
+                    worksheet.getCell(`I${nextRow}`).value = parseFloat(dato.ventaNoSuj);
+                    worksheet.getCell(`J${nextRow}`).value = parseFloat(dato.ventaGravada);
+                    worksheet.getCell(`K${nextRow}`).value = parseFloat(dato.exportacionDCA);
+                    worksheet.getCell(`L${nextRow}`).value = parseFloat(dato.exportacionFCA);
+                    worksheet.getCell(`M${nextRow}`).value = parseFloat(dato.totalVentas);
                     nextRow++;
                 });
             }
@@ -171,11 +238,11 @@ function rptLibroComprasXlsCustYzk(req, res) {
                         [sequelize_1.Op.between]: [desde, hasta],
                     },
                 },
-                {
+                /*{
                     fecAnula: {
-                        [sequelize_1.Op.between]: [desde, hasta],
+                        [Op.between]: [desde, hasta],
                     },
-                },
+                },*/
             ];
             whereOptions.tipoDteId = {
                 [sequelize_1.Op.or]: [10]
@@ -183,32 +250,32 @@ function rptLibroComprasXlsCustYzk(req, res) {
             whereOptions.selloRecibido = {
                 [sequelize_1.Op.ne]: null
             };
-            whereOptions[sequelize_1.Op.and] = [
+            /*whereOptions[Op.and] = [
                 {
-                    [sequelize_1.Op.or]: [
+                    [Op.or]: [
                         {
                             docAnulado: false
                         },
                         {
-                            [sequelize_1.Op.and]: [
+                            [Op.and]: [
                                 {
                                     docAnulado: true
                                 },
                                 {
                                     fecAnula: {
-                                        [sequelize_1.Op.between]: [desde, hasta]
+                                        [Op.between]: [desde, hasta]
                                     }
                                 },
                                 {
                                     fecEmi: {
-                                        [sequelize_1.Op.lt]: desde
+                                        [Op.lt]: desde
                                     }
                                 }
                             ]
                         }
                     ]
                 }
-            ];
+            ];*/
             const dteAttributes = Object.keys(Dte_1.default.getAttributes());
             const datos = yield Dte_1.default.findAll({
                 where: whereOptions,
@@ -242,13 +309,13 @@ function rptLibroComprasXlsCustYzk(req, res) {
             const workbook = new ExcelJS.Workbook();
             yield workbook.xlsx.readFile(excelFilePath);
             // Obtener la hoja de Excel en la que deseas agregar o actualizar datos
-            const worksheet = workbook.getWorksheet(1);
+            const worksheet = workbook.getWorksheet("datos");
             if (worksheet) {
                 //Colocar el encabezado
-                worksheet.getCell("A3").value = nombMes.toUpperCase();
-                worksheet.getCell("E3").value = "AÑO: " + fecha.getFullYear();
+                worksheet.getCell("A6").value = "MES: " + nombMes.toUpperCase() + " " + fecha.getFullYear();
+                //worksheet.getCell("E3").value = "AÑO: " + fecha.getFullYear();
                 // Calcular la próxima fila disponible para pegar datos
-                let nextRow = 8;
+                let nextRow = 9;
                 let correlativo = 1;
                 // Pegar los datos en la hoja de Excel                
                 const datosJson = datos.map((d) => d.toJSON());
@@ -257,12 +324,12 @@ function rptLibroComprasXlsCustYzk(req, res) {
                     //Identificar los items
                     worksheet.getCell(`A${nextRow}`).value = correlativo;
                     worksheet.getCell(`B${nextRow}`).value = dato.fecEmi;
-                    worksheet.getCell(`C${nextRow}`).value = dato.codigoGeneracion;
+                    worksheet.getCell(`C${nextRow}`).value = dato.numeroControl;
                     worksheet.getCell(`D${nextRow}`).value = dato.selloRecibido;
-                    worksheet.getCell(`E${nextRow}`).value = dato.receptor.numDocumento;
-                    worksheet.getCell(`F${nextRow}`).value = dato.receptor.nombre;
-                    worksheet.getCell(`M${nextRow}`).value = dato.docAnulado == true ? (tCompra * -1) : tCompra;
-                    worksheet.getCell(`N${nextRow}`).value = dato.docAnulado == true ? (dato.reteRenta * -1) : dato.reteRenta;
+                    worksheet.getCell(`E${nextRow}`).value = dato.codigoGeneracion;
+                    worksheet.getCell(`G${nextRow}`).value = dato.receptor.numDocumento;
+                    worksheet.getCell(`H${nextRow}`).value = dato.receptor.nombre;
+                    worksheet.getCell(`U${nextRow}`).value = tCompra;
                     nextRow++;
                     correlativo++;
                 });
@@ -293,48 +360,53 @@ function rptLibroVentasContrCustYzk(req, res) {
                         [sequelize_1.Op.between]: [desde, hasta],
                     },
                 },
-                {
+                /*{
                     fecAnula: {
-                        [sequelize_1.Op.between]: [desde, hasta],
+                        [Op.between]: [desde, hasta],
                     },
-                },
+                },*/
             ];
             whereOptions.tipoDteId = {
-                [sequelize_1.Op.or]: [2]
+                [sequelize_1.Op.or]: [2, 9]
             };
             whereOptions.selloRecibido = {
                 [sequelize_1.Op.ne]: null
             };
-            whereOptions[sequelize_1.Op.and] = [
+            /*whereOptions[Op.and] = [
                 {
-                    [sequelize_1.Op.or]: [
+                    [Op.or]: [
                         {
                             docAnulado: false
                         },
                         {
-                            [sequelize_1.Op.and]: [
+                            [Op.and]: [
                                 {
                                     docAnulado: true
                                 },
                                 {
                                     fecAnula: {
-                                        [sequelize_1.Op.between]: [desde, hasta]
+                                        [Op.between]: [desde, hasta]
                                     }
                                 },
                                 {
                                     fecEmi: {
-                                        [sequelize_1.Op.lt]: desde
+                                        [Op.lt]: desde
                                     }
                                 }
                             ]
                         }
                     ]
                 }
-            ];
+            ];*/
             const dteAttributes = Object.keys(Dte_1.default.getAttributes());
             const datos = yield Dte_1.default.findAll({
                 where: whereOptions,
                 include: [
+                    {
+                        model: TipoDte_1.default,
+                        as: 'tipoDte',
+                        attributes: []
+                    },
                     {
                         model: CuerpoDocumento_1.default,
                         as: 'items',
@@ -349,8 +421,8 @@ function rptLibroVentasContrCustYzk(req, res) {
                 ],
                 attributes: [
                     ...dteAttributes,
-                    [(0, sequelize_1.fn)('SUM', (0, sequelize_1.literal)('"items"."ventaGravada"')), 'totVentaGravada'],
-                    [(0, sequelize_1.fn)('SUM', (0, sequelize_1.literal)('"items"."ventaExenta"')), 'totVentaExenta'],
+                    [(0, sequelize_1.literal)('ROUND((SUM(CASE WHEN "Dte"."tipoDteId" = 2 THEN "items"."ventaGravada" ELSE 0.00 END))::numeric,2)'), 'totVentaGravada'],
+                    [(0, sequelize_1.literal)('ROUND((SUM(CASE WHEN "Dte"."tipoDteId" = 9 THEN "items"."ventaGravada" ELSE 0.00 END))::numeric,2)'), 'totVentaExenta'],
                     [(0, sequelize_1.fn)('SUM', (0, sequelize_1.literal)('"items"."ventaNoSuj"')), 'totVentaNoSuj'],
                 ],
                 group: ['Dte.id', 'receptor.id'],
@@ -358,70 +430,46 @@ function rptLibroVentasContrCustYzk(req, res) {
                     ['fecEmi', 'ASC']
                 ]
             });
-            //Obtener el total de exportaciones
-            whereOptions.tipoDteId = {
-                [sequelize_1.Op.or]: [9]
-            };
-            const datosExp = yield Dte_1.default.findAll({
-                where: whereOptions,
-                include: [
-                    {
-                        model: CuerpoDocumento_1.default,
-                        as: 'items',
-                        attributes: [],
-                        required: false,
-                    },
-                ],
-                attributes: [
-                    [(0, sequelize_1.fn)('SUM', (0, sequelize_1.literal)('"items"."ventaGravada"')), 'totVentaGravada'],
-                    [(0, sequelize_1.fn)('SUM', (0, sequelize_1.literal)('"items"."ventaExenta"')), 'totVentaExenta'],
-                    [(0, sequelize_1.fn)('SUM', (0, sequelize_1.literal)('"items"."ventaNoSuj"')), 'totVentaNoSuj'],
-                ],
-                group: ['Dte.id']
-            });
-            const sumExport = datosExp.map((d) => d.toJSON()).reduce((tot, dte) => {
-                return tot + (dte.totVentaGravada + dte.totVentaExenta + dte.totVentaNoSuj);
-            }, 0);
             //Obtener el total de facturas de cf
-            whereOptions.tipoDteId = {
-                [sequelize_1.Op.or]: [1]
-            };
-            const datosFC = yield Dte_1.default.findAll({
+            /*whereOptions.tipoDteId = {
+                [Op.or] : [1]
+            }
+            const datosFC: any = await Dte.findAll({
                 where: whereOptions,
                 include: [
                     {
-                        model: CuerpoDocumento_1.default,
-                        as: 'items',
+                        model: CuerpoDocumento,
+                        as:'items',
                         attributes: [],
                         required: false,
                     },
                 ],
-                attributes: [
-                    [(0, sequelize_1.fn)('SUM', (0, sequelize_1.literal)('"items"."ventaGravada"')), 'totVentaGravada'],
-                    [(0, sequelize_1.fn)('SUM', (0, sequelize_1.literal)('"items"."ventaExenta"')), 'totVentaExenta'],
-                    [(0, sequelize_1.fn)('SUM', (0, sequelize_1.literal)('"items"."ventaNoSuj"')), 'totVentaNoSuj'],
+                attributes:[
+                    [fn('SUM',literal('"items"."ventaGravada"')), 'totVentaGravada'],
+                    [fn('SUM',literal('"items"."ventaExenta"')), 'totVentaExenta'],
+                    [fn('SUM',literal('"items"."ventaNoSuj"')), 'totVentaNoSuj'],
                 ],
                 group: ['Dte.id']
-            });
-            const sumFC = datosFC.map((d) => d.toJSON()).reduce((tot, dte) => {
+            })
+            const sumFC = datosFC.map((d:any) => d.toJSON()).reduce((tot: number, dte: any) => {
                 return tot + (dte.totVentaGravada + dte.totVentaExenta + dte.totVentaNoSuj);
-            }, 0);
+            },0)*/
             //Buscar el archivo de Excel
             const excelFilePath = path.join(__dirname, '../../archivos/LibroVentasContr.xlsx');
             // Cargar el archivo de Excel existente
             const workbook = new ExcelJS.Workbook();
             yield workbook.xlsx.readFile(excelFilePath);
             // Obtener la hoja de Excel en la que deseas agregar o actualizar datos
-            const worksheet = workbook.getWorksheet(1);
+            const worksheet = workbook.getWorksheet("datos");
             if (worksheet) {
                 //Colocar el encabezado
-                worksheet.getCell("C5").value = nombMes.toUpperCase();
-                worksheet.getCell("E5").value = fecha.getFullYear();
+                worksheet.getCell("B6").value = nombMes.toUpperCase();
+                worksheet.getCell("D6").value = fecha.getFullYear();
                 //Colocar los totales de Exportaciones y Debito Facturas
-                worksheet.getCell("E50").value = sumExport;
-                worksheet.getCell("E49").value = sumFC;
+                //worksheet.getCell("E50").value = sumExport;
+                //worksheet.getCell("E49").value = sumFC;
                 // Calcular la próxima fila disponible para pegar datos
-                let nextRow = 9;
+                let nextRow = 10;
                 let correlativo = 1;
                 // Pegar los datos en la hoja de Excel                
                 const datosJson = datos.map((d) => d.toJSON());
@@ -429,13 +477,16 @@ function rptLibroVentasContrCustYzk(req, res) {
                     //Identificar los items
                     worksheet.getCell(`A${nextRow}`).value = correlativo;
                     worksheet.getCell(`B${nextRow}`).value = dato.fecEmi;
-                    worksheet.getCell(`C${nextRow}`).value = dato.codigoGeneracion;
-                    worksheet.getCell(`E${nextRow}`).value = dato.receptor.nombre;
-                    worksheet.getCell(`F${nextRow}`).value = dato.receptor.nrc;
-                    worksheet.getCell(`G${nextRow}`).value = dato.docAnulado == true ? (dato.totVentaExenta * -1) : dato.totVentaExenta;
-                    worksheet.getCell(`H${nextRow}`).value = dato.docAnulado == true ? (dato.totVentaGravada * -1) : dato.totVentaGravada;
-                    worksheet.getCell(`M${nextRow}`).value = dato.docAnulado == true ? (dato.ivaRete1 * -1) : dato.ivaRete1;
-                    worksheet.getCell(`N${nextRow}`).value = dato.docAnulado == true ? (dato.ivaPerci1 * -1) : dato.ivaPerci1;
+                    worksheet.getCell(`C${nextRow}`).value = dato.selloRecibido;
+                    worksheet.getCell(`D${nextRow}`).value = dato.codigoGeneracion;
+                    worksheet.getCell(`E${nextRow}`).value = dato.numeroControl;
+                    worksheet.getCell(`F${nextRow}`).value = dato.receptor.nombre;
+                    worksheet.getCell(`G${nextRow}`).value = dato.receptor.nrc;
+                    worksheet.getCell(`H${nextRow}`).value = dato.receptor.nit;
+                    worksheet.getCell(`I${nextRow}`).value = parseFloat(dato.totVentaExenta);
+                    worksheet.getCell(`J${nextRow}`).value = parseFloat(dato.totVentaNoSuj);
+                    worksheet.getCell(`K${nextRow}`).value = parseFloat(dato.totVentaGravada);
+                    worksheet.getCell(`O${nextRow}`).value = parseFloat(dato.ivaPerci1);
                     nextRow++;
                     correlativo++;
                 });
