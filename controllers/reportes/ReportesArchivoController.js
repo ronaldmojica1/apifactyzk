@@ -74,6 +74,9 @@ function rptLibroVentasXlsCustYzk(req, res) {
             whereOptions.selloRecibido = {
                 [sequelize_1.Op.ne]: null
             };
+            whereOptions.docAnulado = {
+                [sequelize_1.Op.eq]: false
+            };
             /*whereOptions[Op.and] = [
                 {
                     [Op.or]: [
@@ -250,6 +253,9 @@ function rptLibroComprasXlsCustYzk(req, res) {
             whereOptions.selloRecibido = {
                 [sequelize_1.Op.ne]: null
             };
+            whereOptions.docAnulado = {
+                [sequelize_1.Op.eq]: false
+            };
             /*whereOptions[Op.and] = [
                 {
                     [Op.or]: [
@@ -371,6 +377,9 @@ function rptLibroVentasContrCustYzk(req, res) {
             };
             whereOptions.selloRecibido = {
                 [sequelize_1.Op.ne]: null
+            };
+            whereOptions.docAnulado = {
+                [sequelize_1.Op.eq]: false
             };
             /*whereOptions[Op.and] = [
                 {
