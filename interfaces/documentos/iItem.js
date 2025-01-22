@@ -28,7 +28,8 @@ function getItems(dte) {
         let itemsDte = yield CuerpoDocumento_1.default.findAll({
             where: {
                 dteId: dte === null || dte === void 0 ? void 0 : dte.id
-            }
+            },
+            order: [['numItem', 'ASC']],
         });
         for (const itm of itemsDte) {
             const producto = yield Producto_1.default.findByPk(itm.productoId);
