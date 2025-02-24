@@ -373,7 +373,7 @@ function rptLibroVentasContrCustYzk(req, res) {
                 },*/
             ];
             whereOptions.tipoDteId = {
-                [sequelize_1.Op.or]: [2, 9]
+                [sequelize_1.Op.or]: [2]
             };
             whereOptions.selloRecibido = {
                 [sequelize_1.Op.ne]: null
@@ -431,7 +431,8 @@ function rptLibroVentasContrCustYzk(req, res) {
                 attributes: [
                     ...dteAttributes,
                     [(0, sequelize_1.literal)('ROUND((SUM(CASE WHEN "Dte"."tipoDteId" = 2 THEN "items"."ventaGravada" ELSE 0.00 END))::numeric,2)'), 'totVentaGravada'],
-                    [(0, sequelize_1.literal)('ROUND((SUM(CASE WHEN "Dte"."tipoDteId" = 9 THEN "items"."ventaGravada" ELSE 0.00 END))::numeric,2)'), 'totVentaExenta'],
+                    //[literal('ROUND((SUM(CASE WHEN "Dte"."tipoDteId" = 9 THEN "items"."ventaGravada" ELSE 0.00 END))::numeric,2)'), 'totVentaExenta'],
+                    [(0, sequelize_1.fn)('SUM', (0, sequelize_1.literal)('"items"."ventaExenta"')), 'totVentaExenta'],
                     [(0, sequelize_1.fn)('SUM', (0, sequelize_1.literal)('"items"."ventaNoSuj"')), 'totVentaNoSuj'],
                 ],
                 group: ['Dte.id', 'receptor.id'],
@@ -463,6 +464,30 @@ function rptLibroVentasContrCustYzk(req, res) {
             const sumFC = datosFC.map((d:any) => d.toJSON()).reduce((tot: number, dte: any) => {
                 return tot + (dte.totVentaGravada + dte.totVentaExenta + dte.totVentaNoSuj);
             },0)*/
+            //Obtener el total de FEX
+            whereOptions.tipoDteId = {
+                [sequelize_1.Op.or]: [9]
+            };
+            const datosFEX = yield Dte_1.default.findAll({
+                where: whereOptions,
+                include: [
+                    {
+                        model: CuerpoDocumento_1.default,
+                        as: 'items',
+                        attributes: [],
+                        required: false,
+                    },
+                ],
+                attributes: [
+                    [(0, sequelize_1.fn)('SUM', (0, sequelize_1.literal)('"items"."ventaGravada"')), 'totVentaGravada'],
+                    [(0, sequelize_1.fn)('SUM', (0, sequelize_1.literal)('"items"."ventaExenta"')), 'totVentaExenta'],
+                    [(0, sequelize_1.fn)('SUM', (0, sequelize_1.literal)('"items"."ventaNoSuj"')), 'totVentaNoSuj'],
+                ],
+                group: ['Dte.id']
+            });
+            const sumExport = datosFEX.map((d) => d.toJSON()).reduce((tot, dte) => {
+                return tot + (dte.totVentaGravada + dte.totVentaExenta + dte.totVentaNoSuj);
+            }, 0);
             //Buscar el archivo de Excel
             const excelFilePath = path.join(__dirname, '../../archivos/LibroVentasContr.xlsx');
             // Cargar el archivo de Excel existente
@@ -475,7 +500,7 @@ function rptLibroVentasContrCustYzk(req, res) {
                 worksheet.getCell("B6").value = nombMes.toUpperCase();
                 worksheet.getCell("D6").value = fecha.getFullYear();
                 //Colocar los totales de Exportaciones y Debito Facturas
-                //worksheet.getCell("E50").value = sumExport;
+                worksheet.getCell("G127").value = sumExport;
                 //worksheet.getCell("E49").value = sumFC;
                 // Calcular la próxima fila disponible para pegar datos
                 let nextRow = 10;

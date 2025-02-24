@@ -336,6 +336,12 @@ function deleteR(req, res) {
                 res.status(200).json((0, apiresponse_1.notFoundResponse)('No encontrado'));
                 return;
             }
+            //eliminar los tributos del item
+            yield TributosItem_1.default.destroy({
+                where: {
+                    dteId: req.params.id
+                }
+            });
             //Eliminar el detalle
             yield CuerpoDocumento_1.default.destroy({
                 where: {
@@ -371,6 +377,7 @@ function deleteR(req, res) {
             res.json((0, apiresponse_1.successResponse)(act, 'Eliminado con exito!'));
         }
         catch (error) {
+            console.log(error);
             res.status(200).json((0, apiresponse_1.errorResponse)('Error al eliminar'));
         }
     });

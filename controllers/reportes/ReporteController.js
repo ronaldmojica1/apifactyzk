@@ -144,7 +144,9 @@ function rptPlantillaIvaMhVcf(req, res) {
                     [(0, sequelize_1.literal)('ROUND((SUM(CASE WHEN "Dte"."esVentaTercero" = false AND "Dte"."tipoDteId" = 9 AND "receptor"."paisId" = 187 THEN "items"."ventaGravada" ELSE 0.00 END))::numeric,2)'), 'exportacionZfDpa'],
                     [(0, sequelize_1.literal)('ROUND((SUM(CASE WHEN "Dte"."esVentaTercero" = true THEN "items"."ventaGravada" ELSE 0.00 END))::numeric,2)'), 'ventaTerceros'],
                     [(0, sequelize_1.literal)('ROUND((SUM("items"."ventaGravada" + "items"."ventaNoSuj" + "items"."ventaExenta" ))::numeric,2)'), 'totalVentas'],
-                    [(0, sequelize_1.literal)("'2'"), 'u'], //U                                
+                    [(0, sequelize_1.literal)("'1'"), 'u'],
+                    [(0, sequelize_1.literal)('ROUND((SUM(CASE WHEN "Dte"."esVentaTercero" = false AND "Dte"."tipoItemExpoId" = 2 AND "receptor"."paisId" <> 187 THEN 9 ELSE 2 END)))'), 'v'],
+                    [(0, sequelize_1.literal)("'2'"), 'w'], //U                                                                                
                 ],
                 group: ['Dte.fecEmi', 'tipoDte.id', 'Dte.tipoDteId'],
                 order: [['fecEmi', 'ASC']],
