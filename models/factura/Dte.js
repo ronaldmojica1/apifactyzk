@@ -26,6 +26,8 @@ const ResponsableAnulacion_1 = __importDefault(require("./ResponsableAnulacion")
 const TributosItem_1 = __importDefault(require("./TributosItem"));
 const TituloBien_1 = __importDefault(require("./TituloBien"));
 const Usuario_1 = __importDefault(require("../auth/Usuario"));
+const TipoOperacionRenta_1 = __importDefault(require("../contabilidad/TipoOperacionRenta"));
+const TipoIngresoRenta_1 = __importDefault(require("../contabilidad/TipoIngresoRenta"));
 class Dte extends sequelize_1.Model {
 }
 Dte.init({
@@ -377,6 +379,22 @@ Dte.init({
             model: Usuario_1.default,
             key: 'id'
         }
+    },
+    tipoOperacionRentaId: {
+        type: sequelize_1.DataTypes.INTEGER,
+        allowNull: true,
+        references: {
+            model: TipoOperacionRenta_1.default,
+            key: 'id'
+        }
+    },
+    tipoIngresoRentaId: {
+        type: sequelize_1.DataTypes.INTEGER,
+        allowNull: true,
+        references: {
+            model: TipoIngresoRenta_1.default,
+            key: 'id'
+        }
     }
 }, {
     sequelize: database_1.default,
@@ -409,4 +427,6 @@ Dte.belongsTo(Receptor_1.default, { foreignKey: 'embarcarAId', as: 'embarcarA' }
 Dte.belongsTo(TituloBien_1.default, { foreignKey: 'tituloBienId', as: 'tiuloBien' });
 Dte.belongsTo(Usuario_1.default, { foreignKey: 'creadoPorId', as: 'creadoPor' });
 Dte.belongsTo(Usuario_1.default, { foreignKey: 'transmitidoPorId', as: 'transmitidoPor' });
+Dte.belongsTo(TipoOperacionRenta_1.default, { foreignKey: 'tipoOperacionRentaId', as: 'tipoOperacionRenta' });
+Dte.belongsTo(TipoIngresoRenta_1.default, { foreignKey: 'tipoIngresoRentaId', as: 'tipoIngresoRenta' });
 exports.default = Dte;

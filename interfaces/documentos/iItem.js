@@ -53,9 +53,13 @@ function getItems(dte) {
             if (tributosLstProd.length == 0) {
                 tributosLstProd = null;
             }
-            const tipoDte = yield TipoDte_1.default.findByPk(itm.tipoDteId);
+            const tipoDte = yield TipoDte_1.default.findByPk(dte === null || dte === void 0 ? void 0 : dte.tipoDteId);
             const tipoGeneracion = yield TipoGeneracion_1.default.findByPk(itm.tipoGeneracionId);
             const retencionMh = yield RetencionMH_1.default.findByPk(itm.retencionMhId);
+            console.log('/******Abajo los calculos de tipodte e item.ventanosuj*****/');
+            console.log('venta no suje ' + itm.ventaNoSuj);
+            console.log('tipoDte ' + (tipoDte === null || tipoDte === void 0 ? void 0 : tipoDte.codigo));
+            console.log(" la evaluacion " + (itm.ventaNoSuj > 0 && (tipoDte === null || tipoDte === void 0 ? void 0 : tipoDte.codigo) === '11'));
             items.push({
                 numItem: itm.numItem,
                 tipoItem: tipoItem === null || tipoItem === void 0 ? void 0 : tipoItem.codigo,
@@ -64,7 +68,7 @@ function getItems(dte) {
                 uniMedida: (um === null || um === void 0 ? void 0 : um.codigo) || 0,
                 descripcion: ((itm === null || itm === void 0 ? void 0 : itm.descripcion) || '') + (itm.observaciones != null ? ('(' + itm.observaciones + ')') : ''),
                 cantidad: itm.cantidad,
-                precioUni: itm.precioUni,
+                precioUni: (itm.noGravado > 0 ? 0 : itm.precioUni),
                 montoDescu: itm.montoDescu,
                 ventaNoSuj: itm.ventaNoSuj,
                 ventaExenta: itm.ventaExenta,

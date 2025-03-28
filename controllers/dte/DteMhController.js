@@ -37,6 +37,10 @@ const iAnulacion_1 = require("../../interfaces/documentos/iAnulacion");
 const MHCredenciales_1 = __importDefault(require("../../models/factura/MHCredenciales"));
 const functions_1 = require("../../utils/functions");
 const { v4: uuidv4 } = require('uuid');
+const pdf_lib_1 = require("pdf-lib");
+const Configuracion_1 = __importDefault(require("../../models/configuracion/Configuracion"));
+const path_1 = __importDefault(require("path"));
+const fs_1 = __importDefault(require("fs"));
 function obtenerCredenciales() {
     return __awaiter(this, void 0, void 0, function* () {
         const credenciales = yield MHCredenciales_1.default.findByPk(1);
@@ -164,7 +168,8 @@ function transmitirDte(req, res) {
             yield dte.update(datos);
             //Obtener el esquema JSON    
             let jsonData = yield getDocument(dte);
-            console.log(jsonData === null || jsonData === void 0 ? void 0 : jsonData.cuerpoDocumento[0].tributos);
+            console.log("dte JsonData abajo");
+            console.log(jsonData);
             //Obtener el tipo de DTE del modelo de BD
             const tipoDte = yield TipoDte_1.default.findByPk(dte.tipoDteId);
             const jsonFirmado = yield firmarDte(jsonData);
@@ -184,7 +189,7 @@ function transmitirDte(req, res) {
             }).then((result) => {
                 resp = result.data;
             }).catch((error) => {
-                console.log(error);
+                //console.log(error)   
                 if (error.response) {
                     if (error.response.status == 401) {
                         resp = {
@@ -368,7 +373,7 @@ function getDocument(dte) {
                     apendice: yield (0, iApendice_1.getApendice)(dte.id),
                 };
                 const fexValid = yield (0, schemavalidator_1.validateSchema)(schemavalidator_1.DteEschema.FEX, fex);
-                console.log(fexValid);
+                //console.log(fexValid)    
                 return fexValid;
             case 10: //Factura de Sujeto Excluido
                 const fse = {
@@ -629,9 +634,12 @@ function getVersionLegible(req, res) {
         const urlDoc = (process.env.MH_VERSION_LEGIBLE || "") + codigoGeneracion;
         let tkn = yield obtenerToken();
         let docJson;
+        const credenciales = yield obtenerCredenciales();
         yield axios_1.default.post(urlLista, {
             codigoGeneracion: codigoGeneracion,
-            tipoRpt: "E"
+            tipoRpt: "E",
+            nitEmision: credenciales === null || credenciales === void 0 ? void 0 : credenciales.nit,
+            duiEmision: credenciales === null || credenciales === void 0 ? void 0 : credenciales.nit
         }, {
             headers: {
                 "Authorization": tkn
@@ -656,10 +664,67 @@ function getVersionLegible(req, res) {
             else {
             }
         });
-        // Convertir la cadena base64 de nuevo a buffer
-        //const pdfBuffer = Buffer.from(resp, 'base64');
-        //Enviar el buffer como respuesta
-        //res.setHeader('Content-Type', 'application/pdf');
+        try {
+            // Convertir el PDF de base64 a buffer
+            const pdfBuffer = Buffer.from(resp, 'base64');
+            // Verificar si se debe usar el logo desde la configuración
+            const [config] = yield Configuracion_1.default.findOrCreate({
+                where: {},
+                defaults: {
+                    usarLogo: false,
+                    nombreLogo: null
+                }
+            });
+            // Si se usa logo y existe el archivo
+            if (config.usarLogo && config.nombreLogo) {
+                const logoPath = path_1.default.join('uploads/', config.nombreLogo);
+                if (fs_1.default.existsSync(logoPath)) {
+                    // Cargar el PDF existente
+                    const pdfDoc = yield pdf_lib_1.PDFDocument.load(pdfBuffer);
+                    // Leer el archivo de logo
+                    const logoFile = fs_1.default.readFileSync(logoPath);
+                    // Determinar el tipo de imagen basado en la extensión
+                    const fileExt = path_1.default.extname(config.nombreLogo).toLowerCase();
+                    let logoImage;
+                    if (fileExt === '.jpg' || fileExt === '.jpeg') {
+                        logoImage = yield pdfDoc.embedJpg(logoFile);
+                    }
+                    else if (fileExt === '.png') {
+                        logoImage = yield pdfDoc.embedPng(logoFile);
+                    }
+                    else {
+                        // Si no es JPG o PNG, no se puede insertar
+                        console.log("Formato de logo no soportado:", fileExt);
+                        res.status(200).send(resp);
+                        return;
+                    }
+                    // Obtener la primera página
+                    const pages = pdfDoc.getPages();
+                    const firstPage = pages[0];
+                    // Obtener dimensiones de la página
+                    const { width, height } = firstPage.getSize();
+                    // Calcular dimensiones para el logo (ajustar según necesidades)
+                    const logoWidth = 100;
+                    const logoHeight = logoWidth * (logoImage.height / logoImage.width);
+                    // Dibujar el logo en la esquina superior derecha
+                    firstPage.drawImage(logoImage, {
+                        x: 25,
+                        y: height - 85,
+                        width: 60,
+                        height: 60,
+                    });
+                    // Guardar el PDF modificado
+                    const modifiedPdfBytes = yield pdfDoc.save();
+                    // Convertir de nuevo a base64
+                    resp = Buffer.from(modifiedPdfBytes).toString('base64');
+                }
+            }
+        }
+        catch (error) {
+            console.error("Error al procesar el PDF con el logo:", error);
+            // En caso de error, devolver el PDF original
+        }
+        // Enviar la respuesta
         res.status(200).send(resp);
     });
 }
@@ -669,14 +734,18 @@ function descargarJsonMh(req, res) {
         const urlLista = (process.env.MH_CONSULTA_JSON || "");
         let tkn = yield obtenerToken();
         let docJson;
+        const credenciales = yield obtenerCredenciales();
         yield axios_1.default.post(urlLista, {
             codigoGeneracion: codigoGeneracion,
-            tipoRpt: "E"
+            tipoRpt: "E",
+            nitEmision: credenciales === null || credenciales === void 0 ? void 0 : credenciales.nit,
+            duiEmision: credenciales === null || credenciales === void 0 ? void 0 : credenciales.nit
         }, {
             headers: {
                 "Authorization": tkn
             }
         }).then((result) => {
+            console.log(result);
             //console.log(result.data.body[0].documento)
             docJson = result.data.body[0].documento;
             docJson['selloRecibido'] = result.data.body[0].selloRecibido;

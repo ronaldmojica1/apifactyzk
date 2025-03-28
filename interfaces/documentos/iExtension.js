@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.getExtension = void 0;
 function getExtension(dte) {
     return __awaiter(this, void 0, void 0, function* () {
-        const extension = dte.habilitarExtension === true ? {
+        const extension = {
             nombEntrega: dte.nombEntrega,
             docuEntrega: dte.docuEntrega,
             nombRecibe: dte.nombRecibe,
@@ -20,7 +20,7 @@ function getExtension(dte) {
             observaciones: dte.observaciones,
             placaVehiculo: dte.placaVehiculo,
             codEmpleado: dte.codEmpleado
-        } : null;
+        };
         return extension;
     });
 }

@@ -24,6 +24,7 @@ const TipoModelo_1 = __importDefault(require("../../models/factura/TipoModelo"))
 const TipoOperacion_1 = __importDefault(require("../../models/factura/TipoOperacion"));
 const TipoContingencia_1 = __importDefault(require("../../models/factura/TipoContingencia"));
 const sequelize_1 = require("sequelize");
+const database_1 = __importDefault(require("../../config/database"));
 const RecintoFiscal_1 = __importDefault(require("../../models/factura/RecintoFiscal"));
 const CondicionOperacions_1 = __importDefault(require("../../models/factura/CondicionOperacions"));
 const Incoterms_1 = __importDefault(require("../../models/factura/Incoterms"));
@@ -552,6 +553,77 @@ function getR(req, res) {
         }
     });
 }
+function duplicar(req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const transaction = yield database_1.default.transaction();
+        try {
+            const dteId = req.params.id;
+            // 1. Buscar el registro original
+            const originalRecord = yield Dte_1.default.findByPk(dteId, {
+                include: [
+                    {
+                        model: CuerpoDocumento_1.default,
+                        as: 'items',
+                        order: [['numItem', 'ASC']],
+                    }
+                ],
+                transaction
+            });
+            if (!originalRecord) {
+                res.status(200).json((0, apiresponse_1.notFoundResponse)('No encontrado'));
+                return;
+            }
+            // 2. Obtener los datos y eliminar el ID
+            const newRecordData = Object.assign(Object.assign({}, originalRecord.get()), { id: undefined, createdAt: undefined, updatedAt: undefined });
+            newRecordData.numeroControl = null;
+            newRecordData.codigoGeneracion = uuidv4().toUpperCase();
+            newRecordData.creadoPorId = req.user.id;
+            newRecordData.ambienteId = null;
+            newRecordData.selloRecibido = null;
+            newRecordData.fecEmi = null;
+            newRecordData.horEmi = null;
+            newRecordData.fecAnula = null;
+            newRecordData.horAnula = null;
+            newRecordData.codigoAnulacion = null;
+            newRecordData.selloAnulacion = null;
+            newRecordData.transmitidoPorId = null;
+            newRecordData.docAnulado = false;
+            const duplicatedRecord = yield Dte_1.default.create(newRecordData, { transaction });
+            // 3. Duplicar registros relacionados (Items)
+            const originalItems = yield CuerpoDocumento_1.default.findAll({
+                where: {
+                    dteId: dteId,
+                },
+                order: [['numItem', 'ASC']],
+                transaction
+            });
+            for (const origItem of originalItems) {
+                const newItemData = Object.assign(Object.assign({}, origItem.get()), { id: undefined, createdAt: undefined, updatedAt: undefined });
+                newItemData.dteId = duplicatedRecord.id;
+                const duplicatedItem = yield CuerpoDocumento_1.default.create(newItemData, { transaction });
+                //Ojo van a faltar los tributos
+                const originalTributos = yield TributosItem_1.default.findAll({
+                    where: {
+                        itemId: origItem.id
+                    },
+                    transaction
+                });
+                for (const origTributo of originalTributos) {
+                    const newTributoData = Object.assign(Object.assign({}, origTributo.get()), { id: undefined, createdAt: undefined, updatedAt: undefined });
+                    newTributoData.dteId = duplicatedRecord.id;
+                    newTributoData.itemId = duplicatedItem.id;
+                    const duplicatedTributo = yield TributosItem_1.default.create(newTributoData, { transaction });
+                }
+            }
+            yield transaction.commit();
+            res.status(201).json((0, apiresponse_1.successResponse)(duplicatedRecord, 'Creado con exito!'));
+        }
+        catch (error) {
+            console.log(error);
+            res.status(200).json((0, apiresponse_1.errorResponse)('Error al duplicar'));
+        }
+    });
+}
 function enviarDocsCorreo(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -608,5 +680,6 @@ exports.default = {
     updateR,
     deleteR,
     getR,
+    duplicar,
     enviarDocsCorreo
 };

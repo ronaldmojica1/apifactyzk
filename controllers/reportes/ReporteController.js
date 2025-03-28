@@ -48,6 +48,9 @@ const Rol_1 = __importDefault(require("../../models/auth/Rol"));
 const PermisoRol_1 = __importDefault(require("../../models/auth/PermisoRol"));
 const PermisoUsuario_1 = __importDefault(require("../../models/auth/PermisoUsuario"));
 const csv = __importStar(require("fast-csv"));
+const TipoOperacionRenta_1 = __importDefault(require("../../models/contabilidad/TipoOperacionRenta"));
+const TipoIngresoRenta_1 = __importDefault(require("../../models/contabilidad/TipoIngresoRenta"));
+const TipoDocumento_1 = __importDefault(require("../../models/factura/TipoDocumento"));
 function rptVentasFechas(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -106,6 +109,95 @@ function rptVentasFechas(req, res) {
 }
 function rptPlantillaIvaMhVc(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const { desde, hasta } = req.query;
+            const whereOptions = {};
+            if (desde && hasta) {
+                whereOptions.fecEmi = {
+                    [sequelize_1.Op.between]: [desde, hasta]
+                };
+            }
+            whereOptions.tipoDteId = {
+                [sequelize_1.Op.or]: [2, 4, 5]
+            };
+            const report = yield Dte_1.default.findAll({
+                where: whereOptions,
+                attributes: [
+                    [(0, sequelize_1.literal)('CONCAT(SUBSTRING("Dte"."fecEmi", 9, 2),' + "'/'" + ', SUBSTRING("Dte"."fecEmi", 6, 2),' + "'/'" + ', SUBSTRING("Dte"."fecEmi", 1, 4))'), 'a'],
+                    [(0, sequelize_1.literal)('4'), 'b'],
+                    [(0, sequelize_1.col)('tipoDte.codigo'), 'c'],
+                    [(0, sequelize_1.literal)('REPLACE("Dte"."codigoGeneracion", \'-\', \'\')'), 'd'],
+                    [(0, sequelize_1.col)('Dte.selloRecibido'), 'e'],
+                    [(0, sequelize_1.literal)('REPLACE("Dte"."codigoGeneracion", \'-\', \'\')'), 'f'],
+                    [(0, sequelize_1.literal)("''"), 'g'],
+                    [(0, sequelize_1.literal)(`CASE 
+                    WHEN "receptor->tipoDocumento"."codigo" = '13' THEN ''
+                    WHEN "receptor"."nit" IS NOT NULL THEN "receptor"."nit"
+                    ELSE "receptor"."nrc"
+                END`), 'h'],
+                    [(0, sequelize_1.col)('receptor.nombre'), 'i'],
+                    [(0, sequelize_1.literal)('ROUND((SUM(CASE WHEN "Dte"."esVentaTercero" = false THEN "items"."ventaExenta" ELSE 0.00 END))::numeric,2)'), 'j'],
+                    [(0, sequelize_1.literal)('ROUND((SUM(CASE WHEN "Dte"."esVentaTercero" = false THEN "items"."ventaNoSuj" ELSE 0.00 END))::numeric,2)'), 'k'],
+                    [(0, sequelize_1.literal)('ROUND((SUM(CASE WHEN "Dte"."esVentaTercero" = false THEN "items"."ventaGravada" ELSE 0.00 END))::numeric,2)'), 'l'],
+                    [(0, sequelize_1.literal)('ROUND((SUM(CASE WHEN "Dte"."esVentaTercero" = false THEN ("items"."ventaGravada" * 0.13) ELSE 0.00 END))::numeric,2)'), 'm'],
+                    [(0, sequelize_1.literal)('ROUND((SUM(CASE WHEN "Dte"."esVentaTercero" = true THEN "items"."ventaGravada" ELSE 0.00 END))::numeric,2)'), 'n'],
+                    [(0, sequelize_1.literal)('ROUND((SUM(CASE WHEN "Dte"."esVentaTercero" = true THEN ("items"."ventaGravada" * 0.13) ELSE 0.00 END))::numeric,2)'), 'o'],
+                    [(0, sequelize_1.literal)('ROUND((SUM("items"."ventaGravada" + ("items"."ventaGravada" * 0.13) + "items"."ventaExenta" + "items"."ventaNoSuj"))::numeric,2)'), 'p'],
+                    [(0, sequelize_1.literal)(`CASE 
+                    WHEN "receptor->tipoDocumento"."codigo" = '13' THEN "receptor"."numDocumento"                    
+                    ELSE ''
+                END`), 'q'],
+                    [(0, sequelize_1.col)('tipoOperacionRenta.codigo'), 'tipoOperacionRenta'],
+                    [(0, sequelize_1.col)('tipoIngresoRenta.codigo'), 'tipoIngresoRenta'],
+                    [(0, sequelize_1.literal)("'1'"), 'w'], //T - Anexo 1                                                                             
+                ],
+                group: ['Dte.fecEmi', 'tipoDte.codigo', 'Dte.codigoGeneracion', 'Dte.selloRecibido', 'receptor.nombre', 'receptor.nit', 'receptor.nrc', 'receptor.numDocumento', 'receptor.tipoDocumento.codigo', 'tipoOperacionRenta.codigo', 'tipoIngresoRenta.codigo'],
+                order: [['fecEmi', 'ASC']],
+                include: [
+                    {
+                        model: TipoDte_1.default,
+                        as: 'tipoDte',
+                        attributes: []
+                    },
+                    {
+                        model: CuerpoDocumento_1.default,
+                        as: 'items',
+                        attributes: []
+                    },
+                    {
+                        model: Receptor_1.default,
+                        as: 'receptor',
+                        attributes: [],
+                        include: [
+                            {
+                                model: TipoDocumento_1.default,
+                                as: 'tipoDocumento',
+                                attributes: []
+                            }
+                        ]
+                    },
+                    {
+                        model: TipoOperacionRenta_1.default,
+                        as: 'tipoOperacionRenta',
+                        attributes: []
+                    },
+                    {
+                        model: TipoIngresoRenta_1.default,
+                        as: 'tipoIngresoRenta',
+                        attributes: []
+                    }
+                ],
+                raw: true
+            });
+            const csvBuffer = yield generarCSV(report, 'datos');
+            res.setHeader('Content-Type', 'text/csv');
+            res.setHeader('Content-Disposition', 'attachment; filename=factura_con_datos.csv');
+            res.send(csvBuffer);
+        }
+        catch (error) {
+            console.log(error);
+            res.status(200).json((0, apiresponse_1.errorResponse)('Error al obtener'));
+        }
     });
 }
 function rptPlantillaIvaMhVcf(req, res) {
@@ -131,24 +223,42 @@ function rptPlantillaIvaMhVcf(req, res) {
                     [(0, sequelize_1.literal)("'N/A'"), 'e'],
                     [(0, sequelize_1.literal)("'N/A'"), 'f'],
                     [(0, sequelize_1.literal)("'N/A'"), 'g'],
-                    [(0, sequelize_1.fn)('MIN', (0, sequelize_1.col)('Dte.codigoGeneracion')), 'primerDocumento'],
-                    [(0, sequelize_1.fn)('MAX', (0, sequelize_1.col)('Dte.codigoGeneracion')), 'ultimoDocumento'],
+                    [(0, sequelize_1.literal)(`(
+                    SELECT "codigoGeneracion"
+                    FROM "dte" AS "subDte"
+                    WHERE "subDte"."fecEmi" = "Dte"."fecEmi"
+                    AND "subDte"."tipoDteId" IN (1, 9)
+                    ORDER BY "subDte"."horEmi" ASC
+                    LIMIT 1
+                  )`),
+                        'primerDocumento'],
+                    //[fn('MIN', col('Dte.codigoGeneracion')), 'primerDocumento'],//H
+                    [(0, sequelize_1.literal)(`(
+                    SELECT "codigoGeneracion"
+                    FROM "dte" AS "subDte"
+                    WHERE "subDte"."fecEmi" = "Dte"."fecEmi"
+                    AND "subDte"."tipoDteId" IN (1, 9)
+                    ORDER BY "subDte"."horEmi" DESC
+                    LIMIT 1
+                  )`),
+                        'ultimoDocumento',],
+                    //[fn('MAX', col('Dte.codigoGeneracion')), 'ultimoDocumento'],//I
                     [(0, sequelize_1.literal)("''"), 'j'],
                     [(0, sequelize_1.literal)('ROUND((SUM(CASE WHEN "Dte"."esVentaTercero" = false AND "Dte"."tipoDteId" = 1 THEN "items"."ventaExenta" ELSE 0.00 END))::numeric,2)'), 'ventaExenta'],
                     [(0, sequelize_1.literal)('0.00'), 'l'],
-                    [(0, sequelize_1.literal)('ROUND((SUM(CASE WHEN "Dte"."esVentaTercero" = false AND "Dte"."tipoDteId" = 1 THEN "items"."ventaNoSuj" ELSE 0.00 END))::numeric,2)'), 'ventaNoSuj'],
+                    [(0, sequelize_1.literal)('ROUND((SUM(CASE WHEN "Dte"."esVentaTercero" = false AND "Dte"."tipoDteId" = 1 THEN ("items"."ventaNoSuj" + "items"."noGravado") ELSE 0.00 END))::numeric,2)'), 'ventaNoSuj'],
                     [(0, sequelize_1.literal)('ROUND((SUM(CASE WHEN "Dte"."esVentaTercero" = false AND "Dte"."tipoDteId" = 1 THEN "items"."ventaGravada" ELSE 0.00 END))::numeric,2)'), 'ventaGravada'],
                     [(0, sequelize_1.literal)('ROUND((SUM(CASE WHEN "Dte"."esVentaTercero" = false AND "Dte"."tipoItemExpoId" <> 2  AND "Dte"."tipoDteId" = 9 AND "receptor"."paisId" IN (23,46,72,77,117,126) THEN "items"."ventaGravada" ELSE 0.00 END))::numeric,2)'), 'exportacionDCA'],
                     [(0, sequelize_1.literal)('ROUND((SUM(CASE WHEN "Dte"."esVentaTercero" = false AND "Dte"."tipoItemExpoId" <> 2  AND "Dte"."tipoDteId" = 9 AND "receptor"."paisId" NOT IN (23,46,72,77,117,126) THEN "items"."ventaGravada" ELSE 0.00 END))::numeric,2)'), 'exportacionFCA'],
                     [(0, sequelize_1.literal)('ROUND((SUM(CASE WHEN "Dte"."esVentaTercero" = false AND "Dte"."tipoItemExpoId" = 2 AND "receptor"."paisId" <> 187 THEN "items"."ventaGravada" ELSE 0.00 END))::numeric,2)'), 'exportacionServicios'],
                     [(0, sequelize_1.literal)('ROUND((SUM(CASE WHEN "Dte"."esVentaTercero" = false AND "Dte"."tipoDteId" = 9 AND "receptor"."paisId" = 187 THEN "items"."ventaGravada" ELSE 0.00 END))::numeric,2)'), 'exportacionZfDpa'],
                     [(0, sequelize_1.literal)('ROUND((SUM(CASE WHEN "Dte"."esVentaTercero" = true THEN "items"."ventaGravada" ELSE 0.00 END))::numeric,2)'), 'ventaTerceros'],
-                    [(0, sequelize_1.literal)('ROUND((SUM("items"."ventaGravada" + "items"."ventaNoSuj" + "items"."ventaExenta" ))::numeric,2)'), 'totalVentas'],
-                    [(0, sequelize_1.literal)("'1'"), 'u'],
-                    [(0, sequelize_1.literal)('ROUND((SUM(CASE WHEN "Dte"."esVentaTercero" = false AND "Dte"."tipoItemExpoId" = 2 AND "receptor"."paisId" <> 187 THEN 9 ELSE 2 END)))'), 'v'],
-                    [(0, sequelize_1.literal)("'2'"), 'w'], //U                                                                                
+                    [(0, sequelize_1.literal)('ROUND((SUM("items"."ventaGravada" + "items"."ventaNoSuj" + "items"."ventaExenta" + "items"."noGravado" ))::numeric,2)'), 'totalVentas'],
+                    [(0, sequelize_1.col)('tipoOperacionRenta.codigo'), 'tipoOperacionRenta'],
+                    [(0, sequelize_1.col)('tipoIngresoRenta.codigo'), 'tipoIngresoRenta'],
+                    [(0, sequelize_1.literal)("'2'"), 'w'], //U - Anexo 2                                                                             
                 ],
-                group: ['Dte.fecEmi', 'tipoDte.id', 'Dte.tipoDteId'],
+                group: ['Dte.fecEmi', 'tipoDte.id', 'Dte.tipoDteId', 'tipoOperacionRenta.id', 'tipoIngresoRenta.id', 'Dte.tipoOperacionRentaId', 'Dte.tipoIngresoRentaId'],
                 order: [['fecEmi', 'ASC']],
                 include: [
                     {
@@ -165,6 +275,16 @@ function rptPlantillaIvaMhVcf(req, res) {
                         model: Receptor_1.default,
                         as: 'receptor',
                         attributes: [],
+                    },
+                    {
+                        model: TipoOperacionRenta_1.default,
+                        as: 'tipoOperacionRenta',
+                        attributes: []
+                    },
+                    {
+                        model: TipoIngresoRenta_1.default,
+                        as: 'tipoIngresoRenta',
+                        attributes: []
                     }
                 ],
                 raw: true
@@ -244,5 +364,6 @@ function generarCSV(data, filename) {
 exports.default = {
     rptVentasFechas,
     rptUsuariosPermisos,
-    rptPlantillaIvaMhVcf
+    rptPlantillaIvaMhVcf,
+    rptPlantillaIvaMhVc
 };

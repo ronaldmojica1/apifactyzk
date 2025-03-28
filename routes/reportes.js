@@ -12,3 +12,4 @@ exports.router = router;
 router.get('/ventasfechas', session_1.checkJwt, ReporteController_1.default.rptVentasFechas);
 router.get('/usuariospermisos', session_1.checkJwt, ReporteController_1.default.rptUsuariosPermisos);
 router.get('/plantillaivamhvcf', ReporteController_1.default.rptPlantillaIvaMhVcf);
+router.get('/plantillaivamhvc', ReporteController_1.default.rptPlantillaIvaMhVc);

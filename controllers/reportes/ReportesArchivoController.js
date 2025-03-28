@@ -110,8 +110,9 @@ function rptLibroVentasXlsCustYzk(req, res) {
                     [(0, sequelize_1.col)('Dte.fecEmi'), 'fecha'],
                     [(0, sequelize_1.literal)(`(
                     SELECT "selloRecibido"
-                    FROM "dte" AS "subDte"
+                    FROM "dte" AS "subDte" 
                     WHERE "subDte"."fecEmi" = "Dte"."fecEmi"
+                    AND "subDte"."tipoDteId" IN (1, 9)
                     ORDER BY "subDte"."horEmi" ASC
                     LIMIT 1
                   )`), 'primerSello'],
@@ -119,6 +120,7 @@ function rptLibroVentasXlsCustYzk(req, res) {
                     SELECT "selloRecibido"
                     FROM "dte" AS "subDte"
                     WHERE "subDte"."fecEmi" = "Dte"."fecEmi"
+                    AND "subDte"."tipoDteId" IN (1, 9)
                     ORDER BY "subDte"."horEmi" DESC
                     LIMIT 1
                   )`), 'ultimoSello'],
@@ -126,6 +128,7 @@ function rptLibroVentasXlsCustYzk(req, res) {
                     SELECT "codigoGeneracion"
                     FROM "dte" AS "subDte"
                     WHERE "subDte"."fecEmi" = "Dte"."fecEmi"
+                    AND "subDte"."tipoDteId" IN (1, 9)
                     ORDER BY "subDte"."horEmi" ASC
                     LIMIT 1
                   )`),
@@ -134,6 +137,7 @@ function rptLibroVentasXlsCustYzk(req, res) {
                     SELECT "codigoGeneracion"
                     FROM "dte" AS "subDte"
                     WHERE "subDte"."fecEmi" = "Dte"."fecEmi"
+                    AND "subDte"."tipoDteId" IN (1, 9)
                     ORDER BY "subDte"."horEmi" DESC
                     LIMIT 1
                   )`),
@@ -142,6 +146,7 @@ function rptLibroVentasXlsCustYzk(req, res) {
                     SELECT "numeroControl"
                     FROM "dte" AS "subDte"
                     WHERE "subDte"."fecEmi" = "Dte"."fecEmi"
+                    AND "subDte"."tipoDteId" IN (1, 9)
                     ORDER BY "subDte"."horEmi" ASC
                     LIMIT 1
                   )`), 'primerNumero'],
@@ -149,6 +154,7 @@ function rptLibroVentasXlsCustYzk(req, res) {
                     SELECT "numeroControl"
                     FROM "dte" AS "subDte"
                     WHERE "subDte"."fecEmi" = "Dte"."fecEmi"
+                    AND "subDte"."tipoDteId" IN (1, 9)
                     ORDER BY "subDte"."horEmi" DESC
                     LIMIT 1
                   )`), 'ultimoNumero'],

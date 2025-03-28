@@ -20,5 +20,6 @@ const sequelize = new sequelize_1.Sequelize(db || 'apifact', usr || 'root', pwd 
     host: host || 'localhost',
     dialect: dialect || 'postgres',
     port: parseInt(port || '5432'),
+    logging: false
 });
 exports.default = sequelize;

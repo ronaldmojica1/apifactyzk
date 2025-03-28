@@ -29,6 +29,7 @@ function getContingencia(contin) {
             });
             const dteContingencia = yield (0, iDteContingencia_1.getDteContingecia)(continDetalle);
             const emisor = yield (0, iEmisor_1.getEmisor)(contin === null || contin === void 0 ? void 0 : contin.emisorId);
+            emisor.codPuntoVenta = null;
             const contingecia = {
                 identificacion: yield (0, iIdentificacionContingencia_1.getIdentificacionContingencia)(contin),
                 emisor: emisor,
