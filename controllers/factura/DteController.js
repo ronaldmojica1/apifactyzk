@@ -51,6 +51,7 @@ const NodeMailerController_1 = require("../correo/NodeMailerController");
 const DteMhController_1 = __importDefault(require("../dte/DteMhController"));
 const axios_1 = __importDefault(require("axios"));
 const fs_1 = __importDefault(require("fs"));
+const MHCredenciales_1 = __importDefault(require("../../models/factura/MHCredenciales"));
 const { v4: uuidv4 } = require('uuid');
 function getAllR(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -634,9 +635,12 @@ function enviarDocsCorreo(req, res) {
                 const urlLista = (process.env.MH_CONSULTA_JSON || "");
                 let tkn = yield DteMhController_1.default.obtenerToken();
                 let docJson;
+                const credenciales = yield MHCredenciales_1.default.findByPk(1);
                 yield axios_1.default.post(urlLista, {
                     codigoGeneracion: dte.codigoGeneracion,
-                    tipoRpt: "E"
+                    tipoRpt: "E",
+                    nitEmision: credenciales === null || credenciales === void 0 ? void 0 : credenciales.nit,
+                    duiEmision: credenciales === null || credenciales === void 0 ? void 0 : credenciales.nit
                 }, {
                     headers: {
                         "Authorization": tkn
