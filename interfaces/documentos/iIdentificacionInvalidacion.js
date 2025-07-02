@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getIdentificacionAnulacion = void 0;
+exports.getIdentificacionAnulacion = getIdentificacionAnulacion;
 const functions_1 = require("../../utils/functions");
 const { v4: uuidv4 } = require('uuid');
 function getIdentificacionAnulacion() {
@@ -24,4 +24,3 @@ function getIdentificacionAnulacion() {
         return identificacion;
     });
 }
-exports.getIdentificacionAnulacion = getIdentificacionAnulacion;

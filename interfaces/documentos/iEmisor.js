@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getEmisor = void 0;
+exports.getEmisor = getEmisor;
 const ActividadEconomica_1 = __importDefault(require("../../models/factura/ActividadEconomica"));
 const Emisor_1 = __importDefault(require("../../models/factura/Emisor"));
 const TipoDocumento_1 = __importDefault(require("../../models/factura/TipoDocumento"));
@@ -20,8 +20,8 @@ const TipoEstablecimiento_1 = __importDefault(require("../../models/factura/Tipo
 const TipoItem_1 = __importDefault(require("../../models/inventario/TipoItem"));
 const Departamento_1 = __importDefault(require("../../models/region/Departamento"));
 const Municipio_1 = __importDefault(require("../../models/region/Municipio"));
-function getEmisor(emisorId, tipoItemExpoId = null) {
-    return __awaiter(this, void 0, void 0, function* () {
+function getEmisor(emisorId_1) {
+    return __awaiter(this, arguments, void 0, function* (emisorId, tipoItemExpoId = null) {
         const emi = yield Emisor_1.default.findByPk(emisorId);
         const actividadE = yield ActividadEconomica_1.default.findByPk(emi === null || emi === void 0 ? void 0 : emi.actividadEconomicaId);
         const tipoEstable = yield TipoEstablecimiento_1.default.findByPk(emi === null || emi === void 0 ? void 0 : emi.tipoEstablecimientoId);
@@ -65,4 +65,3 @@ function getEmisor(emisorId, tipoItemExpoId = null) {
         return emisor;
     });
 }
-exports.getEmisor = getEmisor;

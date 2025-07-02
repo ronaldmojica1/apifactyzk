@@ -10,6 +10,7 @@ const session_1 = require("../middleware/session");
 const router = (0, express_1.Router)();
 exports.router = router;
 router.get('/', session_1.checkJwt, ProductoController_1.default.getAllR);
+router.get('/search/sp', session_1.checkJwt, ProductoController_1.default.search);
 router.get('/:id', session_1.checkJwt, ProductoController_1.default.getR);
 router.post('/', session_1.checkJwt, ProductoController_1.default.createR);
 router.put('/:id', session_1.checkJwt, ProductoController_1.default.updateR);

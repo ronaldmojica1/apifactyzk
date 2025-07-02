@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getVentaTercero = void 0;
+exports.getVentaTercero = getVentaTercero;
 function getVentaTercero(dte) {
     return __awaiter(this, void 0, void 0, function* () {
         if (dte.esVentaTercero) {
@@ -24,4 +24,3 @@ function getVentaTercero(dte) {
         }
     });
 }
-exports.getVentaTercero = getVentaTercero;

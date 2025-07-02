@@ -37,6 +37,27 @@ function generarReporte(req, res) {
                 }
             ]
         });
+        // Estilos para mejorar la presentación
+        const headerStyle = {
+            fontStyle: 'bold',
+            fontSize: 10,
+            border: true,
+            padding: 5
+        };
+        const labelStyle = {
+            fontStyle: 'bold',
+            fontSize: 9,
+            align: 'left',
+            padding: 3
+        };
+        const valueStyle = {
+            fontSize: 9,
+            padding: 3
+        };
+        const sectionStyle = {
+            marginBottom: 5
+        };
+        // Crear la estructura del encabezado con estilos mejorados
         const head = {
             rows: [
                 new RptPdfUtils_1.Row([
@@ -44,47 +65,49 @@ function generarReporte(req, res) {
                         new RptPdfUtils_1.Row([
                             new RptPdfUtils_1.Column(6, 'Facturar A', [
                                 new RptPdfUtils_1.Row([
-                                    new RptPdfUtils_1.Column(12, dte.receptor.nombre)
+                                    new RptPdfUtils_1.Column(12, dte.receptor.nombre, undefined, valueStyle)
                                 ]),
                                 new RptPdfUtils_1.Row([
-                                    new RptPdfUtils_1.Column(12, dte.receptor.direccion)
+                                    new RptPdfUtils_1.Column(12, dte.receptor.direccion, undefined, valueStyle)
                                 ])
-                            ]),
+                            ], headerStyle),
                             new RptPdfUtils_1.Column(6, 'Cobrar A', [
                                 new RptPdfUtils_1.Row([
-                                    new RptPdfUtils_1.Column(12, 'dasdasdasdsadasdasdsad')
+                                    new RptPdfUtils_1.Column(12, dte.cobrarA ? dte.cobrarA.nombre : '', undefined, valueStyle)
                                 ]),
                                 new RptPdfUtils_1.Row([
-                                    new RptPdfUtils_1.Column(12, 'dadasdasdeqeqweqwewqewqewq ewqewqewqewqewqewqe  qwewqewq eqweqwewqewqd dadasdqqwqewq')
+                                    new RptPdfUtils_1.Column(12, dte.cobrarA ? dte.cobrarA.direccion : '', undefined, valueStyle)
                                 ])
-                            ])
-                        ])
-                    ])
-                ]),
-                new RptPdfUtils_1.Row([
-                    new RptPdfUtils_1.Column(8, '', [
+                            ], headerStyle)
+                        ], sectionStyle)
+                    ]),
+                    new RptPdfUtils_1.Column(4, '', [
                         new RptPdfUtils_1.Row([
-                            new RptPdfUtils_1.Column(6, 'Facturar A', [
-                                new RptPdfUtils_1.Row([
-                                    new RptPdfUtils_1.Column(12, dte.receptor.nombre)
-                                ]),
-                                new RptPdfUtils_1.Row([
-                                    new RptPdfUtils_1.Column(12, dte.receptor.direccion)
-                                ])
-                            ]),
-                            new RptPdfUtils_1.Column(6, 'Cobrar A', [
-                                new RptPdfUtils_1.Row([
-                                    new RptPdfUtils_1.Column(12, 'dasdasdasdsadasdasdsad')
-                                ]),
-                                new RptPdfUtils_1.Row([
-                                    new RptPdfUtils_1.Column(12, 'dadasdasdeqeqweqwewqewqewq ewqewqewqewqewqewqe  qwewqewq eqweqwewqewqd dadasdqqwqewq')
-                                ])
-                            ])
+                            new RptPdfUtils_1.Column(4, 'Factura Nro:', undefined, labelStyle),
+                            new RptPdfUtils_1.Column(8, dte.codigoGeneracion, undefined, valueStyle)
+                        ]),
+                        new RptPdfUtils_1.Row([
+                            new RptPdfUtils_1.Column(4, 'Fecha:', undefined, labelStyle),
+                            new RptPdfUtils_1.Column(8, dte.fecEmision, undefined, valueStyle)
+                        ]),
+                        new RptPdfUtils_1.Row([
+                            new RptPdfUtils_1.Column(4, 'RUC:', undefined, labelStyle),
+                            new RptPdfUtils_1.Column(8, dte.receptor.numeroDocumento || '', undefined, valueStyle)
                         ])
-                    ])
-                ])
+                    ], sectionStyle)
+                ], sectionStyle),
+                new RptPdfUtils_1.Row([
+                    new RptPdfUtils_1.Column(12, 'Detalles de la Factura', undefined, {
+                        fontStyle: 'bold',
+                        fontSize: 12,
+                        align: 'center',
+                        padding: 5,
+                        backgroundColor: '#e9e9e9',
+                    })
+                ], { marginTop: 10, marginBottom: 5 })
             ]
         };
+        // Configuración mejorada para la tabla de factura
         const invoiceHeader = [
             {
                 title: "ITEM",
@@ -104,7 +127,7 @@ function generarReporte(req, res) {
             {
                 title: "DESCRIPCION",
                 style: {
-                    width: 100
+                    width: 50
                 }
             },
             { title: "O.C DELIVERY" },
@@ -123,13 +146,16 @@ function generarReporte(req, res) {
                 }
             },
         ];
-        const invoiceTable = dte.items.sort((a, b) => a.numItem - b.numItem).map((itm) => {
+        // Procesar los datos de la tabla
+        const invoiceTable = dte.items
+            .sort((a, b) => a.numItem - b.numItem)
+            .map((itm) => {
             return [
                 itm.numItem,
                 itm.producto != null ? itm.producto.codigo : "",
                 itm.cantidad,
                 itm.unidadMedida != null ? itm.unidadMedida.unidad : "",
-                itm.paisOrigen,
+                itm.paisOrigen != null ? itm.paisOrigen : "",
                 itm.descripcion,
                 "",
                 "",
@@ -138,11 +164,17 @@ function generarReporte(req, res) {
                 itm.ventaGravada
             ];
         });
-        //res.json(head)
-        const outputType = 'save';
+        // Calcular totales
+        const totalVentaGravada = dte.items.reduce((sum, item) => sum + parseFloat(item.ventaGravada || 0), 0);
+        const igv = totalVentaGravada * 0.18; // Asumiendo IGV del 18%
+        const totalFactura = totalVentaGravada + igv;
+        // Formatear números para mostrar
+        const formatNumber = (num) => num.toLocaleString('es-PE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        // Configuración del PDF
+        const outputType = req.query.outputType || 'save';
         const param = {
             outputType: outputType,
-            fileName: "invoice.pdf",
+            fileName: `factura_${dte.numero}.pdf`,
             orientationLandscape: true,
             head: head,
             invoice: {
@@ -150,36 +182,52 @@ function generarReporte(req, res) {
                 tableBodyBorder: true,
                 header: invoiceHeader,
                 table: invoiceTable,
-                additionalRows: [{
-                        col1: 'Total:',
-                        col2: '145,250.50',
-                        col3: 'ALL',
-                        style: {
-                            fontSize: 14 //optional, default 12
-                        }
-                    },
-                    {
-                        col1: 'VAT:',
-                        col2: '20',
-                        col3: '%',
-                        style: {
-                            fontSize: 10 //optional, default 12
-                        }
-                    },
+                additionalRows: [
                     {
                         col1: 'SubTotal:',
-                        col2: '116,199.90',
-                        col3: 'ALL',
+                        col2: formatNumber(totalVentaGravada),
+                        col3: 'PEN',
                         style: {
-                            fontSize: 10 //optional, default 12
+                            fontSize: 10
                         }
-                    }],
-                invDescLabel: "Invoice Note",
-                invDesc: "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary.",
-            }
+                    },
+                    {
+                        col1: 'IGV (18%):',
+                        col2: formatNumber(igv),
+                        col3: 'PEN',
+                        style: {
+                            fontSize: 10
+                        }
+                    },
+                    {
+                        col1: 'Total:',
+                        col2: formatNumber(totalFactura),
+                        col3: 'PEN',
+                        style: {
+                            fontSize: 12
+                        }
+                    }
+                ],
+                invDescLabel: "Observaciones",
+                invDesc: dte.observaciones || "Gracias por su preferencia.",
+            },
+            footer: {
+                text: "© " + new Date().getFullYear() + " - Documento generado electrónicamente"
+            },
+            pageEnable: true,
+            pageLabel: "Página"
         };
-        (0, Global_1.initTemplate)(param);
-        res.json((0, apiresponse_1.successResponse)(null, "Si"));
+        // Generar el PDF
+        const result = (0, Global_1.initTemplate)(param);
+        // Si se solicita como blob, devolver el blob
+        if (outputType === 'blob' && result.blob) {
+            res.setHeader('Content-Type', 'application/pdf');
+            res.setHeader('Content-Disposition', `attachment; filename=factura_${dte.numero}.pdf`);
+            res.send(result.blob);
+            return;
+        }
+        // Respuesta estándar
+        res.json((0, apiresponse_1.successResponse)(result, "Reporte generado correctamente"));
     });
 }
 exports.default = {

@@ -1,20 +1,20 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.numeroALetras = exports.formatTimeToHHMMSS = exports.formatDateToYYYYMMDD = void 0;
+exports.formatDateToYYYYMMDD = formatDateToYYYYMMDD;
+exports.formatTimeToHHMMSS = formatTimeToHHMMSS;
+exports.numeroALetras = numeroALetras;
 function formatDateToYYYYMMDD(date) {
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, '0'); // Month is zero-based
     const day = String(date.getDate()).padStart(2, '0');
     return `${year}-${month}-${day}`;
 }
-exports.formatDateToYYYYMMDD = formatDateToYYYYMMDD;
 function formatTimeToHHMMSS(date) {
     const hours = String(date.getHours()).padStart(2, '0');
     const minutes = String(date.getMinutes()).padStart(2, '0');
     const seconds = String(date.getSeconds()).padStart(2, '0');
     return `${hours}:${minutes}:${seconds}`;
 }
-exports.formatTimeToHHMMSS = formatTimeToHHMMSS;
 function Unidades(num) {
     switch (num) {
         case 1: return "UN";
@@ -121,8 +121,8 @@ function numeroALetras(num) {
         enteros: Math.floor(num),
         centavos: (((Math.round(num * 100)) - (Math.floor(num) * 100))),
         letrasCentavos: "",
-        letrasMonedaPlural: 'DOLARES',
-        letrasMonedaSingular: 'DOLAR',
+        letrasMonedaPlural: 'DOLARES', //“PESOS”, 'Dólares', 'Bolívares', 'etcs'
+        letrasMonedaSingular: 'DOLAR', //“PESO”, 'Dólar', 'Bolivar', 'etc'
         letrasMonedaCentavoPlural: "CENTAVOS",
         letrasMonedaCentavoSingular: "CENTAVO"
     };
@@ -142,4 +142,3 @@ function numeroALetras(num) {
     else
         return Millones(data.enteros) + " " + data.letrasMonedaPlural + " " + data.letrasCentavos;
 } //NumeroALetras()
-exports.numeroALetras = numeroALetras;

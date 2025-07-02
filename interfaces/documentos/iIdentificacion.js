@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getIdentificacion = void 0;
+exports.getIdentificacion = getIdentificacion;
 const Emisor_1 = __importDefault(require("../../models/factura/Emisor"));
 const TipoContingencia_1 = __importDefault(require("../../models/factura/TipoContingencia"));
 const TipoDte_1 = __importDefault(require("../../models/factura/TipoDte"));
@@ -47,7 +47,7 @@ function getIdentificacion(dte) {
             ambiente: process.env.MH_AMBIENTE || '',
             tipoDte: (tipoDte === null || tipoDte === void 0 ? void 0 : tipoDte.codigo) || '00',
             numeroControl: numeroControl,
-            codigoGeneracion: (dte === null || dte === void 0 ? void 0 : dte.codigoGeneracion) || '',
+            codigoGeneracion: (dte === null || dte === void 0 ? void 0 : dte.codigoGeneracion) || '', //uuidv4().toUpperCase(),
             tipoModelo: (tipoModelo === null || tipoModelo === void 0 ? void 0 : tipoModelo.codigo) || 0,
             tipoOperacion: (tipoOperacion === null || tipoOperacion === void 0 ? void 0 : tipoOperacion.codigo) || 0,
             tipoContingencia: (tipoContingencia === null || tipoContingencia === void 0 ? void 0 : tipoContingencia.codigo) || null,
@@ -66,4 +66,3 @@ function getIdentificacion(dte) {
         return identificacion;
     });
 }
-exports.getIdentificacion = getIdentificacion;

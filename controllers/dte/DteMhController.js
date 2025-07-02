@@ -55,6 +55,8 @@ function loginAndGetToken() {
         fd.append('user', (credenciales === null || credenciales === void 0 ? void 0 : credenciales.nit) || "");
         fd.append('pwd', (credenciales === null || credenciales === void 0 ? void 0 : credenciales.clave_api) || "");
         let resp = yield axios_1.default.post(process.env.MH_URL_LOGIN || "", fd);
+        console.log('Iniciando sesion en los servicios de MH');
+        console.log(resp);
         if (resp.data.status = "OK") {
             return resp.data.body.token;
         }
@@ -189,12 +191,15 @@ function transmitirDte(req, res) {
             }).then((result) => {
                 resp = result.data;
             }).catch((error) => {
-                //console.log(error)   
+                console.log(error);
                 if (error.response) {
                     if (error.response.status == 401) {
                         resp = {
                             estado: "RECHAZADO",
-                            descripcionMsg: 'Usuario No autorizado'
+                            descripcionMsg: 'Usuario No autorizado',
+                            observaciones: [
+                                "Rechazo por usuario no autorizado"
+                            ]
                         };
                     }
                     else {
@@ -667,6 +672,13 @@ function getVersionLegible(req, res) {
         try {
             // Convertir el PDF de base64 a buffer
             const pdfBuffer = Buffer.from(resp, 'base64');
+            // Crear nombre de archivo único usando el código de generación
+            const pdfFileName = `${codigoGeneracion}.pdf`;
+            const pdfPath = path_1.default.join('uploads', pdfFileName);
+            // Asegurarse que la carpeta uploads existe
+            if (!fs_1.default.existsSync('uploads')) {
+                fs_1.default.mkdirSync('uploads');
+            }
             // Verificar si se debe usar el logo desde la configuración
             const [config] = yield Configuracion_1.default.findOrCreate({
                 where: {},
@@ -695,6 +707,8 @@ function getVersionLegible(req, res) {
                     else {
                         // Si no es JPG o PNG, no se puede insertar
                         console.log("Formato de logo no soportado:", fileExt);
+                        // Guardar el PDF original
+                        fs_1.default.writeFileSync(pdfPath, pdfBuffer);
                         res.status(200).send(resp);
                         return;
                     }
@@ -715,14 +729,32 @@ function getVersionLegible(req, res) {
                     });
                     // Guardar el PDF modificado
                     const modifiedPdfBytes = yield pdfDoc.save();
-                    // Convertir de nuevo a base64
+                    // Guardar el archivo modificado
+                    fs_1.default.writeFileSync(pdfPath, modifiedPdfBytes);
+                    // Convertir de nuevo a base64 para la respuesta
                     resp = Buffer.from(modifiedPdfBytes).toString('base64');
                 }
+                else {
+                    // Si no existe el logo, guardar el PDF original
+                    fs_1.default.writeFileSync(pdfPath, pdfBuffer);
+                }
+            }
+            else {
+                // Si no se usa logo, guardar el PDF original
+                fs_1.default.writeFileSync(pdfPath, pdfBuffer);
             }
         }
         catch (error) {
             console.error("Error al procesar el PDF con el logo:", error);
-            // En caso de error, devolver el PDF original
+            // En caso de error, intentar guardar el PDF original
+            try {
+                const pdfFileName = `${codigoGeneracion}.pdf`;
+                const pdfPath = path_1.default.join('uploads', pdfFileName);
+                fs_1.default.writeFileSync(pdfPath, Buffer.from(resp, 'base64'));
+            }
+            catch (saveError) {
+                console.error("Error al guardar el PDF original:", saveError);
+            }
         }
         // Enviar la respuesta
         res.status(200).send(resp);

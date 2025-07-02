@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getDteContingecia = void 0;
+exports.getDteContingecia = getDteContingecia;
 const Dte_1 = __importDefault(require("../../models/factura/Dte"));
 const TipoDte_1 = __importDefault(require("../../models/factura/TipoDte"));
 function getDteContingecia(contingenciaDetalle) {
@@ -32,4 +32,3 @@ function getDteContingecia(contingenciaDetalle) {
         return dteContingencia;
     });
 }
-exports.getDteContingecia = getDteContingecia;

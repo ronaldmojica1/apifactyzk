@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getAnulacionDoc = void 0;
+exports.getAnulacionDoc = getAnulacionDoc;
 const iDocumentoInvalidar_1 = require("./iDocumentoInvalidar");
 const iEmisor_1 = require("./iEmisor");
 const iIdentificacionInvalidacion_1 = require("./iIdentificacionInvalidacion");
@@ -25,4 +25,3 @@ function getAnulacionDoc(dte) {
         return docAnulacion;
     });
 }
-exports.getAnulacionDoc = getAnulacionDoc;

@@ -12,10 +12,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.uploadFiles = exports.upload = void 0;
+exports.upload = void 0;
+exports.uploadFiles = uploadFiles;
 const multer_1 = __importDefault(require("multer"));
 const storage = multer_1.default.diskStorage({
-    destination: 'uploads/',
+    destination: 'uploads/', // Destination directory for uploaded files
     filename: (req, file, cb) => {
         const originalFilename = file.originalname; // Get the original filename
         cb(null, originalFilename); // Pass the original filename directly
@@ -27,4 +28,3 @@ function uploadFiles(files) {
         yield exports.upload.array(files);
     });
 }
-exports.uploadFiles = uploadFiles;

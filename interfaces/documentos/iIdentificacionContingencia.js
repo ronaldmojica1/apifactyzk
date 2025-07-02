@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getIdentificacionContingencia = void 0;
+exports.getIdentificacionContingencia = getIdentificacionContingencia;
 const functions_1 = require("../../utils/functions");
 function getIdentificacionContingencia(contin) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -23,4 +23,3 @@ function getIdentificacionContingencia(contin) {
         return identificacion;
     });
 }
-exports.getIdentificacionContingencia = getIdentificacionContingencia;

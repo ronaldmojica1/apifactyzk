@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getResumen = void 0;
+exports.getResumen = getResumen;
 const CuerpoDocumento_1 = __importDefault(require("../../models/factura/CuerpoDocumento"));
 const functions_1 = require("../../utils/functions");
 const CondicionOperacions_1 = __importDefault(require("../../models/factura/CondicionOperacions"));
@@ -35,9 +35,10 @@ function getResumen(dte) {
         const subTotalVentas = Math.round((totalNoSuj + totalExenta + totalGravada) * 100) / 100;
         const descuItems = itemsDte.reduce((pv, cv) => pv + cv.montoDescu, 0);
         const subTotalDescuentos = ((dte === null || dte === void 0 ? void 0 : dte.descuNoSuj) || 0) + ((dte === null || dte === void 0 ? void 0 : dte.descuExenta) || 0) + ((dte === null || dte === void 0 ? void 0 : dte.descuGravada) || 0);
-        const porcentajeDescuento = Math.round(((subTotalDescuentos / subTotalVentas) * 100) * 100) / 100;
+        const porcentajeDescuento = subTotalVentas == 0 ? 0 : Math.round(((subTotalDescuentos / subTotalVentas) * 100) * 100) / 100;
         const totalNoGravado = itemsDte.reduce((pv, cv) => pv + cv.noGravado, 0);
         const totalIva = Math.round((totalGravada - (totalGravada / 1.13)) * 100) / 100; //itemsDte.reduce((pv,cv) => pv + cv.iva,0);//Ojo para mientras
+        //const totalIva = Math.round((totalGravada  * 0.13) * 100) / 100 ; //itemsDte.reduce((pv,cv) => pv + cv.iva,0);//Ojo para mientras
         const condicionOperacion = yield CondicionOperacions_1.default.findByPk(dte === null || dte === void 0 ? void 0 : dte.condicionOperacionId);
         const incoterm = yield Incoterms_1.default.findByPk(dte === null || dte === void 0 ? void 0 : dte.incotermId);
         const totalSujetoRetencion = itemsDte.reduce((pv, cv) => pv + cv.montoSujetoGrav, 0);
@@ -84,11 +85,12 @@ function getResumen(dte) {
         for (const tributo of tributosItemJson) {
             const tributoId = tributo.tributoId;
             const subTotal = (Math.round(tributo.subTotal * 100) / 100);
-            if (!tributosMap.has(tributoId)) { //Si no existe agregar am map
+            if (!tributosMap.has(tributoId)) { //Si no existe agregar am map            
                 tributosMap.set(tributoId, {
                     codigo: tributo.tributo.codigo,
                     descripcion: tributo.tributo.tributo,
-                    valor: subTotal
+                    valor: subTotal,
+                    tributo: tributo.tributo,
                 });
             }
             else { //si existe sumar el subtotal
@@ -98,6 +100,16 @@ function getResumen(dte) {
             }
             subTotalTributosAdicionales += subTotal;
         }
+        // todos los tributos de tributosMap que tengan tributo.porcentaje ? deberan aplicarse el descuento de dte.descuGravada           
+        tributosMap.forEach((tributo) => {
+            if (tributo.tributo.porcentaje) {
+                const tributoDescuento = ((dte === null || dte === void 0 ? void 0 : dte.descuGravada) || 0) * (tributo.tributo.porcentaje / 100);
+                tributo.valor -= tributoDescuento;
+                tributo.valor = (Math.round(tributo.valor * 100) / 100);
+                subTotalTributosAdicionales -= tributoDescuento;
+            }
+        });
+        subTotalTributosAdicionales = (Math.round(subTotalTributosAdicionales * 100) / 100);
         tributosTmp = Array.from(tributosMap.values());
         //Asignar a la interfaz de resumen
         tributos = tributosTmp.length > 0 ? tributosTmp : null;
@@ -109,19 +121,19 @@ function getResumen(dte) {
             descuNoSuj: (dte === null || dte === void 0 ? void 0 : dte.descuNoSuj) || 0,
             descuExenta: (dte === null || dte === void 0 ? void 0 : dte.descuExenta) || 0,
             descuGravada: (dte === null || dte === void 0 ? void 0 : dte.descuGravada) || 0,
-            descuento: (dte === null || dte === void 0 ? void 0 : dte.descuGravada) || 0,
+            descuento: (dte === null || dte === void 0 ? void 0 : dte.descuGravada) || 0, //FEX (Se guarda en descugravada)
             porcentajeDescuento: porcentajeDescuento,
             totalDescu: Math.round((descuItems + subTotalDescuentos) * 100) / 100,
             tributos: tributos,
             subTotal: Math.round((subTotalVentas - subTotalDescuentos) * 100) / 100,
             ivaRete1: (dte === null || dte === void 0 ? void 0 : dte.ivaRete1) || 0,
-            ivaPerci1: (dte === null || dte === void 0 ? void 0 : dte.ivaPerci1) || 0,
+            ivaPerci1: (dte === null || dte === void 0 ? void 0 : dte.ivaPerci1) || 0, //CCF    
             reteRenta: (dte === null || dte === void 0 ? void 0 : dte.reteRenta) || 0,
             //montoTotalOperacion : Math.round(((subTotalVentas - subTotalDescuentos - (dte?.ivaRete1 || 0) - (dte?.reteRenta || 0) + (dte?.ivaPerci1 || 0) + subTotalTributosAdicionales) * 100))/100 ,
             montoTotalOperacion: Math.round(((subTotalVentas - subTotalDescuentos + subTotalTributosAdicionales) * 100)) / 100,
             totalNoGravado: totalNoGravado,
-            totalPagar: Math.round(((totalGravada + totalExenta + totalNoSuj) - (subTotalDescuentos + descuItems) + totalNoGravado - ((dte === null || dte === void 0 ? void 0 : dte.ivaRete1) || 0) - ((dte === null || dte === void 0 ? void 0 : dte.reteRenta) || 0) + ((dte === null || dte === void 0 ? void 0 : dte.ivaPerci1) || 0) + subTotalTributosAdicionales) * 100) / 100,
-            totalLetras: (0, functions_1.numeroALetras)(Math.round(((totalGravada + totalExenta + totalNoSuj) - (subTotalDescuentos + descuItems) + totalNoGravado - ((dte === null || dte === void 0 ? void 0 : dte.ivaRete1) || 0) - ((dte === null || dte === void 0 ? void 0 : dte.reteRenta) || 0) + ((dte === null || dte === void 0 ? void 0 : dte.ivaPerci1) || 0) + subTotalTributosAdicionales) * 100) / 100),
+            totalPagar: Math.round(((totalGravada + totalExenta + totalNoSuj) - (subTotalDescuentos) + totalNoGravado - ((dte === null || dte === void 0 ? void 0 : dte.ivaRete1) || 0) - ((dte === null || dte === void 0 ? void 0 : dte.reteRenta) || 0) + ((dte === null || dte === void 0 ? void 0 : dte.ivaPerci1) || 0) + subTotalTributosAdicionales) * 100) / 100,
+            totalLetras: (0, functions_1.numeroALetras)(Math.round(((totalGravada + totalExenta + totalNoSuj) - (subTotalDescuentos) + totalNoGravado - ((dte === null || dte === void 0 ? void 0 : dte.ivaRete1) || 0) - ((dte === null || dte === void 0 ? void 0 : dte.reteRenta) || 0) + ((dte === null || dte === void 0 ? void 0 : dte.ivaPerci1) || 0) + subTotalTributosAdicionales) * 100) / 100),
             totalIva: totalIva,
             saldoFavor: (dte === null || dte === void 0 ? void 0 : dte.saldoFavor) || 0,
             condicionOperacion: (condicionOperacion === null || condicionOperacion === void 0 ? void 0 : condicionOperacion.codigo) || 1,
@@ -136,14 +148,13 @@ function getResumen(dte) {
             totalSujetoRetencion: totalSujetoRetencion,
             totalIVAretenido: totalIVAretenido,
             totalIVAretenidoLetras: (0, functions_1.numeroALetras)(totalIVAretenido),
-            ivaPerci: totalIva,
+            ivaPerci: totalIva, //IVA Sumatoria CL.
             totalExportacion: totalExportacion,
             total: subTotalVentas + totalIva,
-            totalCompra: totalCompra,
+            totalCompra: totalCompra, //Factura Sujeto Excluido
             descu: dte === null || dte === void 0 ? void 0 : dte.descuGravada, //Factura Sujeto Excluido (se guarda DescuGravada)
         };
         console.log(resumen);
         return resumen;
     });
 }
-exports.getResumen = getResumen;

@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getMotivoContingencia = void 0;
+exports.getMotivoContingencia = getMotivoContingencia;
 const TipoContingencia_1 = __importDefault(require("../../models/factura/TipoContingencia"));
 //Se necesita crear modelos para las contingecias
 function getMotivoContingencia(contingencia) {
@@ -29,4 +29,3 @@ function getMotivoContingencia(contingencia) {
         return motivo;
     });
 }
-exports.getMotivoContingencia = getMotivoContingencia;

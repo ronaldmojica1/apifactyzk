@@ -19,6 +19,68 @@ const TipoItem_1 = __importDefault(require("../../models/inventario/TipoItem"));
 const Tributo_1 = __importDefault(require("../../models/inventario/Tributo"));
 const UnidadMedida_1 = __importDefault(require("../../models/inventario/UnidadMedida"));
 const TipoVenta_1 = __importDefault(require("../../models/inventario/TipoVenta"));
+const sequelize_1 = require("sequelize");
+function search(req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const { search } = req.query;
+            const whereOptions = {};
+            if (search) {
+                const searchConditions = [
+                    { descripcion: { [sequelize_1.Op.iLike]: `%${search}%` } },
+                    { codigo: { [sequelize_1.Op.iLike]: `%${search}%` } }
+                ];
+                // Si el código es numérico, agregamos búsqueda exacta numérica
+                if (!isNaN(search)) {
+                    searchConditions.push({
+                        codigo: search // Búsqueda exacta para códigos numéricos
+                    });
+                }
+                whereOptions[sequelize_1.Op.or] = searchConditions;
+                const acts = yield Producto_1.default.findAll({
+                    where: whereOptions,
+                    limit: 10, // Limita los resultados a 10          
+                    include: [
+                        {
+                            model: TributosProducto_1.default,
+                            as: 'tributos',
+                            include: [
+                                {
+                                    model: Tributo_1.default,
+                                    as: 'tributo'
+                                }
+                            ]
+                        },
+                        {
+                            model: TipoItem_1.default,
+                            as: 'tipoItem'
+                        },
+                        {
+                            model: TipoVenta_1.default,
+                            as: 'tipoVenta'
+                        },
+                        {
+                            model: Tributo_1.default,
+                            as: 'tributo'
+                        },
+                        {
+                            model: UnidadMedida_1.default,
+                            as: 'unidadMedida'
+                        }
+                    ]
+                });
+                res.status(201).json((0, apiresponse_1.successResponse)(acts, ''));
+            }
+            else {
+                res.status(201).json((0, apiresponse_1.successResponse)([], 'No se encontraron resultados'));
+            }
+        }
+        catch (error) {
+            res.status(200).json((0, apiresponse_1.errorResponse)(error));
+            console.log(error);
+        }
+    });
+}
 function getAllR(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -196,6 +258,7 @@ function verificateOrCreate(req, res) {
     });
 }
 exports.default = {
+    search,
     getAllR,
     createR,
     updateR,

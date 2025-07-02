@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getDocumentoRelacionado = void 0;
+exports.getDocumentoRelacionado = getDocumentoRelacionado;
 const DocumentosRelacionados_1 = __importDefault(require("../../models/factura/DocumentosRelacionados"));
 const TipoDte_1 = __importDefault(require("../../models/factura/TipoDte"));
 const TipoGeneracion_1 = __importDefault(require("../../models/factura/TipoGeneracion"));
@@ -41,4 +41,3 @@ function getDocumentoRelacionado(dteId) {
         return documentos;
     });
 }
-exports.getDocumentoRelacionado = getDocumentoRelacionado;

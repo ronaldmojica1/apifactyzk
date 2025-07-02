@@ -417,7 +417,13 @@ function getR(req, res) {
                     },
                     {
                         model: Receptor_1.default,
-                        as: 'receptor'
+                        as: 'receptor',
+                        include: [
+                            {
+                                model: ActividadEconomica_1.default,
+                                as: 'actividadEconomica'
+                            }
+                        ]
                     },
                     {
                         model: Receptor_1.default,

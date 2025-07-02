@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getItems = void 0;
+exports.getItems = getItems;
 const CuerpoDocumento_1 = __importDefault(require("../../models/factura/CuerpoDocumento"));
 const RetencionMH_1 = __importDefault(require("../../models/factura/RetencionMH"));
 const TipoDte_1 = __importDefault(require("../../models/factura/TipoDte"));
@@ -34,7 +34,7 @@ function getItems(dte) {
         for (const itm of itemsDte) {
             const producto = yield Producto_1.default.findByPk(itm.productoId);
             const tipoItem = yield TipoItem_1.default.findByPk(itm === null || itm === void 0 ? void 0 : itm.tipoItemId);
-            const tributoProd = yield Tributo_1.default.findByPk(producto === null || producto === void 0 ? void 0 : producto.tributoId);
+            const tributoProd = yield Tributo_1.default.findByPk(itm === null || itm === void 0 ? void 0 : itm.tributoId);
             const um = yield UnidadMedida_1.default.findByPk(itm === null || itm === void 0 ? void 0 : itm.unidadMedidaId);
             const tributosProd = yield TributosItem_1.default.findAll({
                 where: {
@@ -68,23 +68,23 @@ function getItems(dte) {
                 uniMedida: (um === null || um === void 0 ? void 0 : um.codigo) || 0,
                 descripcion: ((itm === null || itm === void 0 ? void 0 : itm.descripcion) || '') + (itm.observaciones != null ? ('(' + itm.observaciones + ')') : ''),
                 cantidad: itm.cantidad,
-                precioUni: (itm.noGravado > 0 ? 0 : itm.precioUni),
+                precioUni: (itm.noGravado > 0 ? 0 : itm.precioUni), //Si lleva venta no sujeta y es FEX el precio unitario debe ser cero
                 montoDescu: itm.montoDescu,
                 ventaNoSuj: itm.ventaNoSuj,
                 ventaExenta: itm.ventaExenta,
                 ventaGravada: itm.ventaGravada,
                 tributos: tributosLstProd,
                 psv: ((producto === null || producto === void 0 ? void 0 : producto.psv) != null ? (Math.round(producto.psv * 100) / 100) : itm.precioUni) || 0,
-                noGravado: itm.noGravado,
-                ivaItem: Math.round((itm.ventaGravada - (itm.ventaGravada / 1.13)) * 100) / 100,
+                noGravado: itm.noGravado, // Este campo se cambio a venta no sujeta
+                ivaItem: Math.round((itm.ventaGravada - (itm.ventaGravada / 1.13)) * 100) / 100, //itm.iva, //Ojo para mientras 
                 //Cuando el tipo de Item es Documento CL(varios DTE),CR(solo 1 dte),NC(de un item solo numero),ND(de un item solo numero),NR(de un item solo numero)            
                 tipoDte: tipoDte === null || tipoDte === void 0 ? void 0 : tipoDte.codigo,
                 tipoDoc: tipoGeneracion === null || tipoGeneracion === void 0 ? void 0 : tipoGeneracion.codigo,
-                tipoGeneracion: tipoGeneracion === null || tipoGeneracion === void 0 ? void 0 : tipoGeneracion.codigo,
+                tipoGeneracion: tipoGeneracion === null || tipoGeneracion === void 0 ? void 0 : tipoGeneracion.codigo, //Mismo tipoDoc para CL
                 numDocumento: itm.numeroDocumento,
-                numeroDocumento: itm.numeroDocumento,
+                numeroDocumento: itm.numeroDocumento, //Mismo numDocumento
                 fechaEmision: itm.fechaEmision,
-                fechaGeneracion: itm.fechaEmision,
+                fechaGeneracion: itm.fechaEmision, // Misma fechaEmision
                 montoSujetoGrav: itm.montoSujetoGrav,
                 codigoRetencionMH: retencionMh === null || retencionMh === void 0 ? void 0 : retencionMh.codigo,
                 ivaRetenido: itm.ivaRetenido,
@@ -115,4 +115,3 @@ function getItems(dte) {
         return items;
     });
 }
-exports.getItems = getItems;

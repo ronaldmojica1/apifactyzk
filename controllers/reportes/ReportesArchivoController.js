@@ -15,13 +15,23 @@ var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (
 }) : function(o, v) {
     o["default"] = v;
 });
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
+var __importStar = (this && this.__importStar) || (function () {
+    var ownKeys = function(o) {
+        ownKeys = Object.getOwnPropertyNames || function (o) {
+            var ar = [];
+            for (var k in o) if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
+            return ar;
+        };
+        return ownKeys(o);
+    };
+    return function (mod) {
+        if (mod && mod.__esModule) return mod;
+        var result = {};
+        if (mod != null) for (var k = ownKeys(mod), i = 0; i < k.length; i++) if (k[i] !== "default") __createBinding(result, mod, k[i]);
+        __setModuleDefault(result, mod);
+        return result;
+    };
+})();
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -107,7 +117,7 @@ function rptLibroVentasXlsCustYzk(req, res) {
             const datos = yield Dte_1.default.findAll({
                 where: whereOptions,
                 attributes: [
-                    [(0, sequelize_1.col)('Dte.fecEmi'), 'fecha'],
+                    [(0, sequelize_1.col)('Dte.fecEmi'), 'fecha'], //A                
                     [(0, sequelize_1.literal)(`(
                     SELECT "selloRecibido"
                     FROM "dte" AS "subDte" 
@@ -115,7 +125,7 @@ function rptLibroVentasXlsCustYzk(req, res) {
                     AND "subDte"."tipoDteId" IN (1, 9)
                     ORDER BY "subDte"."horEmi" ASC
                     LIMIT 1
-                  )`), 'primerSello'],
+                  )`), 'primerSello'], //B                
                     [(0, sequelize_1.literal)(`(
                     SELECT "selloRecibido"
                     FROM "dte" AS "subDte"
@@ -123,7 +133,7 @@ function rptLibroVentasXlsCustYzk(req, res) {
                     AND "subDte"."tipoDteId" IN (1, 9)
                     ORDER BY "subDte"."horEmi" DESC
                     LIMIT 1
-                  )`), 'ultimoSello'],
+                  )`), 'ultimoSello'], //C
                     [(0, sequelize_1.literal)(`(
                     SELECT "codigoGeneracion"
                     FROM "dte" AS "subDte"
@@ -132,7 +142,7 @@ function rptLibroVentasXlsCustYzk(req, res) {
                     ORDER BY "subDte"."horEmi" ASC
                     LIMIT 1
                   )`),
-                        'primerDocumento'],
+                        'primerDocumento'], //D
                     [(0, sequelize_1.literal)(`(
                     SELECT "codigoGeneracion"
                     FROM "dte" AS "subDte"
@@ -141,7 +151,7 @@ function rptLibroVentasXlsCustYzk(req, res) {
                     ORDER BY "subDte"."horEmi" DESC
                     LIMIT 1
                   )`),
-                        'ultimoDocumento',],
+                        'ultimoDocumento',], //E                                
                     [(0, sequelize_1.literal)(`(
                     SELECT "numeroControl"
                     FROM "dte" AS "subDte"
@@ -149,7 +159,7 @@ function rptLibroVentasXlsCustYzk(req, res) {
                     AND "subDte"."tipoDteId" IN (1, 9)
                     ORDER BY "subDte"."horEmi" ASC
                     LIMIT 1
-                  )`), 'primerNumero'],
+                  )`), 'primerNumero'], //F
                     [(0, sequelize_1.literal)(`(
                     SELECT "numeroControl"
                     FROM "dte" AS "subDte"
@@ -157,12 +167,12 @@ function rptLibroVentasXlsCustYzk(req, res) {
                     AND "subDte"."tipoDteId" IN (1, 9)
                     ORDER BY "subDte"."horEmi" DESC
                     LIMIT 1
-                  )`), 'ultimoNumero'],
-                    [(0, sequelize_1.literal)('ROUND((SUM(CASE WHEN "Dte"."esVentaTercero" = false AND "Dte"."tipoDteId" = 1 THEN "items"."ventaExenta" ELSE 0.00 END))::numeric,2)'), 'ventaExenta'],
-                    [(0, sequelize_1.literal)('ROUND((SUM(CASE WHEN "Dte"."esVentaTercero" = false AND "Dte"."tipoDteId" = 1 THEN "items"."ventaNoSuj" ELSE 0.00 END))::numeric,2)'), 'ventaNoSuj'],
-                    [(0, sequelize_1.literal)('ROUND((SUM(CASE WHEN "Dte"."esVentaTercero" = false AND "Dte"."tipoDteId" = 1 THEN "items"."ventaGravada" ELSE 0.00 END))::numeric,2)'), 'ventaGravada'],
-                    [(0, sequelize_1.literal)('ROUND((SUM(CASE WHEN "Dte"."esVentaTercero" = false AND "Dte"."tipoItemExpoId" <> 2  AND "Dte"."tipoDteId" = 9 AND "receptor"."paisId" IN (23,46,72,77,117,126) THEN "items"."ventaGravada" ELSE 0.00 END))::numeric,2)'), 'exportacionDCA'],
-                    [(0, sequelize_1.literal)('ROUND((SUM(CASE WHEN "Dte"."esVentaTercero" = false AND "Dte"."tipoItemExpoId" <> 2  AND "Dte"."tipoDteId" = 9 AND "receptor"."paisId" NOT IN (23,46,72,77,117,126) THEN "items"."ventaGravada" ELSE 0.00 END))::numeric,2)'), 'exportacionFCA'],
+                  )`), 'ultimoNumero'], //G                
+                    [(0, sequelize_1.literal)('ROUND((SUM(CASE WHEN "Dte"."esVentaTercero" = false AND "Dte"."tipoDteId" = 1 THEN "items"."ventaExenta" ELSE 0.00 END))::numeric,2)'), 'ventaExenta'], //H                
+                    [(0, sequelize_1.literal)('ROUND((SUM(CASE WHEN "Dte"."esVentaTercero" = false AND "Dte"."tipoDteId" = 1 THEN "items"."ventaNoSuj" ELSE 0.00 END))::numeric,2)'), 'ventaNoSuj'], //I
+                    [(0, sequelize_1.literal)('ROUND((SUM(CASE WHEN "Dte"."esVentaTercero" = false AND "Dte"."tipoDteId" = 1 THEN "items"."ventaGravada" ELSE 0.00 END))::numeric,2)'), 'ventaGravada'], //J
+                    [(0, sequelize_1.literal)('ROUND((SUM(CASE WHEN "Dte"."esVentaTercero" = false AND "Dte"."tipoItemExpoId" <> 2  AND "Dte"."tipoDteId" = 9 AND "receptor"."paisId" IN (23,46,72,77,117,126) THEN "items"."ventaGravada" ELSE 0.00 END))::numeric,2)'), 'exportacionDCA'], //K
+                    [(0, sequelize_1.literal)('ROUND((SUM(CASE WHEN "Dte"."esVentaTercero" = false AND "Dte"."tipoItemExpoId" <> 2  AND "Dte"."tipoDteId" = 9 AND "receptor"."paisId" NOT IN (23,46,72,77,117,126) THEN "items"."ventaGravada" ELSE 0.00 END))::numeric,2)'), 'exportacionFCA'], //L                
                     [(0, sequelize_1.literal)('ROUND((SUM("items"."ventaGravada" + "items"."ventaNoSuj" + "items"."ventaExenta" ))::numeric,2)'), 'totalVentas'], //M                                                
                 ],
                 group: ['Dte.fecEmi', 'tipoDte.id', 'Dte.tipoDteId'],

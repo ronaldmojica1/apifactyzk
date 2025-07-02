@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getDocAsociados = void 0;
+exports.getDocAsociados = getDocAsociados;
 const DocumentoAsociado_1 = __importDefault(require("../../models/factura/DocumentoAsociado"));
 const Medico_1 = __importDefault(require("../../models/factura/Medico"));
 const OtrosDocumentos_1 = __importDefault(require("../../models/factura/OtrosDocumentos"));
@@ -51,4 +51,3 @@ function getDocAsociados(dteId) {
         return documentosAsociados;
     });
 }
-exports.getDocAsociados = getDocAsociados;

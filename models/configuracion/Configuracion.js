@@ -1,13 +1,4 @@
 "use strict";
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -31,18 +22,18 @@ Configuracion.init({
         type: sequelize_1.DataTypes.STRING,
         allowNull: true,
     },
+    emisorId: {
+        type: sequelize_1.DataTypes.INTEGER,
+        allowNull: true,
+    },
+    modeloImpresora: {
+        type: sequelize_1.DataTypes.STRING,
+        allowNull: true,
+    },
 }, {
     sequelize: database_1.default,
     modelName: 'Configuracion',
     tableName: 'configuraciones',
-    hooks: {
-        beforeCreate: (instance, options) => __awaiter(void 0, void 0, void 0, function* () {
-            const count = yield Configuracion.count();
-            if (count > 0) {
-                throw new Error('Solo puede existir un registro de configuración');
-            }
-        })
-    }
 });
-Configuracion.sync();
+//Configuracion.sync({alter:true});
 exports.default = Configuracion;

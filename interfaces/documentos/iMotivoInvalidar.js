@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getMotivoInvalidar = void 0;
+exports.getMotivoInvalidar = getMotivoInvalidar;
 const ResponsableAnulacion_1 = __importDefault(require("../../models/factura/ResponsableAnulacion"));
 const TipoDocumento_1 = __importDefault(require("../../models/factura/TipoDocumento"));
 const TipoInvalidacion_1 = __importDefault(require("../../models/factura/TipoInvalidacion"));
@@ -36,4 +36,3 @@ function getMotivoInvalidar(dte) {
         return motivo;
     });
 }
-exports.getMotivoInvalidar = getMotivoInvalidar;

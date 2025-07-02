@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getReceptor = void 0;
+exports.getReceptor = getReceptor;
 const ActividadEconomica_1 = __importDefault(require("../../models/factura/ActividadEconomica"));
 const Receptor_1 = __importDefault(require("../../models/factura/Receptor"));
 const TipoDocumento_1 = __importDefault(require("../../models/factura/TipoDocumento"));
@@ -21,8 +21,8 @@ const TituloBien_1 = __importDefault(require("../../models/factura/TituloBien"))
 const Departamento_1 = __importDefault(require("../../models/region/Departamento"));
 const Municipio_1 = __importDefault(require("../../models/region/Municipio"));
 const Pais_1 = __importDefault(require("../../models/region/Pais"));
-function getReceptor(receptorId, tituloBienId = null) {
-    return __awaiter(this, void 0, void 0, function* () {
+function getReceptor(receptorId_1) {
+    return __awaiter(this, arguments, void 0, function* (receptorId, tituloBienId = null) {
         const recep = yield Receptor_1.default.findByPk(receptorId);
         const actividadE = yield ActividadEconomica_1.default.findByPk(recep === null || recep === void 0 ? void 0 : recep.actividadEconomicaId);
         const departamento = yield Departamento_1.default.findByPk(recep === null || recep === void 0 ? void 0 : recep.departamentoId);
@@ -38,7 +38,7 @@ function getReceptor(receptorId, tituloBienId = null) {
         const tituloBien = yield TituloBien_1.default.findByPk(tituloBienId || 0);
         let receptor = {
             tipoDocumento: (tipoDoc === null || tipoDoc === void 0 ? void 0 : tipoDoc.codigo) || null,
-            numDocumento: (recep === null || recep === void 0 ? void 0 : recep.numDocumento) || null,
+            numDocumento: (recep === null || recep === void 0 ? void 0 : recep.numDocumento) || null, //FC
             nit: recep === null || recep === void 0 ? void 0 : recep.nit,
             nrc: (recep === null || recep === void 0 ? void 0 : recep.nrc) || null,
             nombre: (recep === null || recep === void 0 ? void 0 : recep.nombre) || null,
@@ -60,4 +60,3 @@ function getReceptor(receptorId, tituloBienId = null) {
         return receptor;
     });
 }
-exports.getReceptor = getReceptor;

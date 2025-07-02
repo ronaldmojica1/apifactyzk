@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getExtension = void 0;
+exports.getExtension = getExtension;
 function getExtension(dte) {
     return __awaiter(this, void 0, void 0, function* () {
         const extension = {
@@ -24,4 +24,3 @@ function getExtension(dte) {
         return extension;
     });
 }
-exports.getExtension = getExtension;

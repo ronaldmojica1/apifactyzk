@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getContingencia = void 0;
+exports.getContingencia = getContingencia;
 const ContingenciaDetalle_1 = __importDefault(require("../../models/factura/ContingenciaDetalle"));
 const iDteContingencia_1 = require("./iDteContingencia");
 const iEmisor_1 = require("./iEmisor");
@@ -43,4 +43,3 @@ function getContingencia(contin) {
         }
     });
 }
-exports.getContingencia = getContingencia;

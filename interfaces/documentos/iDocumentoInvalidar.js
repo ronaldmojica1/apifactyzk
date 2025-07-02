@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getDocumentoInvalidar = void 0;
+exports.getDocumentoInvalidar = getDocumentoInvalidar;
 const Receptor_1 = __importDefault(require("../../models/factura/Receptor"));
 const TipoDocumento_1 = __importDefault(require("../../models/factura/TipoDocumento"));
 const TipoDte_1 = __importDefault(require("../../models/factura/TipoDte"));
@@ -38,4 +38,3 @@ function getDocumentoInvalidar(dte) {
         return documento;
     });
 }
-exports.getDocumentoInvalidar = getDocumentoInvalidar;

@@ -14,6 +14,7 @@ const UnidadMedida_1 = __importDefault(require("../inventario/UnidadMedida"));
 const TributosItem_1 = __importDefault(require("./TributosItem"));
 const TipoItem_1 = __importDefault(require("../inventario/TipoItem"));
 const TipoVenta_1 = __importDefault(require("../inventario/TipoVenta"));
+const Tributo_1 = __importDefault(require("../inventario/Tributo"));
 class CuerpoDocumento extends sequelize_1.Model {
 }
 CuerpoDocumento.init({
@@ -67,6 +68,14 @@ CuerpoDocumento.init({
         allowNull: false,
         references: {
             model: TipoVenta_1.default,
+            key: 'id'
+        }
+    },
+    tributoId: {
+        type: sequelize_1.DataTypes.INTEGER,
+        allowNull: true,
+        references: {
+            model: Tributo_1.default,
             key: 'id'
         }
     },
@@ -255,7 +264,7 @@ CuerpoDocumento.init({
     modelName: 'CuerpoDocumento',
     tableName: 'cuerpo_documento',
 });
-CuerpoDocumento.hasMany(TributosItem_1.default, { foreignKey: 'itemId', as: 'tributos' });
+//CuerpoDocumento.hasMany(TributosItem,{foreignKey:'itemId',as:'tributos'});
 CuerpoDocumento.belongsTo(Producto_1.default, { foreignKey: 'productoId', as: 'producto' });
 CuerpoDocumento.belongsTo(UnidadMedida_1.default, { foreignKey: 'unidadMedidaId', as: 'unidadMedida' });
 //CuerpoDocumento.belongsTo(CuerpoDocumento,{foreignKey:'dteItemId' , as: 'dteItem'});
@@ -264,4 +273,8 @@ CuerpoDocumento.belongsTo(TipoGeneracion_1.default, { foreignKey: 'tipoGeneracio
 CuerpoDocumento.belongsTo(RetencionMH_1.default, { foreignKey: 'retencionMhId', as: 'retencionMh' });
 CuerpoDocumento.belongsTo(TipoItem_1.default, { foreignKey: 'tipoItemId', as: 'tipoItem' });
 CuerpoDocumento.belongsTo(TipoVenta_1.default, { foreignKey: 'tipoVentaId', as: 'tipoVenta' });
+CuerpoDocumento.belongsTo(Tributo_1.default, { foreignKey: 'tributoId', as: 'tributo' });
+//Dte.hasMany(CuerpoDocumento,{foreignKey:'dteId', as :'items'});
+CuerpoDocumento.hasMany(TributosItem_1.default, { foreignKey: 'itemId', as: 'tributos' });
+//CuerpoDocumento.belongsTo(Dte,{foreignKey:'dteId',as:'dte'});
 exports.default = CuerpoDocumento;
