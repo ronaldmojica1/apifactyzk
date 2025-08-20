@@ -37,7 +37,7 @@ function getResumen(dte) {
         const subTotalDescuentos = ((dte === null || dte === void 0 ? void 0 : dte.descuNoSuj) || 0) + ((dte === null || dte === void 0 ? void 0 : dte.descuExenta) || 0) + ((dte === null || dte === void 0 ? void 0 : dte.descuGravada) || 0);
         const porcentajeDescuento = subTotalVentas == 0 ? 0 : Math.round(((subTotalDescuentos / subTotalVentas) * 100) * 100) / 100;
         const totalNoGravado = itemsDte.reduce((pv, cv) => pv + cv.noGravado, 0);
-        const totalIva = Math.round((totalGravada - (totalGravada / 1.13)) * 100) / 100; //itemsDte.reduce((pv,cv) => pv + cv.iva,0);//Ojo para mientras
+        const totalIva = (dte === null || dte === void 0 ? void 0 : dte.tipoDteId) == 1 ? Math.round((totalGravada - (totalGravada / 1.13)) * 100) / 100 : Math.round((totalGravada * 0.13) * 100) / 100; //itemsDte.reduce((pv,cv) => pv + cv.iva,0);//Ojo para mientras
         //const totalIva = Math.round((totalGravada  * 0.13) * 100) / 100 ; //itemsDte.reduce((pv,cv) => pv + cv.iva,0);//Ojo para mientras
         const condicionOperacion = yield CondicionOperacions_1.default.findByPk(dte === null || dte === void 0 ? void 0 : dte.condicionOperacionId);
         const incoterm = yield Incoterms_1.default.findByPk(dte === null || dte === void 0 ? void 0 : dte.incotermId);

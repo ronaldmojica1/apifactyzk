@@ -112,7 +112,8 @@ function getAllR(req, res) {
                         model: UnidadMedida_1.default,
                         as: 'unidadMedida'
                     }
-                ]
+                ],
+                order: [['id', 'DESC']]
             });
             res.status(201).json((0, apiresponse_1.successResponse)(acts, ''));
         }

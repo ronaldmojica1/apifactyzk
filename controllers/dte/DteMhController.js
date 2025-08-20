@@ -54,8 +54,10 @@ function loginAndGetToken() {
         const credenciales = yield obtenerCredenciales();
         fd.append('user', (credenciales === null || credenciales === void 0 ? void 0 : credenciales.nit) || "");
         fd.append('pwd', (credenciales === null || credenciales === void 0 ? void 0 : credenciales.clave_api) || "");
-        let resp = yield axios_1.default.post(process.env.MH_URL_LOGIN || "", fd);
         console.log('Iniciando sesion en los servicios de MH');
+        console.log(fd);
+        console.log("URL: " + process.env.MH_URL_LOGIN);
+        let resp = yield axios_1.default.post(process.env.MH_URL_LOGIN || "", fd);
         console.log(resp);
         if (resp.data.status = "OK") {
             return resp.data.body.token;
@@ -428,10 +430,14 @@ function anularDte(req, res) {
             }).then((result) => {
                 resp = result.data;
             }).catch((error) => {
+                console.log(error);
                 if (error.response) {
                     resp = error.response.data;
                 }
                 else if (error.request) {
+                    resp = {
+                        error: 'Error al procesar'
+                    };
                 }
                 else {
                     resp = {
