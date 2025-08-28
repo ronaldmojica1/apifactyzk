@@ -56,7 +56,11 @@ const { v4: uuidv4 } = require('uuid');
 function getAllR(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const { desde, hasta, pndContingencia, creaDesde, creaHasta, tipoDte, emisor, cliente } = req.query;
+            const { desde, hasta, pndContingencia, creaDesde, creaHasta, tipoDte, emisor, cliente, page, limit } = req.query;
+            // Configuración de paginación
+            const pageNumber = parseInt(page) || 1;
+            const pageSize = parseInt(limit) || 10;
+            const offset = (pageNumber - 1) * pageSize;
             const whereOptions = {};
             if (creaDesde && creaHasta) {
                 whereOptions.createdAt = {
@@ -87,7 +91,7 @@ function getAllR(req, res) {
                     [sequelize_1.Op.or]: cliente.split(",")
                 };
             }
-            const acts = yield Dte_1.default.findAll({
+            const { count, rows: acts } = yield Dte_1.default.findAndCountAll({
                 where: whereOptions,
                 include: [
                     {
@@ -147,9 +151,23 @@ function getAllR(req, res) {
                         as: 'transmitidoPor'
                     }
                 ],
-                order: [['id', 'DESC']]
+                order: [['id', 'DESC']],
+                limit: pageSize,
+                offset: offset
             });
-            res.status(201).json((0, apiresponse_1.successResponse)(acts, ''));
+            const totalPages = Math.ceil(count / pageSize);
+            const paginationData = {
+                datos: acts,
+                pagination: {
+                    currentPage: pageNumber,
+                    totalPages: totalPages,
+                    totalItems: count,
+                    itemsPerPage: pageSize,
+                    hasNextPage: pageNumber < totalPages,
+                    hasPrevPage: pageNumber > 1
+                }
+            };
+            res.status(201).json((0, apiresponse_1.successResponse)(paginationData, ''));
         }
         catch (error) {
             console.log(error);
@@ -684,6 +702,230 @@ function enviarDocsCorreo(req, res) {
         }
     });
 }
+function obtenerDtesNoTransmitidos(req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const { page, limit } = req.query;
+            // Configuración de paginación
+            const pageNumber = parseInt(page) || 1;
+            const pageSize = parseInt(limit) || 10;
+            const offset = (pageNumber - 1) * pageSize;
+            const { count, rows: dtesNoTransmitidos } = yield Dte_1.default.findAndCountAll({
+                where: {
+                    selloRecibido: null
+                },
+                include: [
+                    {
+                        model: Emisor_1.default,
+                        as: 'emisor'
+                    },
+                    {
+                        model: Receptor_1.default,
+                        as: 'receptor'
+                    },
+                    {
+                        model: TipoDte_1.default,
+                        as: 'tipoDte'
+                    },
+                    {
+                        model: Ambiente_1.default,
+                        as: 'ambiente'
+                    },
+                    {
+                        model: Usuario_1.default,
+                        as: 'creadoPor'
+                    }
+                ],
+                order: [['createdAt', 'DESC']],
+                limit: pageSize,
+                offset: offset
+            });
+            const totalPages = Math.ceil(count / pageSize);
+            const paginationData = {
+                datos: dtesNoTransmitidos,
+                pagination: {
+                    currentPage: pageNumber,
+                    totalPages: totalPages,
+                    totalItems: count,
+                    itemsPerPage: pageSize,
+                    hasNextPage: pageNumber < totalPages,
+                    hasPrevPage: pageNumber > 1
+                }
+            };
+            res.status(200).json((0, apiresponse_1.successResponse)(paginationData, 'DTEs no transmitidos obtenidos correctamente'));
+        }
+        catch (error) {
+            console.log(error);
+            res.status(200).json((0, apiresponse_1.errorResponse)('Error al obtener DTEs no transmitidos'));
+        }
+    });
+}
+function obtenerDtesNoClasificados(req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const { page, limit } = req.query;
+            // Configuración de paginación
+            const pageNumber = parseInt(page) || 1;
+            const pageSize = parseInt(limit) || 10;
+            const offset = (pageNumber - 1) * pageSize;
+            const { count, rows: dtesNoClasificados } = yield Dte_1.default.findAndCountAll({
+                where: {
+                    [sequelize_1.Op.or]: [
+                        { tipoOperacionRentaId: null },
+                        { tipoIngresoRentaId: null }
+                    ]
+                },
+                include: [
+                    {
+                        model: Emisor_1.default,
+                        as: 'emisor'
+                    },
+                    {
+                        model: Receptor_1.default,
+                        as: 'receptor'
+                    },
+                    {
+                        model: TipoDte_1.default,
+                        as: 'tipoDte'
+                    },
+                    {
+                        model: Ambiente_1.default,
+                        as: 'ambiente'
+                    },
+                    {
+                        model: Usuario_1.default,
+                        as: 'creadoPor'
+                    }
+                ],
+                order: [['createdAt', 'DESC']],
+                limit: pageSize,
+                offset: offset
+            });
+            const totalPages = Math.ceil(count / pageSize);
+            const paginationData = {
+                datos: dtesNoClasificados,
+                pagination: {
+                    currentPage: pageNumber,
+                    totalPages: totalPages,
+                    totalItems: count,
+                    itemsPerPage: pageSize,
+                    hasNextPage: pageNumber < totalPages,
+                    hasPrevPage: pageNumber > 1
+                }
+            };
+            res.status(200).json((0, apiresponse_1.successResponse)(paginationData, 'DTEs no clasificados obtenidos correctamente'));
+        }
+        catch (error) {
+            console.log(error);
+            res.status(200).json((0, apiresponse_1.errorResponse)('Error al obtener DTEs no clasificados'));
+        }
+    });
+}
+function obtenerIndicadoresDashboard(req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const currentYear = new Date().getFullYear();
+            // 1. Documentos no transmitidos (sin selloRecibido)
+            const documentosNoTransmitidos = yield Dte_1.default.count({
+                where: {
+                    selloRecibido: null
+                }
+            });
+            // 2. Documentos creados por mes del presente año
+            const documentosPorMes = yield database_1.default.query(`
+            SELECT 
+                EXTRACT(MONTH FROM "createdAt") as mes,
+                COUNT(*) as total
+            FROM "dte" 
+            WHERE EXTRACT(YEAR FROM "createdAt") = :currentYear
+            GROUP BY EXTRACT(MONTH FROM "createdAt")
+            ORDER BY mes
+        `, {
+                replacements: { currentYear },
+                type: sequelize_1.QueryTypes.SELECT
+            });
+            // 3. Documentos por mes por tipo de DTE
+            const documentosPorMesPorTipo = yield database_1.default.query(`
+            SELECT 
+                EXTRACT(MONTH FROM d."createdAt") as mes,
+                td.codigo as tipoDte,
+                td.tipo as tipoNombre,
+                COUNT(*) as total
+            FROM "dte" d
+            LEFT JOIN "tipo_dte" td ON d."tipoDteId" = td.id
+            WHERE EXTRACT(YEAR FROM d."createdAt") = :currentYear
+            GROUP BY EXTRACT(MONTH FROM d."createdAt"), td.codigo, td.tipo
+            ORDER BY mes, td.codigo
+        `, {
+                replacements: { currentYear },
+                type: sequelize_1.QueryTypes.SELECT
+            });
+            // 4. Documentos pendientes de clasificación (sin tipoOperacionRentaId ni tipoIngresoRentaId)
+            const documentosPendientesClasificacion = yield Dte_1.default.count({
+                where: {
+                    [sequelize_1.Op.and]: [
+                        {
+                            [sequelize_1.Op.or]: [
+                                { tipoOperacionRentaId: null },
+                                { tipoIngresoRentaId: null }
+                            ]
+                        }
+                    ]
+                }
+            });
+            // 5. Total de documentos del año actual
+            const totalDocumentosAno = yield Dte_1.default.count({
+                where: database_1.default.where(database_1.default.fn('EXTRACT', database_1.default.literal('YEAR FROM "createdAt"')), currentYear)
+            });
+            // 6. Documentos por tipo de DTE (resumen general)
+            const documentosPorTipoDte = yield Dte_1.default.findAll({
+                attributes: [
+                    [database_1.default.fn('COUNT', database_1.default.col('Dte.id')), 'total']
+                ],
+                include: [
+                    {
+                        model: TipoDte_1.default,
+                        as: 'tipoDte',
+                        attributes: ['codigo', 'tipo']
+                    }
+                ],
+                group: ['tipoDte.id', 'tipoDte.codigo', 'tipoDte.tipo'],
+                order: [[database_1.default.fn('COUNT', database_1.default.col('Dte.id')), 'DESC']]
+            });
+            // Mapeo de números de mes a abreviaciones
+            const mesesAbrev = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun',
+                'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
+            const indicadores = {
+                documentosNoTransmitidos,
+                documentosPendientesClasificacion,
+                totalDocumentosAno,
+                documentosPorMes: documentosPorMes.map((item) => ({
+                    mes: mesesAbrev[item.mes - 1],
+                    total: parseInt(item.total)
+                })),
+                documentosPorMesPorTipo: documentosPorMesPorTipo.map((item) => ({
+                    mes: mesesAbrev[item.mes - 1],
+                    tipoDte: item.tipodte,
+                    tipoNombre: item.tiponombre,
+                    total: parseInt(item.total)
+                })),
+                documentosPorTipoDte: documentosPorTipoDte.map((item) => {
+                    var _a, _b;
+                    return ({
+                        tipoDte: (_a = item.tipoDte) === null || _a === void 0 ? void 0 : _a.codigo,
+                        tipoNombre: (_b = item.tipoDte) === null || _b === void 0 ? void 0 : _b.tipo,
+                        total: parseInt(item.dataValues.total)
+                    });
+                })
+            };
+            res.json((0, apiresponse_1.successResponse)(indicadores, 'Indicadores obtenidos correctamente'));
+        }
+        catch (error) {
+            console.log(error);
+            res.status(200).json((0, apiresponse_1.errorResponse)('Error al obtener indicadores del dashboard'));
+        }
+    });
+}
 exports.default = {
     getAllR,
     createR,
@@ -691,5 +933,8 @@ exports.default = {
     deleteR,
     getR,
     duplicar,
-    enviarDocsCorreo
+    enviarDocsCorreo,
+    obtenerDtesNoTransmitidos,
+    obtenerDtesNoClasificados,
+    obtenerIndicadoresDashboard
 };

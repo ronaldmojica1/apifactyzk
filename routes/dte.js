@@ -19,3 +19,6 @@ router.post('/duplicar/:id', session_1.checkJwt, DteController_1.default.duplica
 router.post('/correo/enviar', MulterController_1.upload.array('files'), function (req, res, next) {
     DteController_1.default.enviarDocsCorreo(req, res);
 });
+router.get('/dashboard/indicadores', session_1.checkJwt, DteController_1.default.obtenerIndicadoresDashboard);
+router.get('/documentos/notransmitidos', session_1.checkJwt, DteController_1.default.obtenerDtesNoTransmitidos);
+router.get('/documentos/noclasificados', DteController_1.default.obtenerDtesNoClasificados);
