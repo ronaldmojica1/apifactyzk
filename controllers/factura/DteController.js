@@ -52,6 +52,8 @@ const DteMhController_1 = __importDefault(require("../dte/DteMhController"));
 const axios_1 = __importDefault(require("axios"));
 const fs_1 = __importDefault(require("fs"));
 const MHCredenciales_1 = __importDefault(require("../../models/factura/MHCredenciales"));
+const Departamento_1 = __importDefault(require("../../models/region/Departamento"));
+const Municipio_1 = __importDefault(require("../../models/region/Municipio"));
 const { v4: uuidv4 } = require('uuid');
 function getAllR(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -414,7 +416,7 @@ function getR(req, res) {
                             {
                                 model: ActividadEconomica_1.default,
                                 as: 'actividadEconomica'
-                            }
+                            },
                         ]
                     },
                     {
@@ -440,16 +442,44 @@ function getR(req, res) {
                             {
                                 model: ActividadEconomica_1.default,
                                 as: 'actividadEconomica'
-                            }
+                            },
+                            {
+                                model: Departamento_1.default,
+                                as: 'departamento'
+                            },
+                            {
+                                model: Municipio_1.default,
+                                as: 'municipio'
+                            },
                         ]
                     },
                     {
                         model: Receptor_1.default,
-                        as: 'cobrarA'
+                        as: 'cobrarA',
+                        include: [
+                            {
+                                model: Departamento_1.default,
+                                as: 'departamento'
+                            },
+                            {
+                                model: Municipio_1.default,
+                                as: 'municipio'
+                            },
+                        ]
                     },
                     {
                         model: Receptor_1.default,
-                        as: 'embarcarA'
+                        as: 'embarcarA',
+                        include: [
+                            {
+                                model: Departamento_1.default,
+                                as: 'departamento'
+                            },
+                            {
+                                model: Municipio_1.default,
+                                as: 'municipio'
+                            },
+                        ]
                     },
                     {
                         model: TipoDte_1.default,
