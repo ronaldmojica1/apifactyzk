@@ -60,7 +60,7 @@ const importModels = () => __awaiter(void 0, void 0, void 0, function* () {
     // Get all model folders
     const folders = (0, fs_1.readdirSync)(PATH_ROUTER).filter(folderName => {
         const cleanFolder = cleanFileName(folderName);
-        return cleanFolder !== "migrate" && cleanFolder !== "createbd";
+        return cleanFolder !== "migrate" && cleanFolder !== "createbd" && cleanFolder !== "sync";
     });
     // First import all model definitions
     for (const folderName of folders) {

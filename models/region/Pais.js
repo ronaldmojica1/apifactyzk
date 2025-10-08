@@ -20,6 +20,11 @@ Pais.init({
     pais: {
         type: sequelize_1.DataTypes.STRING,
         allowNull: false
+    },
+    activo: {
+        type: sequelize_1.DataTypes.BOOLEAN,
+        allowNull: true,
+        defaultValue: true
     }
 }, {
     sequelize: database_1.default,

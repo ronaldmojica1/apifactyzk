@@ -18,12 +18,14 @@ const Departamento_1 = __importDefault(require("../../models/region/Departamento
 function getAllR(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
+            //Filtrar solo activos                
             let departamentoId = req.query ? req.query['departamentoId'] : null;
             let acts = null;
             if (departamentoId) {
                 acts = yield Municipio_1.default.findAll({
                     where: {
-                        departamentoId: departamentoId.toString()
+                        departamentoId: departamentoId.toString(),
+                        activo: true
                     },
                     include: [
                         {
@@ -35,6 +37,9 @@ function getAllR(req, res) {
             }
             else {
                 acts = yield Municipio_1.default.findAll({
+                    where: {
+                        activo: true
+                    },
                     include: [
                         {
                             model: Departamento_1.default,

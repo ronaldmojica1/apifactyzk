@@ -1,1314 +1,229 @@
-﻿{
-    "model" : "Municipio",
-    "data" :[        
+{
+    "model": "Municipio",
+    "data": [
         {
-            "codigo": "01",
-            "municipio": "AHUACHAPÁN",
-            "departamentoId": "1"
-        },
-        {
-            "codigo": "02",
-            "municipio": "APANECA",
-            "departamentoId": "1"
-        },
-        {
-            "codigo": "03",
-            "municipio": "ATIQUIZAYA",
-            "departamentoId": "1"
-        },
-        {
-            "codigo": "04",
-            "municipio": "CONCEPCIÓN DE ATACO",
-            "departamentoId": "1"
-        },
-        {
-            "codigo": "05",
-            "municipio": "EL REFUGIO",
-            "departamentoId": "1"
-        },
-        {
-            "codigo": "06",
-            "municipio": "GUAYMANGO",
-            "departamentoId": "1"
-        },
-        {
-            "codigo": "07",
-            "municipio": "JUJUTLA",
-            "departamentoId": "1"
-        },
-        {
-            "codigo": "08",
-            "municipio": "SAN FRANCISCO MENÉNDEZ",
-            "departamentoId": "1"
-        },
-        {
-            "codigo": "09",
-            "municipio": "SAN LORENZO",
-            "departamentoId": "1"
-        },
-        {
-            "codigo": "10",
-            "municipio": "SAN PEDRO PUXTLA",
-            "departamentoId": "1"
-        },
-        {
-            "codigo": "11",
-            "municipio": "TACUBA",
-            "departamentoId": "1"
-        },
-        {
-            "codigo": "12",
-            "municipio": "TURÍN",
-            "departamentoId": "1"
-        },
-        {
-            "codigo": "01",
-            "municipio": "CANDELARIA DE LA FRONTERA",
-            "departamentoId": "2"
-        },
-        {
-            "codigo": "02",
-            "municipio": "COATEPEQUE",
-            "departamentoId": "2"
-        },
-        {
-            "codigo": "03",
-            "municipio": "CHALCHUAPA",
-            "departamentoId": "2"
-        },
-        {
-            "codigo": "04",
-            "municipio": "EL CONGO",
-            "departamentoId": "2"
-        },
-        {
-            "codigo": "05",
-            "municipio": "EL PORVENIR",
-            "departamentoId": "2"
-        },
-        {
-            "codigo": "06",
-            "municipio": "MASAHUAT",
-            "departamentoId": "2"
-        },
-        {
-            "codigo": "07",
-            "municipio": "METAPÁN",
-            "departamentoId": "2"
-        },
-        {
-            "codigo": "08",
-            "municipio": "SAN ANTONIO PAJONAL",
-            "departamentoId": "2"
-        },
-        {
-            "codigo": "09",
-            "municipio": "SAN SEBASTIÁN SALITRILLO",
-            "departamentoId": "2"
-        },
-        {
-            "codigo": "10",
-            "municipio": "SANTA ANA",
-            "departamentoId": "2"
-        },
-        {
-            "codigo": "11",
-            "municipio": "STA ROSA GUACHI",
-            "departamentoId": "2"
-        },
-        {
-            "codigo": "12",
-            "municipio": "STGO D LA FRONT",
-            "departamentoId": "2"
+            "codigo": "00",
+            "municipio": "Otro (Para extranjeros)",
+            "departamentoId": "15"
         },
         {
             "codigo": "13",
-            "municipio": "TEXISTEPEQUE",
-            "departamentoId": "2"
-        },
-        {
-            "codigo": "01",
-            "municipio": "ACAJUTLA",
-            "departamentoId": "3"
-        },
-        {
-            "codigo": "02",
-            "municipio": "ARMENIA",
-            "departamentoId": "3"
-        },
-        {
-            "codigo": "03",
-            "municipio": "CALUCO",
-            "departamentoId": "3"
-        },
-        {
-            "codigo": "04",
-            "municipio": "CUISNAHUAT",
-            "departamentoId": "3"
-        },
-        {
-            "codigo": "05",
-            "municipio": "STA I ISHUATAN",
-            "departamentoId": "3"
-        },
-        {
-            "codigo": "06",
-            "municipio": "IZALCO",
-            "departamentoId": "3"
-        },
-        {
-            "codigo": "07",
-            "municipio": "JUAYÚA",
-            "departamentoId": "3"
-        },
-        {
-            "codigo": "08",
-            "municipio": "NAHUIZALCO",
-            "departamentoId": "3"
-        },
-        {
-            "codigo": "09",
-            "municipio": "NAHULINGO",
-            "departamentoId": "3"
-        },
-        {
-            "codigo": "10",
-            "municipio": "SALCOATITÁN",
-            "departamentoId": "3"
-        },
-        {
-            "codigo": "11",
-            "municipio": "SAN ANTONIO DEL MONTE",
-            "departamentoId": "3"
-        },
-        {
-            "codigo": "12",
-            "municipio": "SAN JULIÁN",
-            "departamentoId": "3"
-        },
-        {
-            "codigo": "13",
-            "municipio": "STA C MASAHUAT",
-            "departamentoId": "3"
+            "municipio": "AHUACHAPAN NORTE",
+            "departamentoId": "1"
         },
         {
             "codigo": "14",
-            "municipio": "SANTO DOMINGO GUZMÁN",
-            "departamentoId": "3"
+            "municipio": "AHUACHAPAN CENTRO",
+            "departamentoId": "1"
         },
         {
             "codigo": "15",
-            "municipio": "SONSONATE",
-            "departamentoId": "3"
-        },
-        {
-            "codigo": "16",
-            "municipio": "SONZACATE",
-            "departamentoId": "3"
-        },
-        {
-            "codigo": "01",
-            "municipio": "AGUA CALIENTE",
-            "departamentoId": "4"
-        },
-        {
-            "codigo": "02",
-            "municipio": "ARCATAO",
-            "departamentoId": "4"
-        },
-        {
-            "codigo": "03",
-            "municipio": "AZACUALPA",
-            "departamentoId": "4"
-        },
-        {
-            "codigo": "04",
-            "municipio": "CITALÁ",
-            "departamentoId": "4"
-        },
-        {
-            "codigo": "05",
-            "municipio": "COMALAPA",
-            "departamentoId": "4"
-        },
-        {
-            "codigo": "06",
-            "municipio": "CONCEPCIÓN QUEZALTEPEQUE",
-            "departamentoId": "4"
-        },
-        {
-            "codigo": "07",
-            "municipio": "CHALATENANGO",
-            "departamentoId": "4"
-        },
-        {
-            "codigo": "08",
-            "municipio": "DULCE NOM MARÍA",
-            "departamentoId": "4"
-        },
-        {
-            "codigo": "09",
-            "municipio": "EL CARRIZAL",
-            "departamentoId": "4"
-        },
-        {
-            "codigo": "10",
-            "municipio": "EL PARAÍSO",
-            "departamentoId": "4"
-        },
-        {
-            "codigo": "11",
-            "municipio": "LA LAGUNA",
-            "departamentoId": "4"
-        },
-        {
-            "codigo": "12",
-            "municipio": "LA PALMA",
-            "departamentoId": "4"
-        },
-        {
-            "codigo": "13",
-            "municipio": "LA REINA",
-            "departamentoId": "4"
+            "municipio": "AHUACHAPAN SUR",
+            "departamentoId": "1"
         },
         {
             "codigo": "14",
-            "municipio": "LAS VUELTAS",
-            "departamentoId": "4"
+            "municipio": "SANTA ANA NORTE",
+            "departamentoId": "2"
         },
         {
             "codigo": "15",
-            "municipio": "NOMBRE DE JESUS",
-            "departamentoId": "4"
+            "municipio": "SANTA ANA CENTRO",
+            "departamentoId": "2"
         },
         {
             "codigo": "16",
-            "municipio": "NVA CONCEPCIÓN",
-            "departamentoId": "4"
+            "municipio": "SANTA ANA ESTE",
+            "departamentoId": "2"
         },
         {
             "codigo": "17",
-            "municipio": "NUEVA TRINIDAD",
-            "departamentoId": "4"
+            "municipio": "SANTA ANA OESTE",
+            "departamentoId": "2"
+        },
+        {
+            "codigo": "17",
+            "municipio": "SONSONATE NORTE",
+            "departamentoId": "3"
         },
         {
             "codigo": "18",
-            "municipio": "OJOS DE AGUA",
-            "departamentoId": "4"
+            "municipio": "SONSONATE CENTRO",
+            "departamentoId": "3"
         },
         {
             "codigo": "19",
-            "municipio": "POTONICO",
-            "departamentoId": "4"
+            "municipio": "SONSONATE ESTE",
+            "departamentoId": "3"
         },
         {
             "codigo": "20",
-            "municipio": "SAN ANT LA CRUZ",
+            "municipio": "SONSONATE OESTE",
+            "departamentoId": "3"
+        },
+        {
+            "codigo": "34",
+            "municipio": "CHALATENANGO NORTE",
             "departamentoId": "4"
         },
         {
-            "codigo": "21",
-            "municipio": "SAN ANT RANCHOS",
+            "codigo": "35",
+            "municipio": "CHALATENANGO CENTRO",
             "departamentoId": "4"
         },
         {
-            "codigo": "22",
-            "municipio": "SAN FERNANDO",
+            "codigo": "36",
+            "municipio": "CHALATENANGO SUR",
             "departamentoId": "4"
         },
         {
             "codigo": "23",
-            "municipio": "SAN FRANCISCO LEMPA",
-            "departamentoId": "4"
+            "municipio": "LA LIBERTAD NORTE",
+            "departamentoId": "5"
         },
         {
             "codigo": "24",
-            "municipio": "SAN FRANCISCO MORAZÁN",
-            "departamentoId": "4"
+            "municipio": "LA LIBERTAD CENTRO",
+            "departamentoId": "5"
         },
         {
             "codigo": "25",
-            "municipio": "SAN IGNACIO",
-            "departamentoId": "4"
+            "municipio": "LA LIBERTAD OESTE",
+            "departamentoId": "5"
         },
         {
             "codigo": "26",
-            "municipio": "SAN I LABRADOR",
-            "departamentoId": "4"
+            "municipio": "LA LIBERTAD ESTE",
+            "departamentoId": "5"
         },
         {
             "codigo": "27",
-            "municipio": "SAN J CANCASQUE",
-            "departamentoId": "4"
+            "municipio": "LA LIBERTAD COSTA",
+            "departamentoId": "5"
         },
         {
             "codigo": "28",
-            "municipio": "SAN JOSE FLORES",
-            "departamentoId": "4"
-        },
-        {
-            "codigo": "29",
-            "municipio": "SAN LUIS CARMEN",
-            "departamentoId": "4"
-        },
-        {
-            "codigo": "30",
-            "municipio": "SN MIG MERCEDES",
-            "departamentoId": "4"
-        },
-        {
-            "codigo": "31",
-            "municipio": "SAN RAFAEL",
-            "departamentoId": "4"
-        },
-        {
-            "codigo": "32",
-            "municipio": "SANTA RITA",
-            "departamentoId": "4"
-        },
-        {
-            "codigo": "33",
-            "municipio": "TEJUTLA",
-            "departamentoId": "4"
-        },
-        {
-            "codigo": "01",
-            "municipio": "ANTGO CUSCATLÁN",
-            "departamentoId": "5"
-        },
-        {
-            "codigo": "02",
-            "municipio": "CIUDAD ARCE",
-            "departamentoId": "5"
-        },
-        {
-            "codigo": "03",
-            "municipio": "COLON",
-            "departamentoId": "5"
-        },
-        {
-            "codigo": "04",
-            "municipio": "COMASAGUA",
-            "departamentoId": "5"
-        },
-        {
-            "codigo": "05",
-            "municipio": "CHILTIUPAN",
-            "departamentoId": "5"
-        },
-        {
-            "codigo": "06",
-            "municipio": "HUIZÚCAR",
-            "departamentoId": "5"
-        },
-        {
-            "codigo": "07",
-            "municipio": "JAYAQUE",
-            "departamentoId": "5"
-        },
-        {
-            "codigo": "08",
-            "municipio": "JICALAPA",
-            "departamentoId": "5"
-        },
-        {
-            "codigo": "09",
-            "municipio": "LA LIBERTAD",
-            "departamentoId": "5"
-        },
-        {
-            "codigo": "10",
-            "municipio": "NUEVO CUSCATLÁN",
-            "departamentoId": "5"
-        },
-        {
-            "codigo": "11",
-            "municipio": "SANTA TECLA",
-            "departamentoId": "5"
-        },
-        {
-            "codigo": "12",
-            "municipio": "QUEZALTEPEQUE",
-            "departamentoId": "5"
-        },
-        {
-            "codigo": "13",
-            "municipio": "SACACOYO",
-            "departamentoId": "5"
-        },
-        {
-            "codigo": "14",
-            "municipio": "SN J VILLANUEVA",
-            "departamentoId": "5"
-        },
-        {
-            "codigo": "15",
-            "municipio": "SAN JUAN OPICO",
-            "departamentoId": "5"
-        },
-        {
-            "codigo": "16",
-            "municipio": "SAN MATÍAS",
-            "departamentoId": "5"
-        },
-        {
-            "codigo": "17",
-            "municipio": "SAN P TACACHICO",
-            "departamentoId": "5"
-        },
-        {
-            "codigo": "18",
-            "municipio": "TAMANIQUE",
-            "departamentoId": "5"
-        },
-        {
-            "codigo": "19",
-            "municipio": "TALNIQUE",
+            "municipio": "LA LIBERTAD SUR",
             "departamentoId": "5"
         },
         {
             "codigo": "20",
-            "municipio": "TEOTEPEQUE",
-            "departamentoId": "5"
+            "municipio": "SAN SALVADOR NORTE",
+            "departamentoId": "6"
         },
         {
             "codigo": "21",
-            "municipio": "TEPECOYO",
-            "departamentoId": "5"
+            "municipio": "SAN SALVADOR OESTE",
+            "departamentoId": "6"
         },
         {
             "codigo": "22",
-            "municipio": "ZARAGOZA",
-            "departamentoId": "5"
-        },
-        {
-            "codigo": "01",
-            "municipio": "AGUILARES",
+            "municipio": "SAN SALVADOR ESTE",
             "departamentoId": "6"
-        },
-        {
-            "codigo": "02",
-            "municipio": "APOPA",
-            "departamentoId": "6"
-        },
-        {
-            "codigo": "03",
-            "municipio": "AYUTUXTEPEQUE",
-            "departamentoId": "6"
-        },
-        {
-            "codigo": "04",
-            "municipio": "CUSCATANCINGO",
-            "departamentoId": "6"
-        },
-        {
-            "codigo": "05",
-            "municipio": "EL PAISNAL",
-            "departamentoId": "6"
-        },
-        {
-            "codigo": "06",
-            "municipio": "GUAZAPA",
-            "departamentoId": "6"
-        },
-        {
-            "codigo": "07",
-            "municipio": "ILOPANGO",
-            "departamentoId": "6"
-        },
-        {
-            "codigo": "08",
-            "municipio": "MEJICANOS",
-            "departamentoId": "6"
-        },
-        {
-            "codigo": "09",
-            "municipio": "NEJAPA",
-            "departamentoId": "6"
-        },
-        {
-            "codigo": "10",
-            "municipio": "PANCHIMALCO",
-            "departamentoId": "6"
-        },
-        {
-            "codigo": "11",
-            "municipio": "ROSARIO DE MORA",
-            "departamentoId": "6"
-        },
-        {
-            "codigo": "12",
-            "municipio": "SAN MARCOS",
-            "departamentoId": "6"
-        },
-        {
-            "codigo": "13",
-            "municipio": "SAN MARTIN",
-            "departamentoId": "6"
-        },
-        {
-            "codigo": "14",
-            "municipio": "SAN SALVADOR",
-            "departamentoId": "6"
-        },
-        {
-            "codigo": "15",
-            "municipio": "STG TEXACUANGOS",
-            "departamentoId": "6"
-        },
-        {
-            "codigo": "16",
-            "municipio": "SANTO TOMAS",
-            "departamentoId": "6"
-        },
-        {
-            "codigo": "17",
-            "municipio": "SOYAPANGO",
-            "departamentoId": "6"
-        },
-        {
-            "codigo": "18",
-            "municipio": "TONACATEPEQUE",
-            "departamentoId": "6"
-        },
-        {
-            "codigo": "19",
-            "municipio": "CIUDAD DELGADO",
-            "departamentoId": "6"
-        },
-        {
-            "codigo": "01",
-            "municipio": "CANDELARIA",
-            "departamentoId": "7"
-        },
-        {
-            "codigo": "02",
-            "municipio": "COJUTEPEQUE",
-            "departamentoId": "7"
-        },
-        {
-            "codigo": "03",
-            "municipio": "EL CARMEN",
-            "departamentoId": "7"
-        },
-        {
-            "codigo": "04",
-            "municipio": "EL ROSARIO",
-            "departamentoId": "7"
-        },
-        {
-            "codigo": "05",
-            "municipio": "MONTE SAN JUAN",
-            "departamentoId": "7"
-        },
-        {
-            "codigo": "06",
-            "municipio": "ORAT CONCEPCIÓN",
-            "departamentoId": "7"
-        },
-        {
-            "codigo": "07",
-            "municipio": "SAN B PERULAPIA",
-            "departamentoId": "7"
-        },
-        {
-            "codigo": "08",
-            "municipio": "SAN CRISTÓBAL",
-            "departamentoId": "7"
-        },
-        {
-            "codigo": "09",
-            "municipio": "SAN J GUAYABAL",
-            "departamentoId": "7"
-        },
-        {
-            "codigo": "10",
-            "municipio": "SAN P PERULAPÁN",
-            "departamentoId": "7"
-        },
-        {
-            "codigo": "11",
-            "municipio": "SAN RAF CEDROS",
-            "departamentoId": "7"
-        },
-        {
-            "codigo": "12",
-            "municipio": "SAN RAMON",
-            "departamentoId": "7"
-        },
-        {
-            "codigo": "13",
-            "municipio": "STA C ANALQUITO",
-            "departamentoId": "7"
-        },
-        {
-            "codigo": "14",
-            "municipio": "STA C MICHAPA",
-            "departamentoId": "7"
-        },
-        {
-            "codigo": "15",
-            "municipio": "SUCHITOTO",
-            "departamentoId": "7"
-        },
-        {
-            "codigo": "16",
-            "municipio": "TENANCINGO",
-            "departamentoId": "7"
-        },
-        {
-            "codigo": "01",
-            "municipio": "CUYULTITÁN",
-            "departamentoId": "8"
-        },
-        {
-            "codigo": "02",
-            "municipio": "EL ROSARIO",
-            "departamentoId": "8"
-        },
-        {
-            "codigo": "03",
-            "municipio": "JERUSALÉN",
-            "departamentoId": "8"
-        },
-        {
-            "codigo": "04",
-            "municipio": "MERCED LA CEIBA",
-            "departamentoId": "8"
-        },
-        {
-            "codigo": "05",
-            "municipio": "OLOCUILTA",
-            "departamentoId": "8"
-        },
-        {
-            "codigo": "06",
-            "municipio": "PARAÍSO OSORIO",
-            "departamentoId": "8"
-        },
-        {
-            "codigo": "07",
-            "municipio": "SN ANT MASAHUAT",
-            "departamentoId": "8"
-        },
-        {
-            "codigo": "08",
-            "municipio": "SAN EMIGDIO",
-            "departamentoId": "8"
-        },
-        {
-            "codigo": "09",
-            "municipio": "SN FCO CHINAMEC",
-            "departamentoId": "8"
-        },
-        {
-            "codigo": "10",
-            "municipio": "SAN J NONUALCO",
-            "departamentoId": "8"
-        },
-        {
-            "codigo": "11",
-            "municipio": "SAN JUAN TALPA",
-            "departamentoId": "8"
-        },
-        {
-            "codigo": "12",
-            "municipio": "SAN JUAN TEPEZONTES",
-            "departamentoId": "8"
-        },
-        {
-            "codigo": "13",
-            "municipio": "SAN LUIS TALPA",
-            "departamentoId": "8"
-        },
-        {
-            "codigo": "14",
-            "municipio": "SAN MIGUEL TEPEZONTES",
-            "departamentoId": "8"
-        },
-        {
-            "codigo": "15",
-            "municipio": "SAN PEDRO MASAHUAT",
-            "departamentoId": "8"
-        },
-        {
-            "codigo": "16",
-            "municipio": "SAN PEDRO NONUALCO",
-            "departamentoId": "8"
-        },
-        {
-            "codigo": "17",
-            "municipio": "SAN R OBRAJUELO",
-            "departamentoId": "8"
-        },
-        {
-            "codigo": "18",
-            "municipio": "STA MA OSTUMA",
-            "departamentoId": "8"
-        },
-        {
-            "codigo": "19",
-            "municipio": "STGO NONUALCO",
-            "departamentoId": "8"
-        },
-        {
-            "codigo": "20",
-            "municipio": "TAPALHUACA",
-            "departamentoId": "8"
-        },
-        {
-            "codigo": "21",
-            "municipio": "ZACATECOLUCA",
-            "departamentoId": "8"
-        },
-        {
-            "codigo": "22",
-            "municipio": "SN LUIS LA HERR",
-            "departamentoId": "8"
-        },
-        {
-            "codigo": "01",
-            "municipio": "CINQUERA",
-            "departamentoId": "9"
-        },
-        {
-            "codigo": "02",
-            "municipio": "GUACOTECTI",
-            "departamentoId": "9"
-        },
-        {
-            "codigo": "03",
-            "municipio": "ILOBASCO",
-            "departamentoId": "9"
-        },
-        {
-            "codigo": "04",
-            "municipio": "JUTIAPA",
-            "departamentoId": "9"
-        },
-        {
-            "codigo": "05",
-            "municipio": "SAN ISIDRO",
-            "departamentoId": "9"
-        },
-        {
-            "codigo": "06",
-            "municipio": "SENSUNTEPEQUE",
-            "departamentoId": "9"
-        },
-        {
-            "codigo": "07",
-            "municipio": "TEJUTEPEQUE",
-            "departamentoId": "9"
-        },
-        {
-            "codigo": "08",
-            "municipio": "VICTORIA",
-            "departamentoId": "9"
-        },
-        {
-            "codigo": "09",
-            "municipio": "DOLORES",
-            "departamentoId": "9"
-        },
-        {
-            "codigo": "01",
-            "municipio": "APASTEPEQUE",
-            "departamentoId": "10"
-        },
-        {
-            "codigo": "02",
-            "municipio": "GUADALUPE",
-            "departamentoId": "10"
-        },
-        {
-            "codigo": "03",
-            "municipio": "SAN CAY ISTEPEQ",
-            "departamentoId": "10"
-        },
-        {
-            "codigo": "04",
-            "municipio": "SANTA CLARA",
-            "departamentoId": "10"
-        },
-        {
-            "codigo": "05",
-            "municipio": "SANTO DOMINGO",
-            "departamentoId": "10"
-        },
-        {
-            "codigo": "06",
-            "municipio": "SN EST CATARINA",
-            "departamentoId": "10"
-        },
-        {
-            "codigo": "07",
-            "municipio": "SAN ILDEFONSO",
-            "departamentoId": "10"
-        },
-        {
-            "codigo": "08",
-            "municipio": "SAN LORENZO",
-            "departamentoId": "10"
-        },
-        {
-            "codigo": "09",
-            "municipio": "SAN SEBASTIÁN",
-            "departamentoId": "10"
-        },
-        {
-            "codigo": "10",
-            "municipio": "SAN VICENTE",
-            "departamentoId": "10"
-        },
-        {
-            "codigo": "11",
-            "municipio": "TECOLUCA",
-            "departamentoId": "10"
-        },
-        {
-            "codigo": "12",
-            "municipio": "TEPETITÁN",
-            "departamentoId": "10"
-        },
-        {
-            "codigo": "13",
-            "municipio": "VERAPAZ",
-            "departamentoId": "10"
-        },
-        {
-            "codigo": "01",
-            "municipio": "ALEGRÍA",
-            "departamentoId": "11"
-        },
-        {
-            "codigo": "02",
-            "municipio": "BERLÍN",
-            "departamentoId": "11"
-        },
-        {
-            "codigo": "03",
-            "municipio": "CALIFORNIA",
-            "departamentoId": "11"
-        },
-        {
-            "codigo": "04",
-            "municipio": "CONCEP BATRES",
-            "departamentoId": "11"
-        },
-        {
-            "codigo": "05",
-            "municipio": "EL TRIUNFO",
-            "departamentoId": "11"
-        },
-        {
-            "codigo": "06",
-            "municipio": "EREGUAYQUÍN",
-            "departamentoId": "11"
-        },
-        {
-            "codigo": "07",
-            "municipio": "ESTANZUELAS",
-            "departamentoId": "11"
-        },
-        {
-            "codigo": "08",
-            "municipio": "JIQUILISCO",
-            "departamentoId": "11"
-        },
-        {
-            "codigo": "09",
-            "municipio": "JUCUAPA",
-            "departamentoId": "11"
-        },
-        {
-            "codigo": "10",
-            "municipio": "JUCUARÁN",
-            "departamentoId": "11"
-        },
-        {
-            "codigo": "11",
-            "municipio": "MERCEDES UMAÑA",
-            "departamentoId": "11"
-        },
-        {
-            "codigo": "12",
-            "municipio": "NUEVA GRANADA",
-            "departamentoId": "11"
-        },
-        {
-            "codigo": "13",
-            "municipio": "OZATLÁN",
-            "departamentoId": "11"
-        },
-        {
-            "codigo": "14",
-            "municipio": "PTO EL TRIUNFO",
-            "departamentoId": "11"
-        },
-        {
-            "codigo": "15",
-            "municipio": "SAN AGUSTÍN",
-            "departamentoId": "11"
-        },
-        {
-            "codigo": "16",
-            "municipio": "SN BUENAVENTURA",
-            "departamentoId": "11"
-        },
-        {
-            "codigo": "17",
-            "municipio": "SAN DIONISIO",
-            "departamentoId": "11"
-        },
-        {
-            "codigo": "18",
-            "municipio": "SANTA ELENA",
-            "departamentoId": "11"
-        },
-        {
-            "codigo": "19",
-            "municipio": "SAN FCO JAVIER",
-            "departamentoId": "11"
-        },
-        {
-            "codigo": "20",
-            "municipio": "SANTA MARÍA",
-            "departamentoId": "11"
-        },
-        {
-            "codigo": "21",
-            "municipio": "STGO DE MARÍA",
-            "departamentoId": "11"
-        },
-        {
-            "codigo": "22",
-            "municipio": "TECAPÁN",
-            "departamentoId": "11"
         },
         {
             "codigo": "23",
-            "municipio": "USULUTÁN",
-            "departamentoId": "11"
-        },
-        {
-            "codigo": "01",
-            "municipio": "CAROLINA",
-            "departamentoId": "12"
-        },
-        {
-            "codigo": "02",
-            "municipio": "CIUDAD BARRIOS",
-            "departamentoId": "12"
-        },
-        {
-            "codigo": "03",
-            "municipio": "COMACARÁN",
-            "departamentoId": "12"
-        },
-        {
-            "codigo": "04",
-            "municipio": "CHAPELTIQUE",
-            "departamentoId": "12"
-        },
-        {
-            "codigo": "05",
-            "municipio": "CHINAMECA",
-            "departamentoId": "12"
-        },
-        {
-            "codigo": "06",
-            "municipio": "CHIRILAGUA",
-            "departamentoId": "12"
-        },
-        {
-            "codigo": "07",
-            "municipio": "EL TRANSITO",
-            "departamentoId": "12"
-        },
-        {
-            "codigo": "08",
-            "municipio": "LOLOTIQUE",
-            "departamentoId": "12"
-        },
-        {
-            "codigo": "09",
-            "municipio": "MONCAGUA",
-            "departamentoId": "12"
-        },
-        {
-            "codigo": "10",
-            "municipio": "NUEVA GUADALUPE",
-            "departamentoId": "12"
-        },
-        {
-            "codigo": "11",
-            "municipio": "NVO EDÉN S JUAN",
-            "departamentoId": "12"
-        },
-        {
-            "codigo": "12",
-            "municipio": "QUELEPA",
-            "departamentoId": "12"
-        },
-        {
-            "codigo": "13",
-            "municipio": "SAN ANT D MOSCO",
-            "departamentoId": "12"
-        },
-        {
-            "codigo": "14",
-            "municipio": "SAN GERARDO",
-            "departamentoId": "12"
-        },
-        {
-            "codigo": "15",
-            "municipio": "SAN JORGE",
-            "departamentoId": "12"
-        },
-        {
-            "codigo": "16",
-            "municipio": "SAN LUIS REINA",
-            "departamentoId": "12"
-        },
-        {
-            "codigo": "17",
-            "municipio": "SAN MIGUEL",
-            "departamentoId": "12"
-        },
-        {
-            "codigo": "18",
-            "municipio": "SAN RAF ORIENTE",
-            "departamentoId": "12"
-        },
-        {
-            "codigo": "19",
-            "municipio": "SESORI",
-            "departamentoId": "12"
-        },
-        {
-            "codigo": "20",
-            "municipio": "ULUAZAPA",
-            "departamentoId": "12"
-        },
-        {
-            "codigo": "01",
-            "municipio": "ARAMBALA",
-            "departamentoId": "13"
-        },
-        {
-            "codigo": "02",
-            "municipio": "CACAOPERA",
-            "departamentoId": "13"
-        },
-        {
-            "codigo": "03",
-            "municipio": "CORINTO",
-            "departamentoId": "13"
-        },
-        {
-            "codigo": "04",
-            "municipio": "CHILANGA",
-            "departamentoId": "13"
-        },
-        {
-            "codigo": "05",
-            "municipio": "DELIC DE CONCEP",
-            "departamentoId": "13"
-        },
-        {
-            "codigo": "06",
-            "municipio": "EL DIVISADERO",
-            "departamentoId": "13"
-        },
-        {
-            "codigo": "07",
-            "municipio": "EL ROSARIO",
-            "departamentoId": "13"
-        },
-        {
-            "codigo": "08",
-            "municipio": "GUALOCOCTI",
-            "departamentoId": "13"
-        },
-        {
-            "codigo": "09",
-            "municipio": "GUATAJIAGUA",
-            "departamentoId": "13"
-        },
-        {
-            "codigo": "10",
-            "municipio": "JOATECA",
-            "departamentoId": "13"
-        },
-        {
-            "codigo": "11",
-            "municipio": "JOCOAITIQUE",
-            "departamentoId": "13"
-        },
-        {
-            "codigo": "12",
-            "municipio": "JOCORO",
-            "departamentoId": "13"
-        },
-        {
-            "codigo": "13",
-            "municipio": "LOLOTIQUILLO",
-            "departamentoId": "13"
-        },
-        {
-            "codigo": "14",
-            "municipio": "MEANGUERA",
-            "departamentoId": "13"
-        },
-        {
-            "codigo": "15",
-            "municipio": "OSICALA",
-            "departamentoId": "13"
-        },
-        {
-            "codigo": "16",
-            "municipio": "PERQUÍN",
-            "departamentoId": "13"
-        },
-        {
-            "codigo": "17",
-            "municipio": "SAN CARLOS",
-            "departamentoId": "13"
-        },
-        {
-            "codigo": "18",
-            "municipio": "|SAN FERNANDO",
-            "departamentoId": "13"
-        },
-        {
-            "codigo": "19",
-            "municipio": "SAN FCO GOTERA",
-            "departamentoId": "13"
-        },
-        {
-            "codigo": "20",
-            "municipio": "SAN ISIDRO",
-            "departamentoId": "13"
-        },
-        {
-            "codigo": "21",
-            "municipio": "SAN SIMÓN",
-            "departamentoId": "13"
-        },
-        {
-            "codigo": "22",
-            "municipio": "SENSEMBRA",
-            "departamentoId": "13"
-        },
-        {
-            "codigo": "23",
-            "municipio": "SOCIEDAD",
-            "departamentoId": "13"
+            "municipio": "SAN SALVADOR CENTRO",
+            "departamentoId": "6"
         },
         {
             "codigo": "24",
-            "municipio": "TOROLA",
-            "departamentoId": "13"
-        },
-        {
-            "codigo": "25",
-            "municipio": "YAMABAL",
-            "departamentoId": "13"
-        },
-        {
-            "codigo": "26",
-            "municipio": "YOLOAIQUÍN",
-            "departamentoId": "13"
-        },
-        {
-            "codigo": "01",
-            "municipio": "ANAMOROS",
-            "departamentoId": "14"
-        },
-        {
-            "codigo": "02",
-            "municipio": "BOLÍVAR",
-            "departamentoId": "14"
-        },
-        {
-            "codigo": "03",
-            "municipio": "CONCEP DE OTE",
-            "departamentoId": "14"
-        },
-        {
-            "codigo": "04",
-            "municipio": "CONCHAGUA",
-            "departamentoId": "14"
-        },
-        {
-            "codigo": "05",
-            "municipio": "EL CARMEN",
-            "departamentoId": "14"
-        },
-        {
-            "codigo": "06",
-            "municipio": "EL SAUCE",
-            "departamentoId": "14"
-        },
-        {
-            "codigo": "07",
-            "municipio": "INTIPUCÁ",
-            "departamentoId": "14"
-        },
-        {
-            "codigo": "08",
-            "municipio": "LA UNIÓN",
-            "departamentoId": "14"
-        },
-        {
-            "codigo": "09",
-            "municipio": "LISLIQUE",
-            "departamentoId": "14"
-        },
-        {
-            "codigo": "10",
-            "municipio": "MEANG DEL GOLFO",
-            "departamentoId": "14"
-        },
-        {
-            "codigo": "11",
-            "municipio": "NUEVA ESPARTA",
-            "departamentoId": "14"
-        },
-        {
-            "codigo": "12",
-            "municipio": "PASAQUINA",
-            "departamentoId": "14"
-        },
-        {
-            "codigo": "13",
-            "municipio": "POLORÓS",
-            "departamentoId": "14"
-        },
-        {
-            "codigo": "14",
-            "municipio": "SAN ALEJO",
-            "departamentoId": "14"
-        },
-        {
-            "codigo": "15",
-            "municipio": "SAN JOSE",
-            "departamentoId": "14"
-        },
-        {
-            "codigo": "16",
-            "municipio": "SANTA ROSA LIMA",
-            "departamentoId": "14"
+            "municipio": "SAN SALVADOR SUR",
+            "departamentoId": "6"
         },
         {
             "codigo": "17",
-            "municipio": "YAYANTIQUE",
-            "departamentoId": "14"
+            "municipio": "CUSCATLAN NORTE",
+            "departamentoId": "7"
         },
         {
             "codigo": "18",
-            "municipio": "YUCUAIQUÍN",
+            "municipio": "CUSCATLAN SUR",
+            "departamentoId": "7"
+        },
+        {
+            "codigo": "23",
+            "municipio": "LA PAZ OESTE",
+            "departamentoId": "8"
+        },
+        {
+            "codigo": "24",
+            "municipio": "LA PAZ CENTRO",
+            "departamentoId": "8"
+        },
+        {
+            "codigo": "25",
+            "municipio": "LA PAZ ESTE",
+            "departamentoId": "8"
+        },
+        {
+            "codigo": "10",
+            "municipio": "CABAÑAS OESTE",
+            "departamentoId": "9"
+        },
+        {
+            "codigo": "11",
+            "municipio": "CABAÑAS ESTE",
+            "departamentoId": "9"
+        },
+        {
+            "codigo": "14",
+            "municipio": "SAN VICENTE NORT",
+            "departamentoId": "10"
+        },
+        {
+            "codigo": "15",
+            "municipio": "SAN VICENTE SUR",
+            "departamentoId": "10"
+        },
+        {
+            "codigo": "24",
+            "municipio": "USULUTAN NORTE",
+            "departamentoId": "11"
+        },
+        {
+            "codigo": "25",
+            "municipio": "USULUTAN ESTE",
+            "departamentoId": "11"
+        },
+        {
+            "codigo": "26",
+            "municipio": "USULUTAN OESTE",
+            "departamentoId": "11"
+        },
+        {
+            "codigo": "21",
+            "municipio": "SAN MIGUEL NORTE",
+            "departamentoId": "12"
+        },
+        {
+            "codigo": "22",
+            "municipio": "SAN MIGUEL CENTRO",
+            "departamentoId": "12"
+        },
+        {
+            "codigo": "23",
+            "municipio": "SAN MIGUEL OESTE",
+            "departamentoId": "12"
+        },
+        {
+            "codigo": "27",
+            "municipio": "MORAZAN NORTE",
+            "departamentoId": "13"
+        },
+        {
+            "codigo": "28",
+            "municipio": "MORAZAN SUR",
+            "departamentoId": "13"
+        },
+        {
+            "codigo": "19",
+            "municipio": "LA UNION NORTE",
+            "departamentoId": "14"
+        },
+        {
+            "codigo": "20",
+            "municipio": "LA UNION SUR",
             "departamentoId": "14"
         }
     ]

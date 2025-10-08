@@ -61,7 +61,7 @@ const cleanFileName = (fileName) => {
 //Importar los modelos para poder trabajar
 (0, fs_1.readdirSync)(PATH_ROUTER).filter((folderName) => {
     const cleanFolder = cleanFileName(folderName);
-    if (cleanFolder !== "migrate" && cleanFolder !== "createbd") {
+    if (cleanFolder !== "migrate" && cleanFolder !== "createbd" && cleanFolder !== "sync") {
         (0, fs_1.readdirSync)(PATH_ROUTER + '/' + cleanFolder).filter((fileName) => {
             const cleanName = cleanFileName(fileName);
             Promise.resolve(`${`./${cleanFolder}/${cleanName}`}`).then(s => __importStar(require(s)));

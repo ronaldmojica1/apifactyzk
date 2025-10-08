@@ -1,1105 +1,1001 @@
-﻿{
-    "model" : "Pais",
-    "data" :[
+{
+    "model": "Pais",
+    "data": [
         {
-            "codigo": "9320",
-            "pais": "ANGUILA"
+            "codigo": "AF",
+            "pais": "Afganistán"
         },
         {
-            "codigo": "9539",
-            "pais": "ISLAS TURCAS Y CAICOS"
+            "codigo": "AX",
+            "pais": "Islas Aland"
         },
         {
-            "codigo": "9565",
-            "pais": "LITUANIA"
+            "codigo": "AL",
+            "pais": "Albania"
         },
         {
-            "codigo": "9905",
-            "pais": "DAKOTA DEL SUR (USA)"
+            "codigo": "DZ",
+            "pais": "Argelia"
         },
         {
-            "codigo": "9999",
-            "pais": "No definido en migración"
+            "codigo": "AS",
+            "pais": "Samoa Americana"
         },
         {
-            "codigo": "9303",
-            "pais": "AFGANISTÁN"
+            "codigo": "AD",
+            "pais": "Andorra"
         },
         {
-            "codigo": "9306",
-            "pais": "ALBANIA"
+            "codigo": "AO",
+            "pais": "Angola"
         },
         {
-            "codigo": "9309",
-            "pais": "ALEMANIA OCCID"
+            "codigo": "AI",
+            "pais": "Anguila"
         },
         {
-            "codigo": "9310",
-            "pais": "ALEMANIA ORIENT"
+            "codigo": "AQ",
+            "pais": "Antártida"
         },
         {
-            "codigo": "9315",
-            "pais": "ALTO VOLTA"
+            "codigo": "AG",
+            "pais": "Antigua y Barbuda"
         },
         {
-            "codigo": "9317",
-            "pais": "ANDORRA"
+            "codigo": "AR",
+            "pais": "Argentina"
         },
         {
-            "codigo": "9318",
-            "pais": "ANGOLA"
+            "codigo": "AM",
+            "pais": "Armenia"
         },
         {
-            "codigo": "9319",
-            "pais": "ANTIG Y BARBUDA"
+            "codigo": "AW",
+            "pais": "Aruba"
         },
         {
-            "codigo": "9324",
-            "pais": "ARABIA SAUDITA"
+            "codigo": "AU",
+            "pais": "Australia"
         },
         {
-            "codigo": "9327",
-            "pais": "ARGELIA"
+            "codigo": "AT",
+            "pais": "Austria"
         },
         {
-            "codigo": "9330",
-            "pais": "ARGENTINA"
+            "codigo": "AZ",
+            "pais": "Azerbaiyán"
         },
         {
-            "codigo": "9333",
-            "pais": "AUSTRALIA"
+            "codigo": "BS",
+            "pais": "Bahamas"
         },
         {
-            "codigo": "9336",
-            "pais": "AUSTRIA"
+            "codigo": "BH",
+            "pais": "Baréin"
         },
         {
-            "codigo": "9339",
-            "pais": "BANGLADESH"
+            "codigo": "BD",
+            "pais": "Bangladés"
         },
         {
-            "codigo": "9342",
-            "pais": "BAHRÉIN"
+            "codigo": "BB",
+            "pais": "Barbados"
         },
         {
-            "codigo": "9345",
-            "pais": "BARBADOS"
+            "codigo": "BY",
+            "pais": "Bielorrusia"
         },
         {
-            "codigo": "9348",
-            "pais": "BÉLGICA"
+            "codigo": "BE",
+            "pais": "Bélgica"
         },
         {
-            "codigo": "9349",
-            "pais": "BELICE"
+            "codigo": "BZ",
+            "pais": "Belice"
         },
         {
-            "codigo": "9350",
-            "pais": "BENÍN"
+            "codigo": "BJ",
+            "pais": "Benín"
         },
         {
-            "codigo": "9354",
-            "pais": "BIRMANIA"
+            "codigo": "BM",
+            "pais": "Bermudas"
         },
         {
-            "codigo": "9357",
-            "pais": "BOLIVIA"
+            "codigo": "BT",
+            "pais": "Bután"
         },
         {
-            "codigo": "9360",
-            "pais": "BOTSWANA"
+            "codigo": "BO",
+            "pais": "Bolivia"
         },
         {
-            "codigo": "9363",
-            "pais": "BRASIL"
+            "codigo": "BQ",
+            "pais": "Caribe Neerlandés"
         },
         {
-            "codigo": "9366",
-            "pais": "BRUNÉI"
+            "codigo": "BA",
+            "pais": "Bosnia y Herzegovina"
         },
         {
-            "codigo": "9372",
-            "pais": "BURUNDI"
+            "codigo": "BW",
+            "pais": "Botsuana"
         },
         {
-            "codigo": "9374",
-            "pais": "BOPHUTHATSWANA"
+            "codigo": "BV",
+            "pais": "Isla Bouvet"
         },
         {
-            "codigo": "9375",
-            "pais": "BUTÁN"
+            "codigo": "BR",
+            "pais": "Brasil"
         },
         {
-            "codigo": "9377",
-            "pais": "CABO VERDE"
+            "codigo": "IO",
+            "pais": "Territorio Británico del Océano Índico"
         },
         {
-            "codigo": "9378",
-            "pais": "CAMBOYA"
+            "codigo": "BN",
+            "pais": "Brunéi Darussalam"
         },
         {
-            "codigo": "9381",
-            "pais": "CAMERÚN"
+            "codigo": "BG",
+            "pais": "Bulgaria"
         },
         {
-            "codigo": "9384",
-            "pais": "CANADÁ"
+            "codigo": "BF",
+            "pais": "Burkina Faso"
         },
         {
-            "codigo": "9387",
-            "pais": "CEILÁN"
+            "codigo": "BI",
+            "pais": "Burundi"
         },
         {
-            "codigo": "9390",
-            "pais": "CTRO AFRIC REP"
+            "codigo": "KH",
+            "pais": "Camboya"
         },
         {
-            "codigo": "9393",
-            "pais": "COLOMBIA"
+            "codigo": "CM",
+            "pais": "Camerún"
         },
         {
-            "codigo": "9394",
-            "pais": "COMORAS-ISLAS"
+            "codigo": "CA",
+            "pais": "Canadá"
         },
         {
-            "codigo": "9396",
-            "pais": "CONGO REP DEL"
+            "codigo": "CV",
+            "pais": "Cabo Verde"
         },
         {
-            "codigo": "9399",
-            "pais": "CONGO REP DEMOC"
+            "codigo": "KY",
+            "pais": "Islas Caimán"
         },
         {
-            "codigo": "9402",
-            "pais": "COREA NORTE"
+            "codigo": "CF",
+            "pais": "República Centroafricana"
         },
         {
-            "codigo": "9405",
-            "pais": "COREA SUR"
+            "codigo": "TD",
+            "pais": "Chad"
         },
         {
-            "codigo": "9408",
-            "pais": "COSTA DE MARFIL"
+            "codigo": "CL",
+            "pais": "Chile"
         },
         {
-            "codigo": "9411",
-            "pais": "COSTA RICA"
+            "codigo": "CN",
+            "pais": "China"
         },
         {
-            "codigo": "9414",
-            "pais": "CUBA"
+            "codigo": "CX",
+            "pais": "Isla de Navidad"
         },
         {
-            "codigo": "9417",
-            "pais": "CHAD"
+            "codigo": "CC",
+            "pais": "Islas Cocos"
         },
         {
-            "codigo": "9420",
-            "pais": "CHECOSLOVAQUIA"
+            "codigo": "CO",
+            "pais": "Colombia"
         },
         {
-            "codigo": "9423",
-            "pais": "CHILE"
+            "codigo": "KM",
+            "pais": "Comoras"
         },
         {
-            "codigo": "9426",
-            "pais": "CHINA REP POPUL"
+            "codigo": "CG",
+            "pais": "Congo"
         },
         {
-            "codigo": "9432",
-            "pais": "CHIPRE"
+            "codigo": "CD",
+            "pais": "Congo (Rep. Dem.)"
         },
         {
-            "codigo": "9435",
-            "pais": "DAHOMEY"
+            "codigo": "CK",
+            "pais": "Islas Cook"
         },
         {
-            "codigo": "9438",
-            "pais": "DINAMARCA"
+            "codigo": "CR",
+            "pais": "Costa Rica"
         },
         {
-            "codigo": "9440",
-            "pais": "DOMINICA"
+            "codigo": "CI",
+            "pais": "Costa de Marfil"
         },
         {
-            "codigo": "9441",
-            "pais": "DOMINICANA REP"
+            "codigo": "HR",
+            "pais": "Croacia"
         },
         {
-            "codigo": "9444",
-            "pais": "ECUADOR"
+            "codigo": "CU",
+            "pais": "Cuba"
         },
         {
-            "codigo": "9446",
-            "pais": "EMIRAT ARAB UNI"
+            "codigo": "CW",
+            "pais": "Curazao"
         },
         {
-            "codigo": "9447",
-            "pais": "ESPAÑA"
+            "codigo": "CY",
+            "pais": "Chipre"
         },
         {
-            "codigo": "9450",
-            "pais": "EE UU"
+            "codigo": "CZ",
+            "pais": "Chequia"
         },
         {
-            "codigo": "9453",
-            "pais": "ETIOPIA"
+            "codigo": "DK",
+            "pais": "Dinamarca"
         },
         {
-            "codigo": "9456",
-            "pais": "FIJI-ISLAS"
+            "codigo": "DJ",
+            "pais": "Yibuti"
         },
         {
-            "codigo": "9459",
-            "pais": "FILIPINAS"
+            "codigo": "DM",
+            "pais": "Dominica"
         },
         {
-            "codigo": "9462",
-            "pais": "FINLANDIA"
+            "codigo": "DO",
+            "pais": "República Dominicana"
         },
         {
-            "codigo": "9465",
-            "pais": "FRANCIA"
+            "codigo": "EC",
+            "pais": "Ecuador"
         },
         {
-            "codigo": "9468",
-            "pais": "GABÓN"
+            "codigo": "EG",
+            "pais": "Egipto"
         },
         {
-            "codigo": "9471",
-            "pais": "GAMBIA"
+            "codigo": "SV",
+            "pais": "El Salvador"
         },
         {
-            "codigo": "9474",
-            "pais": "GHANA"
+            "codigo": "GQ",
+            "pais": "Guinea Ecuatorial"
         },
         {
-            "codigo": "9477",
-            "pais": "GIBRALTAR"
+            "codigo": "ER",
+            "pais": "Eritrea"
         },
         {
-            "codigo": "9480",
-            "pais": "GRECIA"
+            "codigo": "EE",
+            "pais": "Estonia"
         },
         {
-            "codigo": "9481",
-            "pais": "GRENADA"
+            "codigo": "SZ",
+            "pais": "Esuatini"
         },
         {
-            "codigo": "9483",
-            "pais": "GUATEMALA"
+            "codigo": "ET",
+            "pais": "Etiopía"
         },
         {
-            "codigo": "9486",
-            "pais": "GUINEA"
+            "codigo": "FK",
+            "pais": "Islas Malvinas"
         },
         {
-            "codigo": "9487",
-            "pais": "GUYANA"
+            "codigo": "FO",
+            "pais": "Islas Feroe"
         },
         {
-            "codigo": "9495",
-            "pais": "HAITÍ"
+            "codigo": "FJ",
+            "pais": "Fiyi"
         },
         {
-            "codigo": "9498",
-            "pais": "HOLANDA"
+            "codigo": "FI",
+            "pais": "Finlandia"
         },
         {
-            "codigo": "9501",
-            "pais": "HONDURAS"
+            "codigo": "FR",
+            "pais": "Francia"
         },
         {
-            "codigo": "9504",
-            "pais": "HONG KONG"
+            "codigo": "GF",
+            "pais": "Guayana Francesa"
         },
         {
-            "codigo": "9507",
-            "pais": "HUNGRÍA"
+            "codigo": "PF",
+            "pais": "Polinesia Francesa"
         },
         {
-            "codigo": "9513",
-            "pais": "INDONESIA"
+            "codigo": "TF",
+            "pais": "Territorios Australes Franceses"
         },
         {
-            "codigo": "9516",
-            "pais": "IRAK"
+            "codigo": "GA",
+            "pais": "Gabón"
         },
         {
-            "codigo": "9519",
-            "pais": "IRÁN"
+            "codigo": "GM",
+            "pais": "Gambia"
         },
         {
-            "codigo": "9522",
-            "pais": "IRLANDA"
+            "codigo": "GE",
+            "pais": "Georgia"
         },
         {
-            "codigo": "9525",
-            "pais": "ISLANDIA"
+            "codigo": "DE",
+            "pais": "Alemania"
         },
         {
-            "codigo": "9526",
-            "pais": "ISLAS SALOMÓN"
+            "codigo": "GH",
+            "pais": "Ghana"
         },
         {
-            "codigo": "9528",
-            "pais": "ISRAEL"
+            "codigo": "GI",
+            "pais": "Gibraltar"
         },
         {
-            "codigo": "9531",
-            "pais": "ITALIA"
+            "codigo": "GR",
+            "pais": "Grecia"
         },
         {
-            "codigo": "9534",
-            "pais": "JAMAICA"
+            "codigo": "GL",
+            "pais": "Groenlandia"
         },
         {
-            "codigo": "9537",
-            "pais": "JAPÓN"
+            "codigo": "GD",
+            "pais": "Granada"
         },
         {
-            "codigo": "9540",
-            "pais": "JORDANIA"
+            "codigo": "GP",
+            "pais": "Guadalupe"
         },
         {
-            "codigo": "9543",
-            "pais": "KENIA"
+            "codigo": "GU",
+            "pais": "Guam"
         },
         {
-            "codigo": "9544",
-            "pais": "KIRIBATI"
+            "codigo": "GT",
+            "pais": "Guatemala"
         },
         {
-            "codigo": "9546",
-            "pais": "KUWAIT"
+            "codigo": "GG",
+            "pais": "Guernesey"
         },
         {
-            "codigo": "9549",
-            "pais": "LAOS"
+            "codigo": "GN",
+            "pais": "Guinea"
         },
         {
-            "codigo": "9552",
-            "pais": "LESOTHO"
+            "codigo": "GW",
+            "pais": "Guinea-Bisáu"
         },
         {
-            "codigo": "9555",
-            "pais": "LÍBANO"
+            "codigo": "GY",
+            "pais": "Guyana"
         },
         {
-            "codigo": "9558",
-            "pais": "LIBERIA"
+            "codigo": "HT",
+            "pais": "Haití"
         },
         {
-            "codigo": "9561",
-            "pais": "LIBIA"
+            "codigo": "HM",
+            "pais": "Islas Heard y McDonald"
         },
         {
-            "codigo": "9564",
-            "pais": "LIECHTENSTEIN"
+            "codigo": "VA",
+            "pais": "Ciudad del Vaticano"
         },
         {
-            "codigo": "9567",
-            "pais": "LUXEMBURGO"
+            "codigo": "HN",
+            "pais": "Honduras"
         },
         {
-            "codigo": "9570",
-            "pais": "MADAGASCAR"
+            "codigo": "HK",
+            "pais": "Hong Kong"
         },
         {
-            "codigo": "9573",
-            "pais": "MALASIA"
+            "codigo": "HU",
+            "pais": "Hungría"
         },
         {
-            "codigo": "9576",
-            "pais": "MALAWI"
+            "codigo": "IS",
+            "pais": "Islandia"
         },
         {
-            "codigo": "9577",
-            "pais": "MALDIVAS"
+            "codigo": "IN",
+            "pais": "India"
         },
         {
-            "codigo": "9582",
-            "pais": "MALTA"
+            "codigo": "ID",
+            "pais": "Indonesia"
         },
         {
-            "codigo": "9585",
-            "pais": "MARRUECOS"
+            "codigo": "IR",
+            "pais": "Irán"
         },
         {
-            "codigo": "9591",
-            "pais": "MASCATE Y OMÁN"
+            "codigo": "IQ",
+            "pais": "Irak"
         },
         {
-            "codigo": "9594",
-            "pais": "MAURICIO"
+            "codigo": "IE",
+            "pais": "Irlanda"
         },
         {
-            "codigo": "9597",
-            "pais": "MAURITANIA"
+            "codigo": "IM",
+            "pais": "Isla de Man"
         },
         {
-            "codigo": "9600",
-            "pais": "MÉXICO"
+            "codigo": "IL",
+            "pais": "Israel"
         },
         {
-            "codigo": "9601",
-            "pais": "MICRONESIA"
+            "codigo": "IT",
+            "pais": "Italia"
         },
         {
-            "codigo": "9603",
-            "pais": "MÓNACO"
+            "codigo": "JM",
+            "pais": "Jamaica"
         },
         {
-            "codigo": "9606",
-            "pais": "MONGOLIA"
+            "codigo": "JP",
+            "pais": "Japón"
         },
         {
-            "codigo": "9609",
-            "pais": "MOZAMBIQUE"
+            "codigo": "JE",
+            "pais": "Jersey"
         },
         {
-            "codigo": "9611",
-            "pais": "NAURU"
+            "codigo": "JO",
+            "pais": "Jordania"
         },
         {
-            "codigo": "9612",
-            "pais": "NEPAL"
+            "codigo": "KZ",
+            "pais": "Kazajistán"
         },
         {
-            "codigo": "9615",
-            "pais": "NICARAGUA"
+            "codigo": "KE",
+            "pais": "Kenia"
         },
         {
-            "codigo": "9618",
-            "pais": "NÍGER"
+            "codigo": "KI",
+            "pais": "Kiribati"
         },
         {
-            "codigo": "9621",
-            "pais": "NIGERIA"
+            "codigo": "KP",
+            "pais": "Corea del Norte"
         },
         {
-            "codigo": "9624",
-            "pais": "NORUEGA"
+            "codigo": "KR",
+            "pais": "Corea del Sur"
         },
         {
-            "codigo": "9627",
-            "pais": "NVA CALEDONIA"
+            "codigo": "KW",
+            "pais": "Kuwait"
         },
         {
-            "codigo": "9633",
-            "pais": "NVA ZELANDIA"
+            "codigo": "KG",
+            "pais": "Kirguistán"
         },
         {
-            "codigo": "9636",
-            "pais": "NUEVAS HEBRIDAS"
+            "codigo": "LA",
+            "pais": "Laos"
         },
         {
-            "codigo": "9638",
-            "pais": "PAPUA NV GUINEA"
+            "codigo": "LV",
+            "pais": "Letonia"
         },
         {
-            "codigo": "9639",
-            "pais": "PAKISTÁN"
+            "codigo": "LB",
+            "pais": "Líbano"
         },
         {
-            "codigo": "9642",
-            "pais": "PANAMÁ"
+            "codigo": "LS",
+            "pais": "Lesoto"
         },
         {
-            "codigo": "9645",
-            "pais": "PARAGUAY"
+            "codigo": "LR",
+            "pais": "Liberia"
         },
         {
-            "codigo": "9648",
-            "pais": "PERÚ"
+            "codigo": "LY",
+            "pais": "Libia"
         },
         {
-            "codigo": "9651",
-            "pais": "POLONIA"
+            "codigo": "LI",
+            "pais": "Liechtenstein"
         },
         {
-            "codigo": "9660",
-            "pais": "QATAR EL"
+            "codigo": "LT",
+            "pais": "Lituania"
         },
         {
-            "codigo": "9663",
-            "pais": "REINO UNIDO"
+            "codigo": "LU",
+            "pais": "Luxemburgo"
         },
         {
-            "codigo": "9666",
-            "pais": "EGIPTO"
+            "codigo": "MO",
+            "pais": "Macao"
         },
         {
-            "codigo": "9669",
-            "pais": "RODESIA"
+            "codigo": "MG",
+            "pais": "Madagascar"
         },
         {
-            "codigo": "9672",
-            "pais": "RUANDA"
+            "codigo": "MW",
+            "pais": "Malaui"
         },
         {
-            "codigo": "9675",
-            "pais": "RUMANIA"
+            "codigo": "MY",
+            "pais": "Malasia"
         },
         {
-            "codigo": "9677",
-            "pais": "SAN MARINO"
+            "codigo": "MV",
+            "pais": "Maldivas"
         },
         {
-            "codigo": "9678",
-            "pais": "SAMOA OCCID"
+            "codigo": "ML",
+            "pais": "Malí"
         },
         {
-            "codigo": "9679",
-            "pais": "SAINT KITTS AND NEVIS"
+            "codigo": "MT",
+            "pais": "Malta"
         },
         {
-            "codigo": "9680",
-            "pais": "SANTA LUCIA"
+            "codigo": "MH",
+            "pais": "Islas Marshall"
         },
         {
-            "codigo": "9681",
-            "pais": "SENEGAL"
+            "codigo": "MQ",
+            "pais": "Martinica"
         },
         {
-            "codigo": "9682",
-            "pais": "SAOTOME Y PRINC"
+            "codigo": "MR",
+            "pais": "Mauritania"
         },
         {
-            "codigo": "9683",
-            "pais": "SN VIC Y GRENAD"
+            "codigo": "MU",
+            "pais": "Mauricio"
         },
         {
-            "codigo": "9684",
-            "pais": "SIERRA LEONA"
+            "codigo": "YT",
+            "pais": "Mayotte"
         },
         {
-            "codigo": "9687",
-            "pais": "SINGAPUR"
+            "codigo": "MX",
+            "pais": "México"
         },
         {
-            "codigo": "9690",
-            "pais": "SIRIA"
+            "codigo": "FM",
+            "pais": "Micronesia"
         },
         {
-            "codigo": "9691",
-            "pais": "SEYCHELLES"
+            "codigo": "MD",
+            "pais": "Moldavia"
         },
         {
-            "codigo": "9693",
-            "pais": "SOMALIA"
+            "codigo": "MC",
+            "pais": "Mónaco"
         },
         {
-            "codigo": "9696",
-            "pais": "SUDÁFRICA REP"
+            "codigo": "MN",
+            "pais": "Mongolia"
         },
         {
-            "codigo": "9699",
-            "pais": "SUDAN"
+            "codigo": "ME",
+            "pais": "Montenegro"
         },
         {
-            "codigo": "9702",
-            "pais": "SUECIA"
+            "codigo": "MS",
+            "pais": "Montserrat"
         },
         {
-            "codigo": "9705",
-            "pais": "SUIZA"
+            "codigo": "MA",
+            "pais": "Marruecos"
         },
         {
-            "codigo": "9706",
-            "pais": "SURINAM"
+            "codigo": "MZ",
+            "pais": "Mozambique"
         },
         {
-            "codigo": "9707",
-            "pais": "SRI LANKA"
+            "codigo": "MM",
+            "pais": "Myanmar"
         },
         {
-            "codigo": "9708",
-            "pais": "SUECILANDIA"
+            "codigo": "NA",
+            "pais": "Namibia"
         },
         {
-            "codigo": "9714",
-            "pais": "TANZANIA"
+            "codigo": "NR",
+            "pais": "Nauru"
         },
         {
-            "codigo": "9717",
-            "pais": "TOGO"
+            "codigo": "NP",
+            "pais": "Nepal"
         },
         {
-            "codigo": "9720",
-            "pais": "TRINIDAD TOBAGO"
+            "codigo": "NL",
+            "pais": "Países Bajos"
         },
         {
-            "codigo": "9722",
-            "pais": "TONGA"
+            "codigo": "NC",
+            "pais": "Nueva Caledonia"
         },
         {
-            "codigo": "9723",
-            "pais": "TÚNEZ"
+            "codigo": "NZ",
+            "pais": "Nueva Zelanda"
         },
         {
-            "codigo": "9725",
-            "pais": "TRANSKEI"
+            "codigo": "NI",
+            "pais": "Nicaragua"
         },
         {
-            "codigo": "9726",
-            "pais": "TURQUÍA"
+            "codigo": "NE",
+            "pais": "Níger"
         },
         {
-            "codigo": "9727",
-            "pais": "TUVALU"
+            "codigo": "NG",
+            "pais": "Nigeria"
         },
         {
-            "codigo": "9729",
-            "pais": "UGANDA"
+            "codigo": "NU",
+            "pais": "Niue"
         },
         {
-            "codigo": "9732",
-            "pais": "U R S S"
+            "codigo": "NF",
+            "pais": "Isla Norfolk"
         },
         {
-            "codigo": "9735",
-            "pais": "URUGUAY"
+            "codigo": "MK",
+            "pais": "Macedonia del Norte"
         },
         {
-            "codigo": "9738",
-            "pais": "VATICANO"
+            "codigo": "MP",
+            "pais": "Islas Marianas del Norte"
         },
         {
-            "codigo": "9739",
-            "pais": "VANUATU"
+            "codigo": "NO",
+            "pais": "Noruega"
         },
         {
-            "codigo": "9740",
-            "pais": "VENDA"
+            "codigo": "OM",
+            "pais": "Omán"
         },
         {
-            "codigo": "9741",
-            "pais": "VENEZUELA"
+            "codigo": "PK",
+            "pais": "Pakistán"
         },
         {
-            "codigo": "9744",
-            "pais": "VIETNAM NORTE"
+            "codigo": "PW",
+            "pais": "Palaos"
         },
         {
-            "codigo": "9747",
-            "pais": "VIETNAM SUR"
+            "codigo": "PS",
+            "pais": "Palestina"
         },
         {
-            "codigo": "9750",
-            "pais": "YEMEN SUR REP"
+            "codigo": "PA",
+            "pais": "Panamá"
         },
         {
-            "codigo": "9756",
-            "pais": "YUGOSLAVIA"
+            "codigo": "PG",
+            "pais": "Papúa Nueva Guinea"
         },
         {
-            "codigo": "9758",
-            "pais": "ZAIRE"
+            "codigo": "PY",
+            "pais": "Paraguay"
         },
         {
-            "codigo": "9759",
-            "pais": "ZAMBIA"
+            "codigo": "PE",
+            "pais": "Perú"
         },
         {
-            "codigo": "9760",
-            "pais": "ZIMBABWE"
+            "codigo": "PH",
+            "pais": "Filipinas"
         },
         {
-            "codigo": "9850",
-            "pais": "PUERTO RICO"
+            "codigo": "PN",
+            "pais": "Islas Pitcairn"
         },
         {
-            "codigo": "9862",
-            "pais": "BAHAMAS"
+            "codigo": "PL",
+            "pais": "Polonia"
         },
         {
-            "codigo": "9863",
-            "pais": "BERMUDAS"
+            "codigo": "PT",
+            "pais": "Portugal"
         },
         {
-            "codigo": "9865",
-            "pais": "MARTINICA"
+            "codigo": "PR",
+            "pais": "Puerto Rico"
         },
         {
-            "codigo": "9886",
-            "pais": "NUEVA GUINEA"
+            "codigo": "QA",
+            "pais": "Catar"
         },
         {
-            "codigo": "9898",
-            "pais": "ANT HOLANDESAS"
+            "codigo": "RE",
+            "pais": "Reunión"
         },
         {
-            "codigo": "9899",
-            "pais": "TAIWÁN"
+            "codigo": "RO",
+            "pais": "Rumanía"
         },
         {
-            "codigo": "9897",
-            "pais": "ISLAS VÍRGENES BRITÁNICAS"
+            "codigo": "RU",
+            "pais": "Rusia"
         },
         {
-            "codigo": "9887",
-            "pais": "ISLAS GRAN CAIMÁN"
+            "codigo": "RW",
+            "pais": "Ruanda"
         },
         {
-            "codigo": "9571",
-            "pais": "MACEDONIA"
+            "codigo": "BL",
+            "pais": "San Bartolomé"
         },
         {
-            "codigo": "9300",
-            "pais": "EL SALVADOR"
+            "codigo": "SH",
+            "pais": "Santa Elena"
         },
         {
-            "codigo": "9369",
-            "pais": "BULGARIA"
+            "codigo": "KN",
+            "pais": "San Cristóbal y Nieves"
         },
         {
-            "codigo": "9439",
-            "pais": "DJIBOUTI"
+            "codigo": "LC",
+            "pais": "Santa Lucía"
         },
         {
-            "codigo": "9510",
-            "pais": "INDIA"
+            "codigo": "MF",
+            "pais": "San Martín"
         },
         {
-            "codigo": "9579",
-            "pais": "MALI"
+            "codigo": "PM",
+            "pais": "San Pedro y Miquelón"
         },
         {
-            "codigo": "9654",
-            "pais": "PORTUGAL"
+            "codigo": "VC",
+            "pais": "San Vicente y las Granadinas"
         },
         {
-            "codigo": "9711",
-            "pais": "TAILANDIA"
+            "codigo": "WS",
+            "pais": "Samoa"
         },
         {
-            "codigo": "9736",
-            "pais": "UCRANIA"
+            "codigo": "SM",
+            "pais": "San Marino"
         },
         {
-            "codigo": "9737",
-            "pais": "UZBEKISTÁN"
+            "codigo": "ST",
+            "pais": "Santo Tomé y Príncipe"
         },
         {
-            "codigo": "9640",
-            "pais": "PALESTINA"
+            "codigo": "SA",
+            "pais": "Arabia Saudita"
         },
         {
-            "codigo": "9641",
-            "pais": "CROACIA"
+            "codigo": "SN",
+            "pais": "Senegal"
         },
         {
-            "codigo": "9673",
-            "pais": "REPUBLICA DE ARMENIA"
+            "codigo": "RS",
+            "pais": "Serbia"
         },
         {
-            "codigo": "9472",
-            "pais": "GEORGIA"
+            "codigo": "SC",
+            "pais": "Seychelles"
         },
         {
-            "codigo": "9311",
-            "pais": "ALEMANIA"
+            "codigo": "SL",
+            "pais": "Sierra Leona"
         },
         {
-            "codigo": "9733",
-            "pais": "RUSIA"
+            "codigo": "SG",
+            "pais": "Singapur"
         },
         {
-            "codigo": "9541",
-            "pais": "KASAKISTAN"
+            "codigo": "SX",
+            "pais": "Sint Maarten"
         },
         {
-            "codigo": "9746",
-            "pais": "VIETNAM"
+            "codigo": "SK",
+            "pais": "Eslovaquia"
         },
         {
-            "codigo": "9551",
-            "pais": "LETONIA"
+            "codigo": "SI",
+            "pais": "Eslovenia"
         },
         {
-            "codigo": "9451",
-            "pais": "ESLOVENIA"
+            "codigo": "SB",
+            "pais": "Islas Salomón"
         },
         {
-            "codigo": "9338",
-            "pais": "AZERBAIYÁN"
+            "codigo": "SO",
+            "pais": "Somalia"
         },
         {
-            "codigo": "9353",
-            "pais": "BIELORRUSIA"
+            "codigo": "ZA",
+            "pais": "Sudáfrica"
         },
         {
-            "codigo": "9482",
-            "pais": "GROENLANDIA"
+            "codigo": "GS",
+            "pais": "Islas Georgias del Sur y Sandwich del Sur"
         },
         {
-            "codigo": "9494",
-            "pais": "GUINEA-BISSAU"
+            "codigo": "SS",
+            "pais": "Sudán del Sur"
         },
         {
-            "codigo": "9524",
-            "pais": "ISLA DE COCOS"
+            "codigo": "ES",
+            "pais": "España"
         },
         {
-            "codigo": "9304",
-            "pais": "ALAND"
+            "codigo": "LK",
+            "pais": "Sri Lanka"
         },
         {
-            "codigo": "9332",
-            "pais": "ARUBA"
+            "codigo": "SD",
+            "pais": "Sudán"
         },
         {
-            "codigo": "9454",
-            "pais": "ERITREA"
+            "codigo": "SR",
+            "pais": "Surinam"
         },
         {
-            "codigo": "9457",
-            "pais": "ESTONIA"
+            "codigo": "SJ",
+            "pais": "Svalbard y Jan Mayen"
         },
         {
-            "codigo": "9489",
-            "pais": "GUADALUPE"
+            "codigo": "SE",
+            "pais": "Suecia"
         },
         {
-            "codigo": "9491",
-            "pais": "GUAYANA FRANCESA"
+            "codigo": "CH",
+            "pais": "Suiza"
         },
         {
-            "codigo": "9492",
-            "pais": "GUERNSEY"
+            "codigo": "SY",
+            "pais": "Siria"
         },
         {
-            "codigo": "9523",
-            "pais": "ISLA DE NAVIDAD"
+            "codigo": "TW",
+            "pais": "Taiwán"
         },
         {
-            "codigo": "9530",
-            "pais": "ISLAS AZORES"
+            "codigo": "TJ",
+            "pais": "Tayikistán"
         },
         {
-            "codigo": "9532",
-            "pais": "ISLA QESHM"
+            "codigo": "TZ",
+            "pais": "Tanzania"
         },
         {
-            "codigo": "9535",
-            "pais": "ISLAS MARIANAS DEL NORTE"
+            "codigo": "TH",
+            "pais": "Tailandia"
         },
         {
-            "codigo": "9542",
-            "pais": "ISLAS ULTRAMARINAS DE EE UU"
+            "codigo": "TL",
+            "pais": "Timor-Leste"
         },
         {
-            "codigo": "9547",
-            "pais": "JERSEY"
+            "codigo": "TG",
+            "pais": "Togo"
         },
         {
-            "codigo": "9548",
-            "pais": "KIRGUISTÁN"
+            "codigo": "TK",
+            "pais": "Tokelau"
         },
         {
-            "codigo": "9574",
-            "pais": "MALI"
+            "codigo": "TO",
+            "pais": "Tonga"
         },
         {
-            "codigo": "9598",
-            "pais": "MAYOTTE"
+            "codigo": "TT",
+            "pais": "Trinidad y Tobago"
         },
         {
-            "codigo": "9602",
-            "pais": "MOLDAVIA"
+            "codigo": "TN",
+            "pais": "Túnez"
         },
         {
-            "codigo": "9607",
-            "pais": "MONTENEGRO"
+            "codigo": "TR",
+            "pais": "Turquía"
         },
         {
-            "codigo": "9608",
-            "pais": "MONSERRAT"
+            "codigo": "TM",
+            "pais": "Turkmenistán"
         },
         {
-            "codigo": "9623",
-            "pais": "NORFOLK"
+            "codigo": "TC",
+            "pais": "Islas Turcas y Caicos"
         },
         {
-            "codigo": "9652",
-            "pais": "POLINESIA FRANCESA"
+            "codigo": "TV",
+            "pais": "Tuvalu"
         },
         {
-            "codigo": "9692",
-            "pais": "SVALBARD Y JAN MAYEN"
+            "codigo": "UG",
+            "pais": "Uganda"
         },
         {
-            "codigo": "9709",
-            "pais": "TAYIKISTÁN"
+            "codigo": "UA",
+            "pais": "Ucrania"
         },
         {
-            "codigo": "9712",
-            "pais": "TERRITORIO BRITÁNICO DEL OCÉANO INDICO"
+            "codigo": "AE",
+            "pais": "Emiratos Árabes Unidos"
         },
         {
-            "codigo": "9716",
-            "pais": "TIMOR ORIENTAL"
+            "codigo": "GB",
+            "pais": "Reino Unido"
         },
         {
-            "codigo": "9718",
-            "pais": "TOKELAU"
+            "codigo": "US",
+            "pais": "Estados Unidos"
         },
         {
-            "codigo": "9719",
-            "pais": "TURKMENISTÁN"
+            "codigo": "UM",
+            "pais": "Islas Ultramarinas Menores de EE. UU."
         },
         {
-            "codigo": "9751",
-            "pais": "YIBUTI"
+            "codigo": "UY",
+            "pais": "Uruguay"
         },
         {
-            "codigo": "9452",
-            "pais": "WALLIS Y FUTUNA"
+            "codigo": "UZ",
+            "pais": "Uzbekistán"
         },
         {
-            "codigo": "9901",
-            "pais": "NEVADA (USA)"
+            "codigo": "VU",
+            "pais": "Vanuatu"
         },
         {
-            "codigo": "9902",
-            "pais": "WYOMING (USA)"
+            "codigo": "VE",
+            "pais": "Venezuela"
         },
         {
-            "codigo": "9903",
-            "pais": "CAMPIONE D'ITALIA, ITALIA"
+            "codigo": "VN",
+            "pais": "Vietnam"
         },
         {
-            "codigo": "9664",
-            "pais": "REPUBLICA CHECA"
+            "codigo": "VG",
+            "pais": "Islas Vírgenes Británicas"
         },
         {
-            "codigo": "9415",
-            "pais": "CURAZAO"
+            "codigo": "VI",
+            "pais": "Islas Vírgenes de EE. UU."
         },
         {
-            "codigo": "9904",
-            "pais": "FLORIDA (USA)"
+            "codigo": "WF",
+            "pais": "Wallis y Futuna"
         },
         {
-            "codigo": "9514",
-            "pais": "INGLATERRA Y GALES"
+            "codigo": "EH",
+            "pais": "Sahara Occidental"
         },
         {
-            "codigo": "9906",
-            "pais": "TEXAS (USA)"
+            "codigo": "YE",
+            "pais": "Yemen"
         },
         {
-            "codigo": "9359",
-            "pais": "BOSNIA Y HERZEGOVINA"
+            "codigo": "ZM",
+            "pais": "Zambia"
         },
         {
-            "codigo": "9493",
-            "pais": "GUINEA ECUATORIAL"
-        },
-        {
-            "codigo": "9521",
-            "pais": "ISLA DE MAN"
-        },
-        {
-            "codigo": "9533",
-            "pais": "ISLAS MALVINAS"
-        },
-        {
-            "codigo": "9538",
-            "pais": "ISLAS PITCAIM"
-        },
-        {
-            "codigo": "9689",
-            "pais": "SERBIA"
-        },
-        {
-            "codigo": "9713",
-            "pais": "TERRITORIOS AUSTRALES FRANCESES"
-        },
-        {
-            "codigo": "9449",
-            "pais": "ESLOVAQUIA"
-        },
-        {
-            "codigo": "9888",
-            "pais": "SAN MAARTEN"
-        },
-        {
-            "codigo": "9490",
-            "pais": "GUAM"
-        },
-        {
-            "codigo": "9527",
-            "pais": "ISLAS COOK"
-        },
-        {
-            "codigo": "9529",
-            "pais": "ISLAS FEROE"
-        },
-        {
-            "codigo": "9536",
-            "pais": "ISLAS MARSHALL"
-        },
-        {
-            "codigo": "9545",
-            "pais": "ISLAS VÍRGENES ESTADOUNIDENSES"
-        },
-        {
-            "codigo": "9568",
-            "pais": "MACAO"
-        },
-        {
-            "codigo": "9610",
-            "pais": "NAMIBIA"
-        },
-        {
-            "codigo": "9622",
-            "pais": "NIUE"
-        },
-        {
-            "codigo": "9643",
-            "pais": "PALAOS"
-        },
-        {
-            "codigo": "9667",
-            "pais": "REUNIÓN"
-        },
-        {
-            "codigo": "9676",
-            "pais": "SAHARA OCCIDENTAL"
-        },
-        {
-            "codigo": "9685",
-            "pais": "SAMOA AMERICANA"
-        },
-        {
-            "codigo": "9686",
-            "pais": "SAN PEDRO Y MIQUELÓN"
-        },
-        {
-            "codigo": "9688",
-            "pais": "SANTA ELENA"
-        },
-        {
-            "codigo": "9715",
-            "pais": "TERRITORIOS PALESTINOS"
-        },
-        {
-            "codigo": "9900",
-            "pais": "DELAWARE (USA)"
-        },
-        {
-            "codigo": "9371",
-            "pais": "BURKINA FASO"
-        },
-        {
-            "codigo": "9376",
-            "pais": "CABINDA"
-        },
-        {
-            "codigo": "9907",
-            "pais": "WASHINGTON (USA)"
+            "codigo": "ZW",
+            "pais": "Zimbabue"
         }
     ]
 }

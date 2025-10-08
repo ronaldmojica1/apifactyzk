@@ -29,6 +29,11 @@ Municipio.init({
             model: Departamento_1.default,
             key: 'id'
         }
+    },
+    activo: {
+        type: sequelize_1.DataTypes.BOOLEAN,
+        allowNull: true,
+        defaultValue: true
     }
 }, {
     sequelize: database_1.default,
